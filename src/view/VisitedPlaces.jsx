@@ -62,7 +62,7 @@ class VisitedPlaces extends React.Component {
                                         </div>
                                     </div>
                                     {
-                                        this.state.populars.length - 1 !== i && <div key={i + 'b'} className={"p-2"} />
+                                        this.state.populars.length - 1 !== i && <div key={i + 'b'} className={"pb-2"} />
                                     }
                                 </>
                             })

@@ -33,7 +33,7 @@ class BottomBar extends React.Component {
 
     render() {
         return (
-            <div onClick={this.updatePath} className={"flex items-center border-t rounded-t-2xl mt-auto justify-around p-4 w-full"}>
+            <div onClick={this.updatePath} className={"flex items-center border-t mt-auto justify-around p-4 w-full"}>
                 <Link to={"/"} className={`flex flex-col p-4 items-center justify-center ${this.state.index === 0 ? 'after-dot' : ''}`}><UilEstate size={"24px"} /></Link>
                 <Link to={"/"} className={`flex flex-col p-4 items-center justify-center ${this.state.index === 1 ? 'after-dot' : ''}`}><UilLocationPoint size={"24px"} /></Link>
                 <Link to={"/"} className={"hover:bg-slate-900 p-4 mx-4 bg-slate-900 rounded-full"}><UilQrcodeScan color={'#fff'} size={"24px"} /></Link>

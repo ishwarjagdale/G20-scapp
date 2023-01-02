@@ -1,12 +1,13 @@
 import React from "react";
+import {useParams} from "react-router-dom";
 
-class Saved extends React.Component {
+class Category extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            current: 0,
-            populars: [
+            category: this.props.params.category,
+            data: [
                 {
                     "name": "Ajanta Caves",
                     "image": "https://images.indianexpress.com/2018/12/ajanta-1.jpg"
@@ -20,7 +21,7 @@ class Saved extends React.Component {
                     "image": "https://lh3.ggpht.com/p/AF1QipMPEq9I4Tr8_GDCpvkDcAMQwkM_ICj3s2PJ32AJ"
                 },
             ]
-        }
+        };
     }
 
     render() {
@@ -28,9 +29,9 @@ class Saved extends React.Component {
             <>
                 <div className={"h-fit overflow-y-scroll"}>
                     <div className={"p-4 font-Poppins"}>
-                        <span className={"font-[600] text-lg pb-6 block"}>Saved Places</span>
+                        <span className={"font-[600] text-lg pb-6 block capitalize"}>{this.state.category.replaceAll('-', ' ')}</span>
                         {
-                            this.state.populars.map((p, i) => {
+                            this.state.data.map((p, i) => {
                                 return <>
                                     <div key={i} className={"cursor-pointer"}>
                                         <img src={p.image} alt={p.name} className={"w-full flex-1 h-[150px] border rounded-xl object-cover"} />
@@ -41,7 +42,7 @@ class Saved extends React.Component {
                                         </div>
                                     </div>
                                     {
-                                        this.state.populars.length - 1 !== i && <div key={i + 'b'} className={"pb-2"} />
+                                        this.state.data.length - 1 !== i && <div key={i + 'b'} className={"pb-2"} />
                                     }
                                 </>
                             })
@@ -49,8 +50,18 @@ class Saved extends React.Component {
                     </div>
                 </div>
             </>
-        )
+        );
     }
+
 }
 
-export default Saved;
+const withRouter = WrappedComponent => props => {
+    const params = useParams();
+
+    return (
+        <WrappedComponent {...props} params={params}/>
+    )
+
+}
+
+export default withRouter(Category);
