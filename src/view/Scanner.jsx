@@ -38,10 +38,10 @@ class Scanner extends React.Component {
                     <div className={"flex flex-col p-4 items-center w-full rounded-t-2xl bg-white h-full -mt-4 z-20 overflow-y-scroll"}>
                         {
                             !this.state.qr ?
-                                <>
+                                <div className={"m-auto flex flex-col items-center"}>
                                     <UilQrcodeScan size={'72px'} color={"gray"}/>
                                     <span className={"font-Poppins font-[500] my-4"}>Scan QR code to know more!</span>
-                                </>
+                                </div>
                                 :
                                 this.state.qr === "ajanta-caves-1234" && <div className={"cursor-pointer w-full"}>
                                     <img src={this.state.data.image} alt={this.state.data.name} className={"w-full flex-1 h-[150px] border rounded-xl object-cover"} onError={() => FallBackImage}/>
