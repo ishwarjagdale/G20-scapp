@@ -18,7 +18,7 @@ class Scanner extends React.Component {
                 <div className={"flex absolute bg-white md:bg-transparent max-w-md flex-col w-full h-full overflow-hidden top-0 md:relative"}>
                     <QrReader
                         delay={500}
-                        facingMode={"environment"}
+                        facingMode={"user"}
                         onScan={() => {}}
                         onError={() => {}}
                     />
