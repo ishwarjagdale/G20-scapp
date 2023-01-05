@@ -1,4 +1,5 @@
 import React from "react";
+import FallBackImage from "./../images/fallback.png";
 import {useParams} from "react-router-dom";
 
 class Category extends React.Component {
@@ -34,7 +35,7 @@ class Category extends React.Component {
                             this.state.data.map((p, i) => {
                                 return <>
                                     <div key={i} className={"cursor-pointer"}>
-                                        <img src={p.image} alt={p.name} className={"w-full flex-1 h-[150px] border rounded-xl object-cover"} />
+                                        <img src={p.image} alt={p.name} className={"w-full flex-1 h-[150px] border rounded-xl object-cover"} onError={FallBackImage} />
                                         <div className={"flex items-center justify-between font-Poppins text-sm my-2"}>
                                             <div className={"flex items-center"}>
                                                 <span className={"font-medium"}>{p.name}</span>

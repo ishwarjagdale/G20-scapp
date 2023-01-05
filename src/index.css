@@ -62,3 +62,12 @@ button:active, a:active {
         background: #e4e4e4;
     }
 }
+
+img:after {
+    display: none;
+}
+img {
+    background: url("images/fallback.png") center;
+    background-size: cover;
+    font-size: 0;
+}

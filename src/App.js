@@ -60,7 +60,7 @@ class App extends React.Component {
     }
 
     toggleSearch() {
-        this.setState({search: {...this.state.search, showSearch: !this.state.search}});
+        this.setState({search: {...this.state.search, showSearch: !this.state.search.showSearch}});
     }
 
     selectLanguage(language) {

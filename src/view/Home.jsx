@@ -1,5 +1,6 @@
 import {UilMap} from "@iconscout/react-unicons";
 import React from "react";
+import FallBackImage from "../images/fallback.png";
 
 class Home extends React.Component {
     constructor(props) {
@@ -80,7 +81,7 @@ class Home extends React.Component {
                 <div className={"p-4 font-Poppins"}>
                     <span className={"font-[600] text-md pb-4 block"}>Popular Places</span>
                     <div className={"cursor-pointer"}>
-                        <img src={this.state.populars[this.state.current].image} alt={this.state.populars[this.state.current].name} className={"w-full flex-1 h-[150px] border rounded-xl object-cover"} />
+                        <img src={this.state.populars[this.state.current].image} alt={this.state.populars[this.state.current].name} className={"w-full flex-1 h-[150px] border rounded-xl object-cover"}  onError={FallBackImage} />
                         <div className={"flex items-center justify-between font-Poppins text-sm my-2"}>
                             <div className={"flex items-center"}>
                                 <span className={"font-medium"}>{this.state.populars[this.state.current].name}</span>
@@ -112,7 +113,7 @@ class Home extends React.Component {
                                         this.state.categories[k].map((p, i) => {
                                             return <>
                                                 <div key={i} className={"cursor-pointer w-[300px]"}>
-                                                    <img src={p.image} alt={p.name} className={"w-[300px] flex-1 h-[150px] border rounded-xl object-cover"} />
+                                                    <img src={p.image} alt={p.name} className={"w-[300px] flex-1 h-[150px] border rounded-xl object-cover"} onError={FallBackImage}/>
                                                     <div className={"flex items-center justify-between font-Poppins text-sm my-2"}>
                                                         <div className={"flex items-center"}>
                                                             <span className={"font-medium"}>{p.name}</span>
