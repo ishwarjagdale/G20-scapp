@@ -34,7 +34,7 @@ class Saved extends React.Component {
                             this.state.populars.map((p, i) => {
                                 return <>
                                     <div key={i} className={"cursor-pointer"}>
-                                        <img src={p.image} alt={p.name} className={"w-full flex-1 h-[150px] border rounded-xl object-cover"} onError={FallBackImage}/>
+                                        <img src={p.image} alt={p.name} className={"w-full flex-1 h-[150px] border rounded-xl object-cover"} onError={() => FallBackImage}/>
                                         <div className={"flex items-center justify-between font-Poppins text-sm my-2"}>
                                             <div className={"flex items-center"}>
                                                 <span className={"font-medium"}>{p.name}</span>

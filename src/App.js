@@ -2,8 +2,9 @@ import React from "react";
 import BottomBar from "./BottomBar";
 import TopBar from "./TopBar";
 import {Outlet} from "react-router-dom";
-import {UilMultiply, UilSearch} from "@iconscout/react-unicons";
-import ReactCountryFlag from "react-country-flag";
+import SearchView from "./view/SearchView";
+import LanguagesView from "./view/LanguagesView";
+import Scanner from "./view/Scanner";
 
 class App extends React.Component {
     constructor(props) {
@@ -42,13 +43,19 @@ class App extends React.Component {
             search: {
                 showSearch: false,
                 query: 'hi'
-            }
+            },
+            showScanner: false
         }
 
         this.toggleLanguage = this.toggleLanguage.bind(this);
         this.toggleSearch = this.toggleSearch.bind(this);
+        this.toggleScanner = this.toggleScanner.bind(this);
         this.selectLanguage = this.selectLanguage.bind(this);
         this.search = this.search.bind(this);
+    }
+
+    toggleScanner() {
+        this.setState({showScanner: !this.state.showScanner});
     }
 
     toggleLanguage() {
@@ -76,57 +83,19 @@ class App extends React.Component {
                 <div className={"flex max-w-md flex-col w-full h-full overflow-hidden"}>
                     <TopBar toggleLanguage={this.toggleLanguage} toggleSearch={this.toggleSearch} search={this.search} />
                     <Outlet/>
-                    <BottomBar />
+                    <BottomBar toggleScanner={this.toggleScanner} />
                 </div>
                 {
-                    (this.state.showLanguages || this.state.search.showSearch) &&
-                    <div className={"flex bg-white md:bg-transparent max-w-md flex-col w-full h-full overflow-hidden fixed top-0 md:relative"}>
-                        {
-                            this.state.showLanguages &&
-                            <div className={"flex absolute bg-white md:bg-transparent max-w-md flex-col w-full h-full overflow-hidden top-0 md:relative"}>
-                                <div className={"flex items-center border-b justify-between w-full p-6"}>
-                                    <div className={" font-Poppins"}>
-                                        <span className={"font-[600] text-lg block"}>Choose a language</span>
-                                    </div>
-                                    <button onClick={this.toggleLanguage} className={"p-2"}><UilMultiply size={'24px'}/></button>
-                                </div>
-                                <div className={"p-4 h-fit overflow-y-scroll"}>
-                                    <ul className={"flex flex-col items-start w-full font-[500] text-sm font-Poppins"}>
-                                        {
-                                            this.state.languagesAvailable.map((l, i) => {
-                                                return <li onClick={() => this.selectLanguage(l)} id={l.countryCode} className={`p-4 mb-1 ${this.state.selectedLanguage.language === l.language ? "bg-green-200" : ""} hover:bg-[#e4e4e4] w-full`} key={i}>
-                                                    <ReactCountryFlag countryCode={l.countryCode} svg style={{width: "1.5rem", height: "auto"}} />
-                                                    <span className={"ml-4"}>{l.language}</span>
-                                                </li>
-                                            })
-                                        }
-                                    </ul>
-                                </div>
-                            </div>
-                        }
-                        {
-                            this.state.search.showSearch &&
-                            <div className={"flex absolute bg-white md:bg-transparent max-w-md flex-col w-full h-full overflow-hidden top-0 md:relative"}>
-                                <div className={"flex items-center border-b justify-between w-full p-6"}>
-                                    <div className={"font-Poppins flex items-center"}>
-
-                                    </div>
-                                    <button onClick={this.toggleSearch} className={"p-2"}><UilMultiply size={'24px'}/></button>
-                                </div>
-                                <div className={"p-4 font-Poppins"}>
-                                    <div className={"flex items-center text-md pb-4 block"}>
-                                        <span className={"font-[500]"}>Searching for: </span>
-                                        <span className={"font-[600] mx-2"}>{this.state.search.query}</span>
-                                    </div>
-                                </div>
-                                <div className={"overflow-y-scroll"}>
-                                    <div className={"p-4 flex flex-col h-full items-start"}>
-                                        <span className={"font-Poppins text-sm m-auto"}>Looks like nothing's there!</span>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                    </div>
+                    this.state.showScanner &&
+                    <Scanner />
+                }
+                {
+                    this.state.showLanguages &&
+                    <LanguagesView selectedLanguage={this.state.selectedLanguage} toggleLanguage={this.toggleLanguage} languagesAvailable={this.state.languagesAvailable} selectLanguage={this.selectLanguage} />
+                }
+                {
+                    this.state.search.showSearch &&
+                    <SearchView search={this.state.search} toggleSearch={this.toggleSearch}/>
                 }
                 {
                     this.state.selected &&

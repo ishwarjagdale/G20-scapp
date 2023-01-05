@@ -81,7 +81,7 @@ class Home extends React.Component {
                 <div className={"p-4 font-Poppins"}>
                     <span className={"font-[600] text-md pb-4 block"}>Popular Places</span>
                     <div className={"cursor-pointer"}>
-                        <img src={this.state.populars[this.state.current].image} alt={this.state.populars[this.state.current].name} className={"w-full flex-1 h-[150px] border rounded-xl object-cover"}  onError={FallBackImage} />
+                        <img src={this.state.populars[this.state.current].image} alt={this.state.populars[this.state.current].name} className={"w-full flex-1 h-[150px] border rounded-xl object-cover"}  onError={() => FallBackImage} />
                         <div className={"flex items-center justify-between font-Poppins text-sm my-2"}>
                             <div className={"flex items-center"}>
                                 <span className={"font-medium"}>{this.state.populars[this.state.current].name}</span>
@@ -101,8 +101,8 @@ class Home extends React.Component {
                     </div>
                 </div>
                 {
-                    Object.keys(this.state.categories).map((k) => {
-                        return <div className={"p-4 font-Poppins"}>
+                    Object.keys(this.state.categories).map((k, j) => {
+                        return <div key={j} className={"p-4 font-Poppins"}>
                             <div className={"flex pb-4 block items-center justify-between"}>
                                 <span className={"font-[600] text-md capitalize"}>{k.replaceAll('-', ' ')}</span>
                                 <a href={`/category/${k}`} className={"text-sm hover:bg-transparent font-[500] text-gray-600"}>View all</a>
@@ -113,7 +113,7 @@ class Home extends React.Component {
                                         this.state.categories[k].map((p, i) => {
                                             return <>
                                                 <div key={i} className={"cursor-pointer w-[300px]"}>
-                                                    <img src={p.image} alt={p.name} className={"w-[300px] flex-1 h-[150px] border rounded-xl object-cover"} onError={FallBackImage}/>
+                                                    <img src={p.image} alt={p.name} className={"w-[300px] flex-1 h-[150px] border rounded-xl object-cover"} onError={() => FallBackImage}/>
                                                     <div className={"flex items-center justify-between font-Poppins text-sm my-2"}>
                                                         <div className={"flex items-center"}>
                                                             <span className={"font-medium"}>{p.name}</span>
