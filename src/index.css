@@ -63,11 +63,10 @@ button:active, a:active {
     }
 }
 
-img:after {
-    display: none;
-}
-img {
-    background: url("images/fallback.png") center;
+.scanner div {
+    border: none!important;
+    box-shadow: none!important;
+    background: url("images/qr.png") center;
     background-size: cover;
-    font-size: 0;
+    opacity: 0.8;
 }

@@ -87,7 +87,7 @@ class App extends React.Component {
                 </div>
                 {
                     this.state.showScanner &&
-                    <Scanner />
+                    <Scanner toggleScanner={this.toggleScanner} />
                 }
                 {
                     this.state.showLanguages &&
