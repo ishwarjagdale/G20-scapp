@@ -43,7 +43,7 @@ class Scanner extends React.Component {
                                     <span className={"font-Poppins font-[500] my-4"}>Scan QR code to know more!</span>
                                 </div>
                                 :
-                                <span className={"m-auto font-Poppins font-[500] text-sm"}>{this.state.qr}</span>
+                                <span className={"m-auto font-Poppins font-[500] text-sm"}>{JSON.stringify(this.state.qr)}</span>
                                 // this.state.qr === "ajanta-caves-1234" && <div className={"cursor-pointer w-full"}>
                                 //     <img src={this.state.data.image} alt={this.state.data.name} className={"w-full flex-1 h-[150px] border rounded-xl object-cover"} onError={() => FallBackImage}/>
                                 //     <div className={"flex flex-col items-start font-Poppins my-2"}>
