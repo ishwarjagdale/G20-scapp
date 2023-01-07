@@ -5,6 +5,7 @@ import {Outlet} from "react-router-dom";
 import SearchView from "./view/SearchView";
 import LanguagesView from "./view/LanguagesView";
 import Scanner from "./view/Scanner";
+import Monument from "./view/Monument";
 
 class App extends React.Component {
     constructor(props) {
@@ -52,6 +53,7 @@ class App extends React.Component {
         this.toggleScanner = this.toggleScanner.bind(this);
         this.selectLanguage = this.selectLanguage.bind(this);
         this.search = this.search.bind(this);
+        this.selectMonument = this.selectMonument.bind(this);
     }
 
     toggleScanner() {
@@ -77,17 +79,24 @@ class App extends React.Component {
         setTimeout(this.toggleLanguage, 200);
     }
 
+    selectMonument(mon) {
+        this.setState({selected: mon});
+    }
+    componentDidMount() {
+        console.log(this.state.selected)
+    }
+
     render() {
         return (
             <div className={"flex w-full h-full items-center justify-center"}>
                 <div className={"flex max-w-md flex-col w-full h-full overflow-hidden"}>
                     <TopBar toggleLanguage={this.toggleLanguage} toggleSearch={this.toggleSearch} search={this.search} />
-                    <Outlet/>
+                    <Outlet context={this.selectMonument}/>
                     <BottomBar toggleScanner={this.toggleScanner} />
                 </div>
                 {
                     this.state.showScanner &&
-                    <Scanner toggleScanner={this.toggleScanner} />
+                    <Scanner toggleScanner={this.toggleScanner} select={this.selectLanguage}/>
                 }
                 {
                     this.state.showLanguages &&
@@ -95,12 +104,11 @@ class App extends React.Component {
                 }
                 {
                     this.state.search.showSearch &&
-                    <SearchView search={this.state.search} toggleSearch={this.toggleSearch}/>
+                    <SearchView search={this.state.search} toggleSearch={this.toggleSearch} select={this.selectLanguage}/>
                 }
                 {
                     this.state.selected &&
-                    <div className={"flex bg-white md:bg-transparent md:max-w-md lg:max-w-screen-lg flex-col w-full h-full overflow-hidden fixed top-0 md:relative"}>
-                    </div>
+                    <Monument />
                 }
             </div>
         )

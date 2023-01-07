@@ -1,6 +1,69 @@
 import {UilMap} from "@iconscout/react-unicons";
 import React from "react";
 import FallBackImage from "../images/fallback.png";
+import {useOutletContext} from "react-router-dom";
+
+
+function Categories({categories}) {
+    const select = useOutletContext();
+
+    return Object.keys(categories).map((k, j) => {
+        return <div key={j} className={"p-4 font-Poppins"}>
+            <div className={"flex pb-4 block items-center justify-between"}>
+                <span className={"font-[600] text-md capitalize"}>{k.replaceAll('-', ' ')}</span>
+                <a href={`/category/${k}`} className={"text-sm hover:bg-transparent font-[500] text-gray-600"}>View all</a>
+            </div>
+            <div className={"overflow-x-scroll hide-scroll"}>
+                <div className={"flex w-fit"}>
+                    {
+                        categories[k].map((p, i) => {
+                            return <>
+                                <div key={i.toString()} onClick={() => select(p.name)} className={"cursor-pointer w-[300px]"}>
+                                    <img src={p.image} alt={p.name} className={"w-[300px] flex-1 h-[150px] border rounded-xl object-cover"} onError={() => FallBackImage}/>
+                                    <div className={"flex items-center justify-between font-Poppins text-sm my-2"}>
+                                        <div className={"flex items-center"}>
+                                            <span className={"font-medium"}>{p.name}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                {
+                                    categories[k].length - 1 !== i && <div key={i + 'b'} className={"p-2"} />
+                                }
+                            </>
+                        })
+                    }
+                </div>
+            </div>
+        </div>
+    })
+}
+function Populars({popular, length, current}) {
+
+    const select = useOutletContext();
+
+    return <div className={"p-4 font-Poppins"}>
+        <span className={"font-[600] text-md pb-4 block"}>Popular Places</span>
+        <div onClick={() => select(popular.name)} className={"cursor-pointer"}>
+            <img src={popular.image} alt={popular.name} className={"w-full flex-1 h-[150px] border rounded-xl object-cover"}  onError={() => FallBackImage} />
+            <div className={"flex items-center justify-between font-Poppins text-sm my-2"}>
+                <div className={"flex items-center"}>
+                    <span className={"font-medium"}>{popular.name}</span>
+                    <span className={"mx-2"}>-></span>
+                    <span className={"font-medium"}>2 km</span>
+                </div>
+                <div className={"flex items-center"}>
+                    {
+                        [Array(length).fill(0).map((k, i) => {
+                                if(i === current)
+                                    return <span key={i.toString()} className={"line ml-1"} />
+                                return <span key={i.toString()} className={"dot ml-1"} />
+                        })]
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 class Home extends React.Component {
     constructor(props) {
@@ -78,59 +141,8 @@ class Home extends React.Component {
                     </div>
                     <UilMap/>
                 </div>
-                <div className={"p-4 font-Poppins"}>
-                    <span className={"font-[600] text-md pb-4 block"}>Popular Places</span>
-                    <div className={"cursor-pointer"}>
-                        <img src={this.state.populars[this.state.current].image} alt={this.state.populars[this.state.current].name} className={"w-full flex-1 h-[150px] border rounded-xl object-cover"}  onError={() => FallBackImage} />
-                        <div className={"flex items-center justify-between font-Poppins text-sm my-2"}>
-                            <div className={"flex items-center"}>
-                                <span className={"font-medium"}>{this.state.populars[this.state.current].name}</span>
-                                <span className={"mx-2"}>-></span>
-                                <span className={"font-medium"}>2 km</span>
-                            </div>
-                            <div className={"flex items-center"}>
-                                {
-                                    this.state.populars.map((k, i) => {
-                                        if(i === this.state.current)
-                                            return <span key={i} className={"line ml-1"} />
-                                        return <span key={i} className={"dot ml-1"} />
-                                    })
-                                }
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {
-                    Object.keys(this.state.categories).map((k, j) => {
-                        return <div key={j} className={"p-4 font-Poppins"}>
-                            <div className={"flex pb-4 block items-center justify-between"}>
-                                <span className={"font-[600] text-md capitalize"}>{k.replaceAll('-', ' ')}</span>
-                                <a href={`/category/${k}`} className={"text-sm hover:bg-transparent font-[500] text-gray-600"}>View all</a>
-                            </div>
-                            <div className={"overflow-x-scroll hide-scroll"}>
-                                <div className={"flex w-fit"}>
-                                    {
-                                        this.state.categories[k].map((p, i) => {
-                                            return <>
-                                                <div key={i} className={"cursor-pointer w-[300px]"}>
-                                                    <img src={p.image} alt={p.name} className={"w-[300px] flex-1 h-[150px] border rounded-xl object-cover"} onError={() => FallBackImage}/>
-                                                    <div className={"flex items-center justify-between font-Poppins text-sm my-2"}>
-                                                        <div className={"flex items-center"}>
-                                                            <span className={"font-medium"}>{p.name}</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                {
-                                                    this.state.categories[k].length - 1 !== i && <div key={i + 'b'} className={"p-2"} />
-                                                }
-                                            </>
-                                        })
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                    })
-                }
+                <Populars popular={this.state.populars[this.state.current]} length={this.state.populars.length} current={this.state.current} />
+                <Categories categories={this.state.categories} />
 
             </div>
         )
