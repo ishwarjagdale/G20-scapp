@@ -1,6 +1,26 @@
 import React from "react";
 import FallBackImage from "./../images/fallback.png";
-import {useParams} from "react-router-dom";
+import {useOutletContext, useParams} from "react-router-dom";
+
+
+function Cats({p, length, i}) {
+
+    const select = useOutletContext();
+
+    return <>
+        <div key={i} onClick={() => select(p)} className={"cursor-pointer"}>
+            <img src={p.image} alt={p.name} className={"w-full flex-1 h-[150px] border rounded-xl object-cover"} onError={(e) => e.target.src = FallBackImage} />
+            <div className={"flex items-center justify-between font-Poppins text-sm my-2"}>
+                <div className={"flex items-center"}>
+                    <span className={"font-medium"}>{p.name}</span>
+                </div>
+            </div>
+        </div>
+        {
+            length - 1 !== i && <div key={i + 'b'} className={"pb-2"} />
+        }
+    </>
+}
 
 class Category extends React.Component {
     constructor(props) {
@@ -32,21 +52,9 @@ class Category extends React.Component {
                     <div className={"p-4 font-Poppins"}>
                         <span className={"font-[600] text-lg pb-6 block capitalize"}>{this.state.category.replaceAll('-', ' ')}</span>
                         {
-                            this.state.data.map((p, i) => {
-                                return <>
-                                    <div key={i} className={"cursor-pointer"}>
-                                        <img src={p.image} alt={p.name} className={"w-full flex-1 h-[150px] border rounded-xl object-cover"} onError={() => FallBackImage} />
-                                        <div className={"flex items-center justify-between font-Poppins text-sm my-2"}>
-                                            <div className={"flex items-center"}>
-                                                <span className={"font-medium"}>{p.name}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {
-                                        this.state.data.length - 1 !== i && <div key={i + 'b'} className={"pb-2"} />
-                                    }
-                                </>
-                            })
+                            this.state.data.map((p, i) =>
+                                <Cats p={p} length={this.state.data.length} i={i} />
+                            )
                         }
                     </div>
                 </div>
@@ -66,3 +74,4 @@ const withRouter = WrappedComponent => props => {
 }
 
 export default withRouter(Category);
+export {Cats};

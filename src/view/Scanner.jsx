@@ -20,7 +20,7 @@ class Scanner extends React.Component {
     render() {
         return (
             <>
-                <div className={"flex absolute bg-black md:bg-transparent max-w-md flex-col w-full h-full overflow-hidden top-0 md:relative"}>
+                <div className={"flex flex-col bg-white md:bg-transparent md:max-w-md flex-col w-full h-full overflow-hidden fixed top-0 md:relative"}>
                     <div className={"flex absolute top-0 z-10 items-center justify-between w-full p-6"}>
                         <div className={"font-Poppins w-full flex justify-end items-center"}>
                             <button onClick={this.props.toggleScanner} className={"rounded-full bg-white p-2"}><UilMultiply size={'20px'}/></button>
@@ -45,7 +45,7 @@ class Scanner extends React.Component {
                                 :
                                 // <span className={"m-auto font-Poppins font-[500] text-sm"}>{this.state.qr.data}</span>
                                 this.state.qr.data === "ajanta-caves-1234" && <div className={"cursor-pointer w-full"}>
-                                    <img src={this.state.data.image} alt={this.state.data.name} className={"w-full flex-1 h-[150px] border rounded-xl object-cover"} onError={() => FallBackImage}/>
+                                    <img src={this.state.data.image} alt={this.state.data.name} className={"w-full flex-1 h-[150px] border rounded-xl object-cover"} onError={(e) => e.target.src = FallBackImage}/>
                                     <div className={"flex flex-col items-start font-Poppins my-2"}>
                                         <div className={"flex items-center"}>
                                             <span className={"text-sm font-medium"}>{this.state.data.name}</span>

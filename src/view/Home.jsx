@@ -18,8 +18,8 @@ function Categories({categories}) {
                     {
                         categories[k].map((p, i) => {
                             return <>
-                                <div key={i.toString()} onClick={() => select(p.name)} className={"cursor-pointer w-[300px]"}>
-                                    <img src={p.image} alt={p.name} className={"w-[300px] flex-1 h-[150px] border rounded-xl object-cover"} onError={() => FallBackImage}/>
+                                <div key={i.toString()} onClick={() => select(p)} className={"cursor-pointer w-[300px]"}>
+                                    <img src={p.image} alt={p.name} className={"w-[300px] flex-1 h-[150px] border rounded-xl object-cover"} onError={(e) => e.target.src = FallBackImage}/>
                                     <div className={"flex items-center justify-between font-Poppins text-sm my-2"}>
                                         <div className={"flex items-center"}>
                                             <span className={"font-medium"}>{p.name}</span>
@@ -43,8 +43,8 @@ function Populars({popular, length, current}) {
 
     return <div className={"p-4 font-Poppins"}>
         <span className={"font-[600] text-md pb-4 block"}>Popular Places</span>
-        <div onClick={() => select(popular.name)} className={"cursor-pointer"}>
-            <img src={popular.image} alt={popular.name} className={"w-full flex-1 h-[150px] border rounded-xl object-cover"}  onError={() => FallBackImage} />
+        <div onClick={() => select(popular)} className={"cursor-pointer"}>
+            <img src={popular.image} alt={popular.name} className={"w-full flex-1 h-[150px] border rounded-xl object-cover"}  onError={(e) => e.target.src = FallBackImage} />
             <div className={"flex items-center justify-between font-Poppins text-sm my-2"}>
                 <div className={"flex items-center"}>
                     <span className={"font-medium"}>{popular.name}</span>
@@ -96,7 +96,7 @@ class Home extends React.Component {
                         "image": "https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_513/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/rtja0mohpuw3xfghkpia/BibiKaMaqbaraFast-TrackTicketinAurangabad.webp"
                     },
                     {
-                        "name": "Bell Tower",
+                        "name": "Clock Tower",
                         "image": "https://lh3.ggpht.com/p/AF1QipMPEq9I4Tr8_GDCpvkDcAMQwkM_ICj3s2PJ32AJ"
                     },
                 ],
@@ -110,7 +110,7 @@ class Home extends React.Component {
                         "image": "https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_513/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/rtja0mohpuw3xfghkpia/BibiKaMaqbaraFast-TrackTicketinAurangabad.webp"
                     },
                     {
-                        "name": "Bell Tower",
+                        "name": "Clock Tower",
                         "image": "https://lh3.ggpht.com/p/AF1QipMPEq9I4Tr8_GDCpvkDcAMQwkM_ICj3s2PJ32AJ"
                     },
                 ]

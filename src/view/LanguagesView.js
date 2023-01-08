@@ -14,14 +14,14 @@ class LanguagesView extends React.Component {
 
     render() {
             return (
-                <div className={"flex absolute bg-white md:bg-transparent max-w-md flex-col w-full h-full overflow-hidden top-0 md:relative"}>
+                <div className={"flex flex-col bg-white md:bg-transparent md:max-w-md flex-col w-full h-full overflow-hidden fixed top-0 md:relative"}>
                     <div className={"flex items-center border-b justify-between w-full p-6"}>
                         <div className={" font-Poppins"}>
                             <span className={"font-[600] text-lg block"}>Choose a language</span>
                         </div>
                         <button onClick={this.props.toggleLanguage} className={"p-2"}><UilMultiply size={'24px'}/></button>
                     </div>
-                    <div className={"p-4 h-fit overflow-y-scroll"}>
+                    <div className={"p-4 h-full overflow-y-scroll"}>
                         <ul className={"flex flex-col items-start w-full font-[500] text-sm font-Poppins"}>
                             {
                                 this.props.languagesAvailable.map((l, i) => {

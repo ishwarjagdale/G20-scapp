@@ -41,7 +41,7 @@ class VisitedPlaces extends React.Component {
                             this.state.populars.map((p, i) => {
                                 return <>
                                     <div key={i} className={"cursor-pointer"} onClick={() => this.revealShare(i)}>
-                                        <img src={p.image} alt={p.name} className={"w-full flex-1 h-[150px] border rounded-xl object-cover"} onError={() => FallBackImage}/>
+                                        <img src={p.image} alt={p.name} className={"w-full flex-1 h-[150px] border rounded-xl object-cover"} onError={(e) => e.target.src = FallBackImage}/>
                                         <div className={"flex flex-col font-Poppins text-sm my-2"}>
                                             <span className={"font-medium"}>{p.name}</span>
                                             {

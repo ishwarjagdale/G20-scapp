@@ -54,6 +54,7 @@ class App extends React.Component {
         this.selectLanguage = this.selectLanguage.bind(this);
         this.search = this.search.bind(this);
         this.selectMonument = this.selectMonument.bind(this);
+        this.deselectMonument = this.deselectMonument.bind(this);
     }
 
     toggleScanner() {
@@ -81,9 +82,11 @@ class App extends React.Component {
 
     selectMonument(mon) {
         this.setState({selected: mon});
-    }
-    componentDidMount() {
         console.log(this.state.selected)
+    }
+
+    deselectMonument() {
+        this.selectMonument(false);
     }
 
     render() {
@@ -108,7 +111,7 @@ class App extends React.Component {
                 }
                 {
                     this.state.selected &&
-                    <Monument />
+                    <Monument data={this.state.selected} close={this.deselectMonument} />
                 }
             </div>
         )

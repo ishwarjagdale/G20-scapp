@@ -1,5 +1,5 @@
 import React from "react";
-import FallBackImage from "../images/fallback.png";
+import {Cats} from "./Category";
 
 class Saved extends React.Component {
     constructor(props) {
@@ -7,7 +7,7 @@ class Saved extends React.Component {
 
         this.state = {
             current: 0,
-            populars: [
+            data: [
                 {
                     "name": "Ajanta Caves",
                     "image": "https://images.indianexpress.com/2018/12/ajanta-1.jpg"
@@ -31,21 +31,9 @@ class Saved extends React.Component {
                     <div className={"p-4 font-Poppins"}>
                         <span className={"font-[600] text-lg pb-6 block"}>Saved Places</span>
                         {
-                            this.state.populars.map((p, i) => {
-                                return <>
-                                    <div key={i} className={"cursor-pointer"}>
-                                        <img src={p.image} alt={p.name} className={"w-full flex-1 h-[150px] border rounded-xl object-cover"} onError={() => FallBackImage}/>
-                                        <div className={"flex items-center justify-between font-Poppins text-sm my-2"}>
-                                            <div className={"flex items-center"}>
-                                                <span className={"font-medium"}>{p.name}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {
-                                        this.state.populars.length - 1 !== i && <div key={i + 'b'} className={"pb-2"} />
-                                    }
-                                </>
-                            })
+                            this.state.data.map((p, i) =>
+                                <Cats p={p} i={i} length={this.state.data.length} />
+                            )
                         }
                     </div>
                 </div>
