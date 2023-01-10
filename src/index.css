@@ -10,6 +10,10 @@
     height: 100vh;
 }
 
+#root {
+    overflow-y: hidden;
+}
+
 * {
     -webkit-tap-highlight-color: transparent;
 }
@@ -57,6 +61,14 @@ button:active, a:active {
     scale: 0.9;
 }
 
+button, a {
+    transition: all 0.3s ease;
+}
+.scale-98:active {
+    transition: all 0.3s ease;
+    scale: 0.98!important;
+}
+
 @media screen and (min-width: 720px) {
     button:hover, a:hover {
         background: #e4e4e4;
@@ -69,4 +81,7 @@ button:active, a:active {
     background: url("images/qr.png") center;
     background-size: cover;
     opacity: 0.8;
+}
+.active {
+    background: #f2f2f2
 }
