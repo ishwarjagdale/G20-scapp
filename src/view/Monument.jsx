@@ -1,5 +1,9 @@
 import React from "react";
-import {UilAngleLeft, UilAngleRight, UilMultiply} from "@iconscout/react-unicons";
+import {
+    UilAngleLeft,
+    UilAngleRight,
+    UilMultiply
+} from "@iconscout/react-unicons";
 import FallBackImage from "./../images/fallback.png";
 
 class Monument extends React.Component {
@@ -51,7 +55,7 @@ class Monument extends React.Component {
                                 <UilAngleRight size={'24px'} />
                             </button>
                         </div>
-                        <div className={"flex flex-col w-ful px-4 md:px-2"}>
+                        <div className={"flex flex-col w-full pt-2 px-4 md:px-2"}>
                             <span className={"font-[600] pb-4 text-xl font-Poppins"}>{this.props.data.name}</span>
                             {
                                 this.state.paras.map((para) =>
