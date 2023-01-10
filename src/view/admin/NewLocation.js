@@ -44,6 +44,8 @@ class NewLocation extends React.Component {
     }
 
     removeLanguage(code) {
+        if(!window.confirm("Are you sure?"))
+            return
         let desc = this.state.descriptions;
         delete desc[code];
         this.setState({descriptions: desc})
