@@ -3,7 +3,7 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 const api = process.env.REACT_APP_API_URL;
 
-const getLanguage = () => JSON.parse(localStorage.getItem('languagePreference')).languageCode
+const getLanguage = () => JSON.parse(localStorage.getItem('languagePreference'))?.languageCode || 'en'
 
 async function getPopulars() {
     return axios.get(`${api}/api/${getLanguage()}/populars`)
