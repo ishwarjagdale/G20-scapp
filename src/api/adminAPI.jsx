@@ -1,7 +1,7 @@
 import axios from "axios";
 
 axios.defaults.withCredentials = true;
-const api = process.env.API_URL;
+const api = process.env.REACT_APP_API_URL;
 
 async function isSecure() {
     return axios.get(`${api}/auth`);

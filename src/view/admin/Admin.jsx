@@ -17,7 +17,7 @@ class Admin extends React.Component {
         this.state = {
             activeSidebar: false,
             path: '/admin',
-            user: JSON.parse(localStorage.getItem('user'))
+            user: null
         };
 
         this.toggleSidebar = this.toggleSidebar.bind(this);
@@ -44,6 +44,7 @@ class Admin extends React.Component {
     componentDidMount() {
         isSecure().then((res) => {
             localStorage.setItem('user', JSON.stringify(res.data))
+            this.setState({user: res.data});
         }).catch((e) => {
             console.log(e);
             window.location.href = "/login";
@@ -51,6 +52,7 @@ class Admin extends React.Component {
     }
 
     render() {
+        if(this.state.user)
         return (
             <>
                 <div className={"flex flex-col w-full h-full overflow-hidden md:max-w-screen-2xl"}>
