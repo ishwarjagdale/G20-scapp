@@ -99,7 +99,8 @@ class Home extends React.Component {
                 this.setState({categories: res.data.response, catsLoaded: true})
             }
         })
-        this.autoRotate();
+
+        if(this.state.populars.length) this.autoRotate();
     }
 
     render() {
@@ -114,19 +115,13 @@ class Home extends React.Component {
                 </div>
                 {
                     this.state.popsLoaded ?
-                        this.state.populars.length ?
-                            <Populars popular={this.state.populars[this.state.current]} length={this.state.populars.length} current={this.state.current} />
-                            :
-                            <></>
+                        <Populars popular={this.state.populars[this.state.current]} length={this.state.populars.length} current={this.state.current} />
                         :
                         <span className={"w-full flex justify-center animate-spin"}><UilSpinner size={'20px'} /></span>
                 }
                 {
                     this.state.catsLoaded ?
-                        this.state.categories.length !== 0 ?
-                            <Categories categories={this.state.categories} />
-                            :
-                            <></>
+                        <Categories categories={this.state.categories} />
                         :
                         <span className={"w-full flex justify-center animate-spin"}><UilSpinner size={'20px'} /></span>
                 }
