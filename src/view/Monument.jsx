@@ -5,12 +5,14 @@ import {
     UilMultiply
 } from "@iconscout/react-unicons";
 import FallBackImage from "./../images/fallback.png";
+import {getMonument} from "../api/home";
 
 class Monument extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            imageIndex: 0,
             paras: [
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Odio ut sem nulla pharetra diam sit amet nisl suscipit. Purus non enim praesent elementum facilisis leo vel fringilla. Sed vulputate mi sit amet mauris. Ac turpis egestas maecenas pharetra convallis posuere morbi. Nam at lectus urna duis convallis convallis tellus id. Nunc sed id semper risus in. Ornare lectus sit amet est. Nunc sed augue lacus viverra vitae congue eu. Tristique et egestas quis ipsum suspendisse. Est sit amet facilisis magna etiam tempor orci eu. Tempor commodo ullamcorper a lacus vestibulum. A arcu cursus vitae congue mauris rhoncus aenean vel elit. Mauris a diam maecenas sed enim ut sem viverra aliquet. At tellus at urna condimentum mattis. Amet volutpat consequat mauris nunc congue nisi"
                 ,
@@ -25,11 +27,16 @@ class Monument extends React.Component {
         };
     }
 
-    shouldComponentUpdate(nextProps, nextState, nextContext) {
-        return nextProps.data.name !== this.state.name
+    componentDidMount() {
+        getMonument(this.props.data, true).then((res) => {
+            if(res.status === 200) {
+                this.setState({...res.data.response});
+            }
+        })
     }
 
     render() {
+        if(this.state.name)
         return (
             <>
                 <div className={"flex flex-col bg-white md:bg-transparent md:max-w-md lg:max-w-xl flex-col w-full h-full overflow-hidden fixed top-0 md:relative"}>
@@ -39,31 +46,42 @@ class Monument extends React.Component {
                         </div>
                     </div>
                     <div className={"flex flex-col w-full h-full overflow-y-scroll pt-2"}>
-                        <img src={this.props.data.image} alt={this.props.data.name} className={"w-full object-cover md:rounded-2xl max-h-[200px]"} onError={(e) => e.target.src = FallBackImage} />
+                        <img src={this.state.images[this.state.imageIndex] || FallBackImage} alt={this.state.name} className={"w-full object-cover md:rounded-2xl max-h-[200px]"} onError={(e) => e.target.src = FallBackImage} />
                         <div className={"flex items-center justify-center h-[20px] m-2"}>
-                            <button className={"rounded-full mr-2"}>
-                                <UilAngleLeft size={'24px'} />
-                            </button>
                             {
-                                [Array(3).fill(0).map((k, i) => {
-                                    if(i === 0)
-                                        return <span key={i.toString()} className={"line ml-1"} />
-                                    return <span key={i.toString()} className={"dot ml-1"} />
-                                })]
+                                this.state.images.length ?
+                                    <>
+                                        <button onClick={() => {this.setState({imageIndex: Math.max(0, this.state.imageIndex - 1)})}} className={"rounded-full mr-2"}>
+                                            <UilAngleLeft size={'24px'} />
+                                        </button>
+                                        {
+                                            [Array(this.state.images.length).fill(0).map((k, i) => {
+                                                if(i === 0)
+                                                    return <span key={i.toString()} className={"line ml-1"} />
+                                                return <span key={i.toString()} className={"dot ml-1"} />
+                                            })]
+                                        }
+                                        <button onClick={() => {this.setState({imageIndex: Math.min(this.state.images.length - 1, this.state.imageIndex + 1)})}} className={"rounded-full ml-2"}>
+                                            <UilAngleRight size={'24px'} />
+                                        </button>
+                                    </>
+                                    :
+                                    <>
+                                    </>
                             }
-                            <button className={"rounded-full ml-2"}>
-                                <UilAngleRight size={'24px'} />
-                            </button>
                         </div>
                         <div className={"flex flex-col w-full pt-2 px-4 md:px-2"}>
-                            <span className={"font-[600] pb-4 text-xl font-Poppins"}>{this.props.data.name}</span>
-                            {
-                                this.state.paras.map((para) =>
+                            <span className={"font-[600] pb-4 text-xl font-Poppins"}>{this.state.name}</span>
+                            {/*{*/}
+                            {/*    this.state.paras.map((para) =>*/}
+                            {/*    <p className={"pb-4 text-justify font-Merriweather text-sm leading-7"}>*/}
+                            {/*        {para}*/}
+                            {/*    </p>*/}
+                            {/*    )*/}
+                            {/*}*/}
                                 <p className={"pb-4 text-justify font-Merriweather text-sm leading-7"}>
-                                    {para}
+                                    {this.state.description}
                                 </p>
-                                )
-                            }
                         </div>
                     </div>
                 </div>

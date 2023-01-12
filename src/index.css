@@ -78,8 +78,8 @@ button, a {
 .scanner div {
     border: none!important;
     box-shadow: none!important;
-    background: url("images/qr.png") center;
-    background-size: cover;
+    background: url("images/qr.png") no-repeat center;
+    background-size: 200px;
     opacity: 0.8;
 }
 .active {

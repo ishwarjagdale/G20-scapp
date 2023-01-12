@@ -11,6 +11,7 @@ import Admin from "./view/admin/Admin";
 import Dashboard from "./view/admin/Dashboard";
 import Settings from "./view/admin/Settings";
 import NewLocation from "./view/admin/NewLocation";
+import SignIn from "./view/SignIn";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
                 element: <Category/>
             }
         ]
+    },
+    {
+        path: "/login",
+        element: <SignIn />
     },
     {
         path: "/admin",

@@ -2,6 +2,8 @@ import React from "react";
 import QrReader from "react-web-qr-reader";
 import {UilMultiply, UilQrcodeScan} from "@iconscout/react-unicons";
 import FallBackImage from "../images/fallback.png";
+import {getMonument} from "../api/home";
+import {Link, Navigate} from "react-router-dom";
 
 class Scanner extends React.Component {
     constructor(props) {
@@ -9,12 +11,20 @@ class Scanner extends React.Component {
 
         this.state = {
             stop: false,
-            data: {
-                "name": "Ajanta Caves",
-                "image": "https://images.indianexpress.com/2018/12/ajanta-1.jpg"
-            },
+            data: null,
             qr: null
         };
+
+        this.onScan = this.onScan.bind(this);
+    }
+
+    onScan(r) {
+        if(r.data.length !== 0)
+        getMonument(r.data).then((res) => {
+            if(res.status === 200) {
+                this.setState({data: res.data.response, qr: r.data});
+            }
+        })
     }
 
     render() {
@@ -31,21 +41,24 @@ class Scanner extends React.Component {
                             delay={500}
                             className={"scanner"}
                             showViewFinder={true}
-                            onScan={(res) => { this.setState({qr: res}) }}
+                            onScan={this.onScan}
                             onError={(err) => { console.log(err) }}
                         />
                     }
                     <div className={"flex flex-col p-4 items-center w-full rounded-t-2xl bg-white h-full -mt-4 z-20 overflow-y-scroll"}>
                         {
-                            !this.state.qr ?
+                            !this.state.data ?
                                 <div className={"m-auto flex flex-col items-center"}>
                                     <UilQrcodeScan size={'72px'} color={"gray"}/>
                                     <span className={"font-Poppins font-[500] my-4"}>Scan QR code to know more!</span>
                                 </div>
                                 :
                                 // <span className={"m-auto font-Poppins font-[500] text-sm"}>{this.state.qr.data}</span>
-                                this.state.qr.data === "ajanta-caves-1234" && <div className={"cursor-pointer w-full"}>
-                                    <img src={this.state.data.image} alt={this.state.data.name} className={"w-full flex-1 h-[150px] border rounded-xl object-cover"} onError={(e) => e.target.src = FallBackImage}/>
+                                <div onClick={() => {
+                                    this.props.selectMonument(this.state.data.id)
+                                    this.props.toggleScanner()
+                                }} className={"rounded-none hover:bg-white cursor-pointer w-full"}>
+                                    <img src={this.state.data.images[0]} alt={this.state.data.name} className={"w-full flex-1 h-[150px] border rounded-xl object-cover"} onError={(e) => e.target.src = FallBackImage}/>
                                     <div className={"flex flex-col items-start font-Poppins my-2"}>
                                         <div className={"flex items-center"}>
                                             <span className={"text-sm font-medium"}>{this.state.data.name}</span>

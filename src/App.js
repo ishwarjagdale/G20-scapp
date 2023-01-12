@@ -78,6 +78,7 @@ class App extends React.Component {
         document.documentElement.lang = language.languageCode.toLowerCase();
         this.setState({selectedLanguage: language})
         setTimeout(this.toggleLanguage, 200);
+        window.location.reload();
     }
 
     selectMonument(mon) {
@@ -99,7 +100,7 @@ class App extends React.Component {
                 </div>
                 {
                     this.state.showScanner &&
-                    <Scanner toggleScanner={this.toggleScanner} select={this.selectLanguage}/>
+                    <Scanner selectMonument={this.selectMonument} toggleScanner={this.toggleScanner} select={this.selectLanguage}/>
                 }
                 {
                     this.state.showLanguages &&
