@@ -3,7 +3,6 @@ import QrReader from "react-web-qr-reader";
 import {UilMultiply, UilQrcodeScan} from "@iconscout/react-unicons";
 import FallBackImage from "../images/fallback.png";
 import {getMonument} from "../api/home";
-import {Link, Navigate} from "react-router-dom";
 
 class Scanner extends React.Component {
     constructor(props) {
@@ -16,15 +15,22 @@ class Scanner extends React.Component {
         };
 
         this.onScan = this.onScan.bind(this);
+        this.addToVisited = this.addToVisited.bind(this);
     }
 
     onScan(r) {
         if(r.data.length !== 0)
-        getMonument(r.data).then((res) => {
+        getMonument(r.data, true).then((res) => {
             if(res.status === 200) {
                 this.setState({data: res.data.response, qr: r.data});
             }
         })
+    }
+
+    addToVisited(id) {
+        let visited = JSON.parse(localStorage.getItem('visited')) || [];
+        visited.push(id);
+        localStorage.setItem('visited', JSON.stringify(visited));
     }
 
     render() {
@@ -56,6 +62,7 @@ class Scanner extends React.Component {
                                 // <span className={"m-auto font-Poppins font-[500] text-sm"}>{this.state.qr.data}</span>
                                 <div onClick={() => {
                                     this.props.selectMonument(this.state.data.id)
+                                    this.addToVisited(this.state.data.id);
                                     this.props.toggleScanner()
                                 }} className={"rounded-none hover:bg-white cursor-pointer w-full"}>
                                     <img src={this.state.data.images[0]} alt={this.state.data.name} className={"w-full flex-1 h-[150px] border rounded-xl object-cover"} onError={(e) => e.target.src = FallBackImage}/>
@@ -64,7 +71,7 @@ class Scanner extends React.Component {
                                             <span className={"text-sm font-medium"}>{this.state.data.name}</span>
                                         </div>
                                         <p className={"mt-2 text-sm text-gray-700 text-justify text-ellipsis overflow-hidden max-h-[100px]"}>
-                                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                            {this.state.data.description}
                                         </p>
                                     </div>
                                     <button className={"w-full transition-all duration-100 ease-in border-2 border-black font-Poppins font-[500] rounded-lg mt-4 active:scale-[1.1!important] active:bg-black active:text-white py-2"}>

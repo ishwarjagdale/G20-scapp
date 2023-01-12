@@ -21,8 +21,12 @@ async function getMonument(monument_id, detailed=false) {
     return axios.get(`${api}/api/${getLanguage()}/monument/${monument_id}?detailed=${detailed}`)
 }
 
+async function getMonuments(ids) {
+    return axios.post(`${api}/api/${getLanguage()}/monuments`, ids)
+}
+
 async function logIn(credentials) {
     return axios.post(`${api}/auth/login`, credentials);
 }
 
-export {getPopulars, getCategories, getCategory, getMonument, logIn};
+export {getPopulars, getCategories, getCategory, getMonument, logIn, getMonuments};

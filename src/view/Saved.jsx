@@ -1,5 +1,7 @@
 import React from "react";
 import {Cats} from "./Category";
+import {getMonuments} from "../api/home";
+import {UilSpinner} from "@iconscout/react-unicons";
 
 class Saved extends React.Component {
     constructor(props) {
@@ -7,21 +9,15 @@ class Saved extends React.Component {
 
         this.state = {
             current: 0,
-            data: [
-                {
-                    "name": "Ajanta Caves",
-                    "image": "https://images.indianexpress.com/2018/12/ajanta-1.jpg"
-                },
-                {
-                    "name": "Bibi ka Maqbara",
-                    "image": "https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_513/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/rtja0mohpuw3xfghkpia/BibiKaMaqbaraFast-TrackTicketinAurangabad.webp"
-                },
-                {
-                    "name": "Bell Tower",
-                    "image": "https://lh3.ggpht.com/p/AF1QipMPEq9I4Tr8_GDCpvkDcAMQwkM_ICj3s2PJ32AJ"
-                },
-            ]
+            places: [],
+            loaded: false
         }
+    }
+
+    componentDidMount() {
+        getMonuments(JSON.parse(localStorage.getItem('saved')) || []).then((res) => {
+            this.setState({places: res.data.response, loaded: true})
+        })
     }
 
     render() {
@@ -31,9 +27,15 @@ class Saved extends React.Component {
                     <div className={"p-4 font-Poppins"}>
                         <span className={"font-[600] text-lg pb-6 block"}>Saved Places</span>
                         {
-                            this.state.data.map((p, i) =>
-                                <Cats p={p} i={i} length={this.state.data.length} />
-                            )
+                            this.state.loaded ?
+                                this.state.places.length ?
+                                    this.state.places.map((p, i) =>
+                                        <Cats p={p} i={i} length={this.state.places.length} />
+                                    )
+                                    :
+                                    <span className={"text-sm"}>No saved places</span>
+                                :
+                                <span className={"w-full flex justify-center animate-spin"}><UilSpinner size={'20px'} /></span>
                         }
                     </div>
                 </div>

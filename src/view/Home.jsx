@@ -1,4 +1,4 @@
-import {UilMap} from "@iconscout/react-unicons";
+import {UilMap, UilSpinner} from "@iconscout/react-unicons";
 import React from "react";
 import FallBackImage from "../images/fallback.png";
 import {useOutletContext} from "react-router-dom";
@@ -73,7 +73,9 @@ class Home extends React.Component {
         this.state = {
             current: 0,
             populars: [],
-            categories: {}
+            categories: {},
+            popsLoaded: false,
+            catsLoaded: false,
         }
 
         this.autoRotate = this.autoRotate.bind(this);
@@ -89,12 +91,12 @@ class Home extends React.Component {
     componentDidMount() {
         getPopulars().then((res) => {
             if(res.status === 200) {
-                this.setState({populars: res.data.response})
+                this.setState({populars: res.data.response, popsLoaded: true})
             }
         });
         getCategories().then((res) => {
             if(res.status === 200) {
-                this.setState({categories: res.data.response})
+                this.setState({categories: res.data.response, catsLoaded: true})
             }
         })
         this.autoRotate();
@@ -110,9 +112,24 @@ class Home extends React.Component {
                     </div>
                     <UilMap/>
                 </div>
-                <Populars popular={this.state.populars[this.state.current]} length={this.state.populars.length} current={this.state.current} />
-                <Categories categories={this.state.categories} />
-
+                {
+                    this.state.popsLoaded ?
+                        this.state.populars.length ?
+                            <Populars popular={this.state.populars[this.state.current]} length={this.state.populars.length} current={this.state.current} />
+                            :
+                            <></>
+                        :
+                        <span className={"w-full flex justify-center animate-spin"}><UilSpinner size={'20px'} /></span>
+                }
+                {
+                    this.state.catsLoaded ?
+                        this.state.categories.length !== 0 ?
+                            <Categories categories={this.state.categories} />
+                            :
+                            <></>
+                        :
+                        <span className={"w-full flex justify-center animate-spin"}><UilSpinner size={'20px'} /></span>
+                }
             </div>
         )
     }
