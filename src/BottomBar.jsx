@@ -7,10 +7,15 @@ class BottomBar extends React.Component {
         super(props);
 
         this.state = {
-            index: 0
+            index: 0,
+            touchStart: null,
+            touchEnd: null
         };
 
         this.updatePath = this.updatePath.bind(this);
+        this.touchStart = this.touchStart.bind(this);
+        this.touchMove = this.touchMove.bind(this);
+        this.touchEnd = this.touchEnd.bind(this);
     }
 
     updatePath() {
@@ -26,19 +31,54 @@ class BottomBar extends React.Component {
         }
     }
 
-
     componentDidMount() {
         this.updatePath();
     }
 
+    touchStart(e) {
+        this.setState({touchStart: e.targetTouches[0].clientY})
+    }
+
+    touchMove(e) {
+        this.setState({touchEnd: e.targetTouches[0].clientY})
+    }
+
+    touchEnd() {
+        let touchStart = this.state.touchStart;
+        let touchEnd =this.state.touchEnd;
+        if (!touchStart || !touchEnd) return
+        const distance = touchStart - touchEnd;
+        if(distance < -50) {
+            this.props.toggleMenu();
+        }
+    }
+
     render() {
         return (
-            <div onClick={this.updatePath} className={"flex items-center border-t mt-auto justify-around p-4 w-full"}>
-                <Link to={"/"} className={`flex flex-col p-4 items-center justify-center ${this.state.index === 0 ? 'after-dot' : ''}`}><UilEstate size={"24px"} /></Link>
-                <button onClick={() => window.alert("Feature coming soon!")} className={`flex flex-col p-4 items-center justify-center ${this.state.index === 1 ? 'after-dot' : ''}`}><UilLocationPoint size={"24px"} /></button>
-                <button onClick={this.props.toggleScanner} className={"hover:bg-slate-900 p-4 mx-4 bg-slate-900 rounded-full"}><UilQrcodeScan color={'#fff'} size={"24px"} /></button>
-                <Link to={"/visited-places"} className={`flex flex-col p-4 items-center justify-center ${this.state.index === 2 ? 'after-dot' : ''}`}><UilHistory size={"24px"} /></Link>
-                <Link to={"/saved"} className={`flex flex-col p-4 items-center justify-center ${this.state.index === 3 ? 'after-dot' : ''}`}><UilBookmark size={"24px"} /></Link>
+            <div onTouchStart={this.touchStart} onTouchMove={this.touchMove} onTouchEnd={this.touchEnd} onClick={this.updatePath} className={"z-20 flex border-t font-Poppins text-sm flex-col absolute bg-white bottom-0 rounded-2xl drop-shadow-2xl p-4 px-2 w-full"}>
+                <div onClick={this.props.toggleMenu} className={"cursor-pointer flex w-full p-2 items-center justify-center"}>
+                    <span className={"line w-[50px!important]"}/>
+                </div>
+                <Link onClick={this.props.toggleMenu} to={"/"} className={`flex w-full p-4 rounded-none items-center`}>
+                    <UilEstate size={"24px"} />
+                    <span className={"ml-4 font-[500]"}>Home</span>
+                </Link>
+                <button onClick={() => window.alert("Feature coming soon!")} className={`flex rounded-none w-full p-4 items-center`}>
+                    <UilLocationPoint size={"24px"} />
+                    <span className={"ml-4 font-[500]"}>Nearby</span>
+                </button>
+                <button onClick={this.props.toggleScanner} className={"flex rounded-none w-full p-4 items-center rounded-none"}>
+                    <UilQrcodeScan size={"24px"} />
+                    <span className={"ml-4 font-[500]"}>Scan QR code</span>
+                </button>
+                <Link onClick={this.props.toggleMenu} to={"/visited-places"} className={`flex w-full p-4 rounded-none items-center`}>
+                    <UilHistory size={"24px"} />
+                    <span className={"ml-4 font-[500]"}>History</span>
+                </Link>
+                <Link onClick={this.props.toggleMenu} to={"/saved"} className={`flex w-full p-4 rounded-none items-center`}>
+                    <UilBookmark size={"24px"} />
+                    <span className={"ml-4 font-[500]"}>Saved</span>
+                </Link>
             </div>
         );
     }

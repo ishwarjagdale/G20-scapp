@@ -14,7 +14,7 @@ class LanguagesView extends React.Component {
 
     render() {
             return (
-                <div className={"flex flex-col bg-white md:bg-transparent md:max-w-md flex-col w-full h-full overflow-hidden fixed top-0 md:relative"}>
+                <div className={"flex z-50 flex-col bg-white md:bg-transparent md:max-w-md flex-col w-full h-full overflow-hidden fixed top-0 md:relative"}>
                     <div className={"flex items-center border-b justify-between w-full p-6"}>
                         <div className={" font-Poppins"}>
                             <span className={"font-[600] text-lg block"}>Choose a language</span>

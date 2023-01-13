@@ -6,6 +6,7 @@ import {
 } from "@iconscout/react-unicons";
 import FallBackImage from "./../images/fallback.png";
 import {getMonument} from "../api/home";
+import {getNativeName} from "all-iso-language-codes";
 
 class Monument extends React.Component {
     constructor(props) {
@@ -14,10 +15,20 @@ class Monument extends React.Component {
         this.state = {
             imageIndex: 0,
         };
+
+        this.changeLanguage = this.changeLanguage.bind(this);
+    }
+
+    changeLanguage(code) {
+        getMonument(this.props.data, true, code).then((res) => {
+            if(res.status === 200) {
+                this.setState({...res.data.response});
+            }
+        })
     }
 
     componentDidMount() {
-        getMonument(this.props.data, true).then((res) => {
+        getMonument(this.props.data, true, this.state.language).then((res) => {
             if(res.status === 200) {
                 this.setState({...res.data.response});
             }
@@ -28,17 +39,17 @@ class Monument extends React.Component {
         if(this.state.name)
         return (
             <>
-                <div className={"flex flex-col bg-white md:bg-transparent md:max-w-md lg:max-w-xl flex-col w-full h-full overflow-hidden fixed top-0 md:relative"}>
+                <div className={"flex z-50 flex-col bg-white md:bg-transparent md:max-w-md lg:max-w-xl flex-col w-full h-full overflow-hidden fixed top-0 md:relative"}>
                     <div className={"flex border-b z-10 items-center justify-between w-full p-6"}>
                         <div className={"font-Poppins w-full flex justify-end items-center"}>
                             <button onClick={this.props.close} className={"rounded-full bg-white p-2"}><UilMultiply size={'24px'}/></button>
                         </div>
                     </div>
-                    <div className={"flex flex-col w-full h-full overflow-y-scroll pt-2"}>
+                    <div className={"flex flex-col w-full h-full overflow-y-scroll md:pt-2"}>
                         <img src={this.state.images[this.state.imageIndex] || FallBackImage} alt={this.state.name} className={"w-full object-cover md:rounded-2xl max-h-[200px]"} onError={(e) => e.target.src = FallBackImage} />
                         <div className={"flex items-center justify-center h-[20px] m-2"}>
                             {
-                                this.state.images.length ?
+                                this.state.images.length > 1 ?
                                     <>
                                         <button onClick={() => {this.setState({imageIndex: Math.max(0, this.state.imageIndex - 1)})}} className={"rounded-full mr-2"}>
                                             <UilAngleLeft size={'24px'} />
@@ -79,9 +90,21 @@ class Monument extends React.Component {
                             {/*    </p>*/}
                             {/*    )*/}
                             {/*}*/}
-                                <p className={"pb-4 text-justify font-Merriweather text-sm leading-7"}>
-                                    {this.state.description}
-                                </p>
+                            <div className={"w-full overflow-x-scroll whitespace-nowrap pt-2 pb-4"}>
+                                {
+                                    this.state.languages.map((code) =>
+                                    <button onClick={() => this.changeLanguage(code)} key={code} className={"p-2 px-4 mr-2 text-sm rounded-md bg-[#e4e4e4]"}>
+                                        {
+                                            getNativeName(code)
+                                        }
+                                        {/*<ReactCountryFlag countryCode={lookup.countries({languages: code})} svg style={{width: "1.5rem", height: "auto"}} />*/}
+                                    </button>
+                                    )
+                                }
+                            </div>
+                            <p className={"pb-4 text-justify font-Merriweather text-sm leading-7"}>
+                                {this.state.description}
+                            </p>
                         </div>
                     </div>
                 </div>

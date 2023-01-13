@@ -17,8 +17,8 @@ async function getCategory(category) {
     return axios.get(`${api}/api/${getLanguage()}/categories/${category}`)
 }
 
-async function getMonument(monument_id, detailed=false) {
-    return axios.get(`${api}/api/${getLanguage()}/monument/${monument_id}?detailed=${detailed}`)
+async function getMonument(monument_id, detailed=false, language=null) {
+    return axios.get(`${api}/api/${language || getLanguage()}/monument/${monument_id}?detailed=${detailed}`)
 }
 
 async function getMonuments(ids) {

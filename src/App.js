@@ -6,6 +6,7 @@ import SearchView from "./view/SearchView";
 import LanguagesView from "./view/LanguagesView";
 import Scanner from "./view/Scanner";
 import Monument from "./view/Monument";
+import {UilQrcodeScan} from "@iconscout/react-unicons";
 
 class App extends React.Component {
     constructor(props) {
@@ -16,7 +17,8 @@ class App extends React.Component {
             showLanguages: false,
             selectedLanguage: JSON.parse(localStorage.getItem("languagePreference")) || {
                 countryCode: "US",
-                language: "English"
+                language: "English",
+                languageCode: 'en'
             },
             languagesAvailable: [
                 {
@@ -41,20 +43,22 @@ class App extends React.Component {
                     language: "Japanese"
                 }
             ],
-            search: {
-                showSearch: false,
-                query: 'hi'
-            },
-            showScanner: false
+            search: false,
+            showScanner: false,
+            bottomMenu: false
         }
 
         this.toggleLanguage = this.toggleLanguage.bind(this);
         this.toggleSearch = this.toggleSearch.bind(this);
         this.toggleScanner = this.toggleScanner.bind(this);
         this.selectLanguage = this.selectLanguage.bind(this);
-        this.search = this.search.bind(this);
         this.selectMonument = this.selectMonument.bind(this);
         this.deselectMonument = this.deselectMonument.bind(this);
+        this.toggleBottom = this.toggleBottom.bind(this);
+    }
+
+    toggleBottom() {
+        this.setState({bottomMenu: !this.state.bottomMenu})
     }
 
     toggleScanner() {
@@ -65,12 +69,8 @@ class App extends React.Component {
         this.setState({showLanguages: !this.state.showLanguages});
     }
 
-    search(e) {
-        this.setState({search: {...this.state.search, query: e.target.value}})
-    }
-
     toggleSearch() {
-        this.setState({search: {...this.state.search, showSearch: !this.state.search.showSearch}});
+        this.setState({search: !this.state.search});
     }
 
     selectLanguage(language) {
@@ -93,22 +93,27 @@ class App extends React.Component {
     render() {
         return (
             <div className={"flex w-full h-full items-center justify-center"}>
-                <div className={"flex max-w-md flex-col w-full h-full overflow-hidden"}>
-                    <TopBar toggleLanguage={this.toggleLanguage} toggleSearch={this.toggleSearch} search={this.search} />
+                <div className={"flex max-w-md flex-col w-full h-full overflow-hidden relative"}>
+                    <TopBar toggleMenu={this.toggleBottom} toggleLanguage={this.toggleLanguage} toggleSearch={this.toggleSearch} search={this.search} />
                     <Outlet context={this.selectMonument}/>
-                    <BottomBar toggleScanner={this.toggleScanner} />
+                    { this.state.bottomMenu ? <BottomBar toggleMenu={this.toggleBottom} toggleScanner={this.toggleScanner}/> : <></>}
                 </div>
                 {
-                    this.state.showScanner &&
+                    this.state.showScanner ?
                     <Scanner selectMonument={this.selectMonument} toggleScanner={this.toggleScanner} select={this.selectLanguage}/>
+                        :
+                    <button onClick={this.toggleScanner} className={"z-10 bg-slate-900 active:bg-slate-700 p-4 px-8 drop-shadow-2xl flex items-center rounded-full absolute bottom-[20px]"}>
+                        <UilQrcodeScan size={'24px'} color={"#FFF"} />
+                        <span className={"font-Poppins text-white ml-4 font-[600] text-sm"}>Scan QR code</span>
+                    </button>
                 }
                 {
                     this.state.showLanguages &&
                     <LanguagesView selectedLanguage={this.state.selectedLanguage} toggleLanguage={this.toggleLanguage} languagesAvailable={this.state.languagesAvailable} selectLanguage={this.selectLanguage} />
                 }
                 {
-                    this.state.search.showSearch &&
-                    <SearchView search={this.state.search} toggleSearch={this.toggleSearch} select={this.selectLanguage}/>
+                    this.state.search &&
+                    <SearchView toggleSearch={this.toggleSearch} select={this.selectLanguage}/>
                 }
                 {
                     this.state.selected &&
