@@ -7,6 +7,7 @@ import {
 import FallBackImage from "./../images/fallback.png";
 import {getMonument} from "../api/home";
 import {getNativeName} from "all-iso-language-codes";
+import {getAllAudioBase64} from "google-tts-api";
 
 class Monument extends React.Component {
     constructor(props) {
@@ -23,6 +24,12 @@ class Monument extends React.Component {
         getMonument(this.props.data, true, code).then((res) => {
             if(res.status === 200) {
                 this.setState({...res.data.response});
+                getAllAudioBase64(this.state.description, {
+                    lang: this.state.language,
+                    slow: false,
+                    host: 'https://translate.google.com',
+                    timeout: 10000
+                }).then(console.log);
             }
         }).then(this.autoRotate);
     }
