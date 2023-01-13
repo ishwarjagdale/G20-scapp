@@ -54,7 +54,7 @@ class Monument extends React.Component {
                             {
                                 this.state.images.length > 1 ?
                                     <>
-                                        <button onClick={() => this.autoRotate(-1, 0, false)} className={"rounded-full mr-2"}>
+                                        <button onClick={() => this.setState({imageIndex: Math.max(0, this.state.imageIndex - 1)})} className={"rounded-full mr-2"}>
                                             <UilAngleLeft size={'24px'} />
                                         </button>
                                         {
@@ -64,7 +64,7 @@ class Monument extends React.Component {
                                                 return <span key={i.toString()} className={"dot ml-1"} />
                                             })]
                                         }
-                                        <button onClick={() => this.autoRotate(1, 0, false)} className={"rounded-full ml-2"}>
+                                        <button onClick={() => this.setState({imageIndex: Math.min(this.state.images.length - 1, this.state.imageIndex + 1)})} className={"rounded-full ml-2"}>
                                             <UilAngleRight size={'24px'} />
                                         </button>
                                     </>
