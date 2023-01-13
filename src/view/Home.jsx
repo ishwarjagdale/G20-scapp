@@ -93,14 +93,14 @@ class Home extends React.Component {
             if(res.status === 200) {
                 this.setState({populars: res.data.response, popsLoaded: true})
             }
-        });
+        }).then(this.autoRotate);
         getCategories().then((res) => {
             if(res.status === 200) {
                 this.setState({categories: res.data.response, catsLoaded: true})
             }
         })
 
-        if(this.state.populars.length) this.autoRotate();
+        // if(this.state.populars.length) this.autoRotate();
     }
 
     render() {

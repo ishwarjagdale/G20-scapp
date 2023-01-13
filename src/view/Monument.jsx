@@ -15,7 +15,7 @@ class Monument extends React.Component {
         this.state = {
             imageIndex: 0,
         };
-
+        this.autoRotate = this.autoRotate.bind(this);
         this.changeLanguage = this.changeLanguage.bind(this);
     }
 
@@ -24,15 +24,18 @@ class Monument extends React.Component {
             if(res.status === 200) {
                 this.setState({...res.data.response});
             }
-        })
+        }).then(this.autoRotate);
+    }
+
+    autoRotate(val=1, ms=5000, recur=true) {
+        setTimeout(() => {
+            this.setState({imageIndex: (this.state.imageIndex + val) % this.state.images.length})
+            if(recur) this.autoRotate();
+        }, ms)
     }
 
     componentDidMount() {
-        getMonument(this.props.data, true, this.state.language).then((res) => {
-            if(res.status === 200) {
-                this.setState({...res.data.response});
-            }
-        })
+        this.changeLanguage(this.state.language)
     }
 
     render() {
@@ -51,7 +54,7 @@ class Monument extends React.Component {
                             {
                                 this.state.images.length > 1 ?
                                     <>
-                                        <button onClick={() => {this.setState({imageIndex: Math.max(0, this.state.imageIndex - 1)})}} className={"rounded-full mr-2"}>
+                                        <button onClick={() => this.autoRotate(-1, 0, false)} className={"rounded-full mr-2"}>
                                             <UilAngleLeft size={'24px'} />
                                         </button>
                                         {
@@ -61,7 +64,7 @@ class Monument extends React.Component {
                                                 return <span key={i.toString()} className={"dot ml-1"} />
                                             })]
                                         }
-                                        <button onClick={() => {this.setState({imageIndex: Math.min(this.state.images.length - 1, this.state.imageIndex + 1)})}} className={"rounded-full ml-2"}>
+                                        <button onClick={() => this.autoRotate(1, 0, false)} className={"rounded-full ml-2"}>
                                             <UilAngleRight size={'24px'} />
                                         </button>
                                     </>

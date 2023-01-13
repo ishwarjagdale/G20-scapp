@@ -36,7 +36,7 @@ class Scanner extends React.Component {
     render() {
         return (
             <>
-                <div className={"flex flex-col bg-white md:bg-transparent md:max-w-md flex-col w-full h-full overflow-hidden fixed top-0 md:relative"}>
+                <div className={"flex z-50 flex-col bg-white md:bg-transparent md:max-w-md flex-col w-full h-full overflow-hidden fixed top-0 md:relative"}>
                     <div className={"flex absolute top-0 z-10 items-center justify-between w-full p-6"}>
                         <div className={"font-Poppins w-full flex justify-end items-center"}>
                             <button onClick={this.props.toggleScanner} className={"rounded-full bg-white p-2"}><UilMultiply size={'20px'}/></button>
