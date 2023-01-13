@@ -12,7 +12,12 @@ async function logOut() {
 }
 
 async function newLocation(payload) {
-    return axios.post(`${api}/admin/new`, payload);
+    // return axios.post(`${api}/admin/new`, payload);
+    return axios.post(`${api}/admin/new`, payload, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    });
 }
 
 async function getAllMonuments() {

@@ -1,6 +1,6 @@
 import React from "react";
 import FallBackImage from "./../../images/fallback.png";
-import {UilMultiply, UilPlusCircle, UilVolume} from "@iconscout/react-unicons";
+import {UilMultiply, UilPlusCircle} from "@iconscout/react-unicons";
 import {getEnglishName, isValid} from "all-iso-language-codes";
 import {newLocation} from "../../api/adminAPI";
 
@@ -21,6 +21,8 @@ class NewLocation extends React.Component {
             },
             category: ""
         };
+
+        this.formData = new FormData();
 
         this.addLanguage = this.addLanguage.bind(this);
         this.setFile = this.setFile.bind(this);
@@ -63,7 +65,15 @@ class NewLocation extends React.Component {
 
     submitForm(e) {
         e.preventDefault();
-        newLocation(this.state).then((res) => {
+
+        Object.keys(this.state).forEach((k) => {
+            this.formData.append(k, JSON.stringify(this.state[k]))
+        })
+
+        this.formData.delete('images');
+
+
+        newLocation(this.formData).then((res) => {
             if(res.status === 200) {
                 console.log(res.data);
                 window.location.href = "/admin";
@@ -74,18 +84,16 @@ class NewLocation extends React.Component {
         })
     }
 
-    componentDidMount() {
-        console.log(this.state);
-    }
-
-
     render() {
         return (
             <form onSubmit={this.submitForm} className={"flex flex-col w-full h-full overflow-hidden justify-between"}>
                 <div className={"flex flex-col flex-1 overflow-y-scroll h-full p-2"}>
                     <div className={"flex flex-col md:flex-row w-full md:px-4"}>
                         <button onClick={() => document.getElementById('imageInput').click()} className={"w-full h-fit scale-98 md:rounded-2xl"}>
-                            <input id={'imageInput'} onChange={ (e) => this.setFile(e, (f) => {this.setState({images: [...this.state.images, f.target.result]})}) } type={"file"} hidden={true} multiple={false} />
+                            <input id={'imageInput'} onChange={ (e) => this.setFile(e, (f) => {
+                                this.formData.append(`image-${this.state.images.length}`, e.target.files[0])
+                                this.setState({images: [...this.state.images, f.target.result]})
+                            }) } type={"file"} hidden={true} multiple={false} />
                             <img src={this.state.images[0] || FallBackImage} className={"w-full h-[200px] md:h-[250px] object-cover md:rounded-2xl"} alt={""} />
                         </button>
                         <div className={"flex w-full md:w-fit flex-row md:flex-col flex-wrap"}>
@@ -93,6 +101,7 @@ class NewLocation extends React.Component {
                                 this.state.images.length !== 4 &&
                                 <button onClick={() => document.getElementById('filepicker').click()} className={"flex items-center justify-center m-2 md:mt-0 h-[50px] border-2 scale-98 rounded-md w-[100px]"}>
                                     <input id={'filepicker'} onChange={ (e) => {
+                                        this.formData.append(`image-${this.state.images.length}`, e.target.files[0])
                                         this.setFile(e, (f) => {this.setState({images: [...this.state.images, f.target.result]})})
                                         e.target.value = null;
                                     }} type={"file"} hidden={true} multiple={false} />
@@ -135,15 +144,15 @@ class NewLocation extends React.Component {
                                 <div className={"flex flex-1 flex-col mt-4 p-2 font-Poppins text-sm md:text-md"}>
                                     <input onChange={(e) => this.setState((state) => {state.descriptions[k].name = e.target.value})} name={`name-${k}`} type={"text"} placeholder={`Name (${k})`} className={"pb-2 mb-6 w-full outline-none border-b focus-visible:border-black"} required={true}/>
                                     <textarea onChange={(e) => this.setState((state) => {state.descriptions[k].description = e.target.value})} name={'description'} placeholder={"Write something about it..."} className={"pb-2 mb-6 w-full outline-none border-b focus-visible:border-black"} required={true}/>
-                                    <div className={"flex items-center"}>
-                                        <button onClick={() => document.getElementById(`audio-${k}`).click()} className={"w-fit p-2 bg-[#e4e4e4] font-Poppins rounded-xl"}>
-                                            <UilVolume size={'24px'} />
-                                            <input id={`audio-${k}`} onChange={(e) => this.setFile(e, (f) => {this.setState((state) => {state.descriptions[k].audio = f.target.result})})} accept={'audio/mp3'} type={"file"} hidden={true} multiple={false} />
-                                        </button>
-                                        <span className={"w-fit text-sm leading-6 p-2 px-4 mx-2 font-Poppins rounded-xl"}>
-                                            {"Choose an audio"}
-                                        </span>
-                                    </div>
+                                    {/*<div className={"flex items-center"}>*/}
+                                    {/*    <button onClick={() => document.getElementById(`audio-${k}`).click()} className={"w-fit p-2 bg-[#e4e4e4] font-Poppins rounded-xl"}>*/}
+                                    {/*        <UilVolume size={'24px'} />*/}
+                                    {/*        <input id={`audio-${k}`} onChange={(e) => this.setFile(e, (f) => {this.setState((state) => {state.descriptions[k].audio = f.target.result})})} accept={'audio/mp3'} type={"file"} hidden={true} multiple={false} />*/}
+                                    {/*    </button>*/}
+                                    {/*    <span className={"w-fit text-sm leading-6 p-2 px-4 mx-2 font-Poppins rounded-xl"}>*/}
+                                    {/*        {"Choose an audio"}*/}
+                                    {/*    </span>*/}
+                                    {/*</div>*/}
                                 </div>
                             </div>
                         )

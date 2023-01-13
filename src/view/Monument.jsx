@@ -45,7 +45,7 @@ class Monument extends React.Component {
                                         </button>
                                         {
                                             [Array(this.state.images.length).fill(0).map((k, i) => {
-                                                if(i === 0)
+                                                if(i === this.state.imageIndex)
                                                     return <span key={i.toString()} className={"line ml-1"} />
                                                 return <span key={i.toString()} className={"dot ml-1"} />
                                             })]
