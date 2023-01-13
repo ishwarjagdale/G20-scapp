@@ -5,8 +5,8 @@ import {useOutletContext} from "react-router-dom";
 import {getCategories, getPopulars} from "../api/home";
 
 
-function Categories({categories}) {
-    const select = useOutletContext();
+function Categories({categories, context}) {
+    const select = useOutletContext() || context;
 
     return Object.keys(categories).map((k, j) => {
         return <div key={j} className={"p-4 font-Poppins"}>
@@ -38,9 +38,9 @@ function Categories({categories}) {
         </div>
     })
 }
-function Populars({popular, length, current}) {
+function Populars({popular, length, current, context}) {
 
-    const select = useOutletContext();
+    const select = useOutletContext() || context;
     if(popular)
     return <div className={"p-4 font-Poppins"}>
         <span className={"font-[600] text-md pb-4 block"}>Popular Places</span>
@@ -105,7 +105,7 @@ class Home extends React.Component {
 
     render() {
         return (
-            <div className={"h-fit overflow-y-scroll"}>
+            <div className={"h-fit overflow-y-scroll pb-20"}>
                 <div className={"flex justify-between font-Poppins p-6 text-white bg-slate-900 rounded-xl drop-shadow m-2 mx-4"}>
                     <div className={"flex flex-col"}>
                         <span className={"text-xl font-normal"}>Welcome to</span>
@@ -115,13 +115,13 @@ class Home extends React.Component {
                 </div>
                 {
                     this.state.popsLoaded ?
-                        <Populars popular={this.state.populars[this.state.current]} length={this.state.populars.length} current={this.state.current} />
+                        <Populars context={this.props.context} popular={this.state.populars[this.state.current]} length={this.state.populars.length} current={this.state.current} />
                         :
                         <span className={"w-full flex justify-center animate-spin"}><UilSpinner size={'20px'} /></span>
                 }
                 {
                     this.state.catsLoaded ?
-                        <Categories categories={this.state.categories} />
+                        <Categories context={this.props.context} categories={this.state.categories} />
                         :
                         <span className={"w-full flex justify-center animate-spin"}><UilSpinner size={'20px'} /></span>
                 }

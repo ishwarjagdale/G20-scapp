@@ -8,7 +8,7 @@ class TopBar extends React.Component {
     render() {
         return (
             <div className={"flex items-center border-b justify-between w-full p-6"}>
-                <span className={"font-Poppins whitespace-nowrap font-bold text-lg"}>LOGO</span>
+                <span onClick={() => window.location.href = "/"} className={"cursor-pointer font-Poppins whitespace-nowrap font-bold text-lg"}>LOGO</span>
                 <div className={"flex flex-1 items-center justify-end"}>
                     {/*<button onClick={this.props.toggleSearch} className={"p-2"}>*/}
                     {/*    <UilSearch size={'24px'}/>*/}

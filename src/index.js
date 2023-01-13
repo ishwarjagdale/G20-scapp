@@ -12,6 +12,7 @@ import Dashboard from "./view/admin/Dashboard";
 import Settings from "./view/admin/Settings";
 import NewLocation from "./view/admin/NewLocation";
 import SignIn from "./view/SignIn";
+import Monument from "./view/Monument";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
             {
                 path: "/category/:category",
                 element: <Category/>
+            },
+            {
+                path: "/monument/:monument_id",
+                element: <Monument />
             }
         ]
     },

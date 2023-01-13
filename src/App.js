@@ -7,13 +7,15 @@ import LanguagesView from "./view/LanguagesView";
 import Scanner from "./view/Scanner";
 import Monument from "./view/Monument";
 import {UilQrcodeScan} from "@iconscout/react-unicons";
+import {withRouter} from "./view/Category";
+import Home from "./view/Home";
 
 class App extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            selected: false,
+            selected: this.props.params.monument_id || false,
             showLanguages: false,
             selectedLanguage: JSON.parse(localStorage.getItem("languagePreference")) || {
                 countryCode: "US",
@@ -93,19 +95,20 @@ class App extends React.Component {
     render() {
         return (
             <div className={"flex w-full h-full items-center justify-center"}>
-                <div className={"flex max-w-md flex-col w-full h-full overflow-hidden relative"}>
-                    <TopBar toggleMenu={this.toggleBottom} toggleLanguage={this.toggleLanguage} toggleSearch={this.toggleSearch} search={this.search} />
-                    <Outlet context={this.selectMonument}/>
-                    { this.state.bottomMenu ? <BottomBar toggleMenu={this.toggleBottom} toggleScanner={this.toggleScanner}/> : <></>}
-                </div>
-                {
-                    this.state.showScanner ?
-                    <Scanner selectMonument={this.selectMonument} toggleScanner={this.toggleScanner} select={this.selectLanguage}/>
-                        :
-                    <button onClick={this.toggleScanner} className={"z-10 bg-slate-900 active:bg-slate-700 p-4 px-8 drop-shadow-2xl flex items-center rounded-full absolute bottom-[20px]"}>
+                <div className={"flex flex-col items-center max-w-md w-full h-full relative"}>
+                    <div className={"flex flex-col w-full h-full"}>
+                        <TopBar toggleMenu={this.toggleBottom} toggleLanguage={this.toggleLanguage} toggleSearch={this.toggleSearch} search={this.search} />
+                        { this.props.params.monument_id ? <Home context={this.selectMonument}/> : <Outlet context={this.selectMonument}/>}
+                        { this.state.bottomMenu ? <BottomBar toggleMenu={this.toggleBottom} toggleScanner={this.toggleScanner}/> : <></>}
+                    </div>
+                    <button onClick={this.toggleScanner} className={"z-10 bg-slate-900 hover:bg-slate-700 active:bg-slate-700 p-4 px-6 drop-shadow-2xl flex items-center rounded-full absolute bottom-[20px]"}>
                         <UilQrcodeScan size={'24px'} color={"#FFF"} />
                         <span className={"font-Poppins text-white ml-4 font-[600] text-sm"}>Scan QR code</span>
                     </button>
+                </div>
+                {
+                    this.state.showScanner &&
+                    <Scanner selectMonument={this.selectMonument} toggleScanner={this.toggleScanner} select={this.selectLanguage}/>
                 }
                 {
                     this.state.showLanguages &&
@@ -124,4 +127,4 @@ class App extends React.Component {
     }
 }
 
-export default App;
+export default withRouter(App);

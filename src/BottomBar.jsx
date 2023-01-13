@@ -55,27 +55,27 @@ class BottomBar extends React.Component {
 
     render() {
         return (
-            <div onTouchStart={this.touchStart} onTouchMove={this.touchMove} onTouchEnd={this.touchEnd} onClick={this.updatePath} className={"z-20 flex border-t font-Poppins text-sm flex-col absolute bg-white bottom-0 rounded-2xl drop-shadow-2xl p-4 px-2 w-full"}>
+            <div onTouchStart={this.touchStart} onTouchMove={this.touchMove} onTouchEnd={this.touchEnd} onClick={this.updatePath} className={"z-20 flex border font-Poppins text-sm flex-col absolute bg-white bottom-0 rounded-2xl drop-shadow-xl p-4 px-2 w-full"}>
                 <div onClick={this.props.toggleMenu} className={"cursor-pointer flex w-full p-2 items-center justify-center"}>
                     <span className={"line w-[50px!important]"}/>
                 </div>
-                <Link onClick={this.props.toggleMenu} to={"/"} className={`flex w-full p-4 rounded-none items-center`}>
+                <Link onClick={this.props.toggleMenu} to={"/"} className={`flex w-full p-4 rounded-xl items-center`}>
                     <UilEstate size={"24px"} />
                     <span className={"ml-4 font-[500]"}>Home</span>
                 </Link>
-                <button onClick={() => window.alert("Feature coming soon!")} className={`flex rounded-none w-full p-4 items-center`}>
+                <button onClick={() => window.alert("Feature coming soon!")} className={`flex rounded-xl w-full p-4 items-center`}>
                     <UilLocationPoint size={"24px"} />
                     <span className={"ml-4 font-[500]"}>Nearby</span>
                 </button>
-                <button onClick={this.props.toggleScanner} className={"flex rounded-none w-full p-4 items-center rounded-none"}>
+                <button onClick={this.props.toggleScanner} className={"flex rounded-xl w-full p-4 items-center rounded-xl"}>
                     <UilQrcodeScan size={"24px"} />
                     <span className={"ml-4 font-[500]"}>Scan QR code</span>
                 </button>
-                <Link onClick={this.props.toggleMenu} to={"/visited-places"} className={`flex w-full p-4 rounded-none items-center`}>
+                <Link onClick={this.props.toggleMenu} to={"/visited-places"} className={`flex w-full p-4 rounded-xl items-center`}>
                     <UilHistory size={"24px"} />
                     <span className={"ml-4 font-[500]"}>History</span>
                 </Link>
-                <Link onClick={this.props.toggleMenu} to={"/saved"} className={`flex w-full p-4 rounded-none items-center`}>
+                <Link onClick={this.props.toggleMenu} to={"/saved"} className={`flex w-full p-4 rounded-xl items-center`}>
                     <UilBookmark size={"24px"} />
                     <span className={"ml-4 font-[500]"}>Saved</span>
                 </Link>
