@@ -55,7 +55,7 @@ class BottomBar extends React.Component {
 
     render() {
         return (
-            <div onTouchStart={this.touchStart} onTouchMove={this.touchMove} onTouchEnd={this.touchEnd} onClick={this.updatePath} className={"z-20 flex border font-Poppins text-sm flex-col absolute bg-white bottom-0 rounded-2xl drop-shadow-xl p-4 px-2 w-full"}>
+            <div onTouchStart={this.touchStart} onTouchMove={this.touchMove} onTouchEnd={this.touchEnd} onClick={this.updatePath} className={"z-20 flex border font-Poppins text-sm flex-col fixed bg-white bottom-0 rounded-2xl drop-shadow-xl p-4 px-2 w-full max-w-md"}>
                 <div onClick={this.props.toggleMenu} className={"cursor-pointer flex w-full p-2 items-center justify-center"}>
                     <span className={"line w-[50px!important]"}/>
                 </div>

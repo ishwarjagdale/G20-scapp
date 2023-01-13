@@ -96,12 +96,12 @@ class App extends React.Component {
         return (
             <div className={"flex w-full h-full items-center justify-center"}>
                 <div className={"flex flex-col items-center max-w-md w-full h-full relative"}>
-                    <div className={"flex flex-col w-full h-full"}>
+                    <div className={"flex flex-col w-full h-full relative"}>
                         <TopBar toggleMenu={this.toggleBottom} toggleLanguage={this.toggleLanguage} toggleSearch={this.toggleSearch} search={this.search} />
                         { this.props.params.monument_id ? <Home context={this.selectMonument}/> : <Outlet context={this.selectMonument}/>}
                         { this.state.bottomMenu ? <BottomBar toggleMenu={this.toggleBottom} toggleScanner={this.toggleScanner}/> : <></>}
                     </div>
-                    <button onClick={this.toggleScanner} className={"z-10 bg-slate-900 hover:bg-slate-700 active:bg-slate-700 p-4 px-6 drop-shadow-2xl flex items-center rounded-full absolute bottom-[20px]"}>
+                    <button onClick={this.toggleScanner} className={"z-10 bg-slate-900 hover:bg-slate-700 active:bg-slate-700 p-4 px-6 drop-shadow-2xl flex items-center rounded-full fixed bottom-[20px]"}>
                         <UilQrcodeScan size={'24px'} color={"#FFF"} />
                         <span className={"font-Poppins text-white ml-4 font-[600] text-sm"}>Scan QR code</span>
                     </button>

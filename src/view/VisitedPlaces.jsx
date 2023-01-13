@@ -32,7 +32,7 @@ class VisitedPlaces extends React.Component {
     render() {
         return (
             <>
-                <div className={"h-fit overflow-y-scroll"}>
+                <div className={"h-fit overflow-y-scroll pb-20"}>
                     <div className={"p-4 font-Poppins"}>
                         <span className={"font-[600] text-lg pb-6 block"}>Visited Places</span>
                         {
