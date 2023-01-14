@@ -89,6 +89,7 @@ class App extends React.Component {
     }
 
     deselectMonument() {
+        window.speechSynthesis.cancel();
         this.selectMonument(false);
     }
 

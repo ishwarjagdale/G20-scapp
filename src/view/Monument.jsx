@@ -2,12 +2,12 @@ import React from "react";
 import {
     UilAngleLeft,
     UilAngleRight, UilBookmark,
-    UilMultiply, UilPlay, UilPlayCircle, UilShareAlt, UilVolume
+    UilMultiply, UilShareAlt, UilVolume
 } from "@iconscout/react-unicons";
 import FallBackImage from "./../images/fallback.png";
 import {getMonument} from "../api/home";
-import {getNativeName} from "all-iso-language-codes";
-import {getAllAudioUrls} from "google-tts-api";
+import {getEnglishName, getNativeName} from "all-iso-language-codes";
+import EasySpeech from "easy-speech";
 
 class Monument extends React.Component {
     constructor(props) {
@@ -21,6 +21,19 @@ class Monument extends React.Component {
         this.autoRotate = this.autoRotate.bind(this);
         this.changeLanguage = this.changeLanguage.bind(this);
         this.speech = this.speech.bind(this);
+    }
+
+    async speech(code, text) {
+        await EasySpeech.init();
+        await EasySpeech.speak({
+            text: text,
+            voice: EasySpeech.voices().filter((v) => v.name.includes(getNativeName(code || 'en')) || v.lang.includes(code))[0], // optional, will use a default or fallback
+            pitch: 1,
+            rate: 1,
+            volume: 1,
+            // there are more events, see the API for supported events
+            boundary: e => console.debug('boundary reached')
+    })
     }
 
     changeLanguage(code) {
@@ -43,17 +56,6 @@ class Monument extends React.Component {
             this.setState({imageIndex: (this.state.imageIndex + val) % this.state.images.length})
             if(recur) this.autoRotate();
         }, ms)
-    }
-
-    speech(code, text) {
-        let synth = window.speechSynthesis;
-        synth.cancel();
-        let u = new SpeechSynthesisUtterance(text);
-        console.log(code, synth.getVoices().filter((v) => v.lang.includes(code))[0]);
-        u.voice = synth.getVoices().filter((v) => v.lang.includes(code))[0]
-        u.lang = code;
-        u.rate = 1;
-        synth.speak(u)
     }
 
     componentDidMount() {
