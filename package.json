@@ -9,7 +9,6 @@
     "@testing-library/user-event": "^13.5.0",
     "all-iso-language-codes": "^1.0.10",
     "axios": "^1.2.2",
-    "easy-speech": "^1.2.1",
     "firebase": "^9.15.0",
     "mongodb": "^4.13.0",
     "react": "^18.2.0",
