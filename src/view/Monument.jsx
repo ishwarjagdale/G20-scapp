@@ -2,7 +2,7 @@ import React from "react";
 import {
     UilAngleLeft,
     UilAngleRight, UilBookmark,
-    UilMultiply, UilShareAlt
+    UilMultiply, UilPlay, UilPlayCircle, UilShareAlt, UilVolume
 } from "@iconscout/react-unicons";
 import FallBackImage from "./../images/fallback.png";
 import {getMonument} from "../api/home";
@@ -20,18 +20,20 @@ class Monument extends React.Component {
         };
         this.autoRotate = this.autoRotate.bind(this);
         this.changeLanguage = this.changeLanguage.bind(this);
+        this.speech = this.speech.bind(this);
     }
 
     changeLanguage(code) {
         getMonument(this.props.data, true, code).then((res) => {
             if(res.status === 200) {
                 this.setState({...res.data.response});
-                this.setState({audio: getAllAudioUrls(res.data.response.description, {
-                        lang: this.state.language,
-                        slow: false,
-                        host: 'https://translate.google.com',
-                        timeout: 10000
-                    })})
+                // this.setState({audio: getAllAudioUrls(res.data.response.description, {
+                //         lang: this.state.language,
+                //         slow: false,
+                //         host: 'https://translate.google.com',
+                //         timeout: 10000
+                //     })})
+                this.speech(code, res.data.response.description);
             }
         }).then(this.autoRotate);
     }
@@ -41,6 +43,17 @@ class Monument extends React.Component {
             this.setState({imageIndex: (this.state.imageIndex + val) % this.state.images.length})
             if(recur) this.autoRotate();
         }, ms)
+    }
+
+    speech(code, text) {
+        let synth = window.speechSynthesis;
+        synth.cancel();
+        let u = new SpeechSynthesisUtterance(text);
+        console.log(code, synth.getVoices().filter((v) => v.lang.includes(code))[0]);
+        u.voice = synth.getVoices().filter((v) => v.lang.includes(code))[0]
+        u.lang = code;
+        u.rate = 1;
+        synth.speak(u)
     }
 
     componentDidMount() {
@@ -86,7 +99,9 @@ class Monument extends React.Component {
                             <div className={"flex items-center pb-4 justify-between w-full"}>
                                 <span className={"font-[600] text-xl font-Poppins"}>{this.state.name}</span>
                                 <div className={"flex items-center"}>
-                                    <button className={"p-2 mr-2"}><UilShareAlt size={'24px'} /></button>
+                                    <button onClick={() => {
+                                        navigator.clipboard.writeText(window.location.href + `monument/${this.state.id}`).then(r => alert('Link copied to clipboard'))
+                                    }} className={"p-2 mr-2"}><UilShareAlt size={'24px'} /></button>
                                     <button onClick={() => {
                                         let bookmarks = JSON.parse(localStorage.getItem('saved')) || []
                                         bookmarks.indexOf(this.state.id) === -1 ? bookmarks.push(this.state.id) : bookmarks.splice(bookmarks.indexOf(this.state.id), 1);
@@ -95,13 +110,6 @@ class Monument extends React.Component {
                                     }} className={"p-2"}><UilBookmark size={'24px'} /></button>
                                 </div>
                             </div>
-                            {/*{*/}
-                            {/*    this.state.paras.map((para) =>*/}
-                            {/*    <p className={"pb-4 text-justify font-Merriweather text-sm leading-7"}>*/}
-                            {/*        {para}*/}
-                            {/*    </p>*/}
-                            {/*    )*/}
-                            {/*}*/}
                             <div className={"w-full overflow-x-scroll whitespace-nowrap pt-2 pb-4"}>
                                 {
                                     this.state.languages.map((code) =>
@@ -119,12 +127,15 @@ class Monument extends React.Component {
                             </p>
                         </div>
                         {
-                            this.state.audio &&
-                            <audio id={"audio"} playsInline={true} autoPlay={this.state.play} controls={true}
-                             onEnded={() => {
-                                this.setState({pos: this.state.pos === this.state.audio.length - 1 ? 0 : this.state.pos + 1})
-                            }} className={"absolute bottom-10 center"}
-                            />
+                            // this.state.audio &&
+                            // <audio id={"audio"} playsInline={true} autoPlay={this.state.play} controls={true}
+                            //  onEnded={() => {
+                            //     this.setState({pos: this.state.pos === this.state.audio.length - 1 ? 0 : this.state.pos + 1})
+                            // }} className={"absolute bottom-10 center"}
+                            // />
+                            <button onClick={() => {
+                                !window.speechSynthesis.paused ? window.speechSynthesis.pause() : window.speechSynthesis.resume()
+                            }} className={"absolute bottom-10 center p-4 rounded-full bg-black"}><UilVolume color={'#FFF'}/></button>
                         }
                     </div>
                 </div>
