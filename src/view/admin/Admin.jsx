@@ -72,7 +72,7 @@ class Admin extends React.Component {
                         </div>
                     </div>
                     <div className={"flex w-full h-full py-2 md:py-4 relative overflow-hidden"}>
-                        <div className={`${this.state.activeSidebar ? 'absolute' : 'hidden md:block'} bg-white md:relative w-full h-full p-2 md:min-w-fit md:max-w-sm`}>
+                        <div className={`${this.state.activeSidebar ? 'absolute' : 'hidden md:block'} z-50 bg-white md:relative w-full h-full p-2 md:min-w-fit md:max-w-sm`}>
                             <Link to={"/admin/new"} onClick={this.toggleSidebar} className={"font-Poppins w-full h-[60px] hover:bg-slate-700 scale-98 flex items-center p-4 px-8 text-white bg-slate-900 rounded-2xl"}>
                                 <UilPlusCircle size={'24px'} />
                                 <span className={"mx-4 text-sm md:text-md"}>New Location</span>

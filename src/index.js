@@ -62,6 +62,10 @@ const router = createBrowserRouter([
             {
                 path: "/admin/new",
                 element: <NewLocation/>
+            },
+            {
+                path: "/admin/edit/:id",
+                element: <NewLocation/>
             }
         ]
     }

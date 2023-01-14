@@ -1,6 +1,7 @@
 import React from "react";
 import {getAllMonuments} from "../../api/adminAPI";
 import FallbackImage from "./../../images/fallback.png"
+import {Link} from "react-router-dom";
 
 class Dashboard extends React.Component {
     constructor(props) {
@@ -33,12 +34,12 @@ class Dashboard extends React.Component {
                         <div className={"flex mt-4 w-full flex-wrap"}>
                             {
                                 this.state.monuments.map((mon) =>
-                                    <div key={mon.monument_id} className={"bg-white mb-4 md:mr-4 border w-full md:max-w-xs rounded-md"}>
+                                    <Link to={`/admin/edit/${mon.id}`} key={mon.id} className={"bg-white mb-4 md:mr-4 border w-full md:max-w-xs rounded-md"}>
                                         <img src={mon.images[0] || FallbackImage} className={"rounded-t-md w-full aspect-video"} alt={""} />
                                         <div className={"flex flex-col p-4"}>
                                             <span className={"text-sm font-[500] font-Poppins"}>{mon.name}</span>
                                         </div>
-                                    </div>
+                                    </Link>
                                 )
                             }
                         </div>

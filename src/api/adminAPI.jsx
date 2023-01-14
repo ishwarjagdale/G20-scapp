@@ -24,4 +24,25 @@ async function getAllMonuments() {
     return axios.get(`${api}/admin/monuments`);
 }
 
-export {isSecure, logOut, newLocation, getAllMonuments};
+async function manageLanguage(method, monument_id, payload) {
+    if(method === "POST")
+        return axios.post(`${api}/admin/monuments/${monument_id}/description`, payload, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+    if(method === "DELETE")
+        return axios.delete(`${api}/admin/monuments/${monument_id}/description`, payload);
+}
+
+async function deleteImage(monument_id, image) {
+    return axios.post(`${api}/admin/monuments/${monument_id}/images`, {
+        image: image
+    })
+}
+
+async function editMonument(monument_id) {
+    return axios.get(`${api}/admin/edit/${monument_id}`);
+}
+
+export {isSecure, logOut, newLocation, getAllMonuments, manageLanguage, deleteImage, editMonument};
