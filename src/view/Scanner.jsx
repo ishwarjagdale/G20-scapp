@@ -28,9 +28,9 @@ class Scanner extends React.Component {
     }
 
     addToVisited(id) {
-        let visited = JSON.parse(localStorage.getItem('visited')) || [];
-        visited.push(id);
-        localStorage.setItem('visited', JSON.stringify(visited));
+        let visited = new Set(JSON.parse(localStorage.getItem('visited')) || []);
+        visited.add(id);
+        localStorage.setItem('visited', JSON.stringify(Array(...visited)));
     }
 
     render() {

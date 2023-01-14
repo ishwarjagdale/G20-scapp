@@ -8,8 +8,8 @@ import {getCategories, getPopulars} from "../api/home";
 function Categories({categories, context}) {
     const select = useOutletContext() || context;
 
-    return Object.keys(categories).map((k, j) => {
-        return <div key={j} className={"p-4 font-Poppins"}>
+    return Object.keys(categories).map((k) => {
+        return <div key={k} className={"p-4 font-Poppins"}>
             <div className={"flex pb-4 block items-center justify-between"}>
                 <span className={"font-[600] text-md capitalize"}>{k}</span>
                 <a href={`/category/${k.replaceAll(' ', '-').toLowerCase()}`} className={"text-sm hover:bg-transparent font-[500] text-gray-600"}>View all</a>
@@ -18,19 +18,14 @@ function Categories({categories, context}) {
                 <div className={"flex w-fit"}>
                     {
                         categories[k].map((p, i) => {
-                            return <>
-                                <div key={i.toString()} onClick={() => select(p.id)} className={"cursor-pointer w-[300px]"}>
-                                    <img src={p.images[0] || FallBackImage} alt={p.name} className={"w-[300px] flex-1 h-[150px] border rounded-xl object-cover"} onError={(e) => e.target.src = FallBackImage}/>
-                                    <div className={"flex items-center justify-between font-Poppins text-sm my-2"}>
-                                        <div className={"flex items-center"}>
-                                            <span className={"font-medium"}>{p.name}</span>
-                                        </div>
+                            return <div key={p.id} onClick={() => select(p.id)} className={`cursor-pointer w-[300px] ${categories[k].length - 1 !== i ? 'mr-4' : '' }`}>
+                                <img src={p.images[0] || FallBackImage} alt={p.name} className={"w-[300px] flex-1 h-[150px] border rounded-xl object-cover"} onError={(e) => e.target.src = FallBackImage}/>
+                                <div className={"flex items-center justify-between font-Poppins text-sm my-2"}>
+                                    <div className={"flex items-center"}>
+                                        <span className={"font-medium"}>{p.name}</span>
                                     </div>
                                 </div>
-                                {
-                                    categories[k].length - 1 !== i && <div key={i + 'b'} className={"p-2"} />
-                                }
-                            </>
+                            </div>
                         })
                     }
                 </div>

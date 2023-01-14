@@ -9,19 +9,14 @@ function Cats({p, length, i}) {
 
     const select = useOutletContext();
 
-    return <>
-        <div key={i} onClick={() => select(p.id)} className={"cursor-pointer"}>
-            <img src={p.images[0] || FallBackImage} alt={p.name} className={"w-full flex-1 h-[150px] border rounded-xl object-cover"} onError={(e) => e.target.src = FallBackImage} />
-            <div className={"flex items-center justify-between font-Poppins text-sm my-2"}>
-                <div className={"flex items-center"}>
-                    <span className={"font-medium"}>{p.name}</span>
-                </div>
+    return <div onClick={() => select(p.id)} className={`cursor-pointer ${length - 1 !== i ? 'pb-2' : ''}`}>
+        <img src={p.images[0] || FallBackImage} alt={p.name} className={"w-full flex-1 h-[150px] border rounded-xl object-cover"} onError={(e) => e.target.src = FallBackImage} />
+        <div className={"flex items-center justify-between font-Poppins text-sm my-2"}>
+            <div className={"flex items-center"}>
+                <span className={"font-medium"}>{p.name}</span>
             </div>
         </div>
-        {
-            length - 1 !== i && <div key={i + 'b'} className={"pb-2"} />
-        }
-    </>
+    </div>
 }
 
 class Category extends React.Component {
@@ -53,7 +48,7 @@ class Category extends React.Component {
                             this.state.loaded ?
                                 this.state.data.length ?
                                     this.state.data.map((p, i) =>
-                                        <Cats p={p} length={this.state.data.length} i={i} />
+                                        <Cats key={p.id} p={p} length={this.state.data.length} i={i} />
                                     )
                                     :
                                     <></>

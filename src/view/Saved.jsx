@@ -30,7 +30,7 @@ class Saved extends React.Component {
                             this.state.loaded ?
                                 this.state.places.length ?
                                     this.state.places.map((p, i) =>
-                                        <Cats p={p} i={i} length={this.state.places.length} />
+                                        <Cats key={p.id} p={p} i={i} length={this.state.places.length} />
                                     )
                                     :
                                     <span className={"text-sm"}>No saved places</span>

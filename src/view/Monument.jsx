@@ -7,7 +7,7 @@ import {
 import FallBackImage from "./../images/fallback.png";
 import {getMonument} from "../api/home";
 import {getNativeName} from "all-iso-language-codes";
-import {getAllAudioBase64} from "google-tts-api";
+import {getAllAudioUrls} from "google-tts-api";
 
 class Monument extends React.Component {
     constructor(props) {
@@ -15,6 +15,8 @@ class Monument extends React.Component {
 
         this.state = {
             imageIndex: 0,
+            pos: 0,
+            play: false
         };
         this.autoRotate = this.autoRotate.bind(this);
         this.changeLanguage = this.changeLanguage.bind(this);
@@ -24,12 +26,12 @@ class Monument extends React.Component {
         getMonument(this.props.data, true, code).then((res) => {
             if(res.status === 200) {
                 this.setState({...res.data.response});
-                getAllAudioBase64(this.state.description, {
-                    lang: this.state.language,
-                    slow: false,
-                    host: 'https://translate.google.com',
-                    timeout: 10000
-                }).then(console.log);
+                this.setState({audio: getAllAudioUrls(res.data.response.description, {
+                        lang: this.state.language,
+                        slow: false,
+                        host: 'https://translate.google.com',
+                        timeout: 10000
+                    })})
             }
         }).then(this.autoRotate);
     }
@@ -55,7 +57,7 @@ class Monument extends React.Component {
                             <button onClick={this.props.close} className={"rounded-full bg-white p-2"}><UilMultiply size={'24px'}/></button>
                         </div>
                     </div>
-                    <div className={"flex flex-col w-full h-full overflow-y-scroll md:pt-2"}>
+                    <div className={"flex flex-col w-full items-center h-full overflow-y-scroll md:pt-2"}>
                         <img src={this.state.images[this.state.imageIndex] || FallBackImage} alt={this.state.name} className={"w-full object-cover md:rounded-2xl max-h-[200px]"} onError={(e) => e.target.src = FallBackImage} />
                         <div className={"flex items-center justify-center h-[20px] m-2"}>
                             {
@@ -116,6 +118,14 @@ class Monument extends React.Component {
                                 {this.state.description}
                             </p>
                         </div>
+                        {
+                            this.state.audio &&
+                            <audio id={"audio"} playsInline={true} autoPlay={this.state.play} controls={true}
+                             onEnded={() => {
+                                this.setState({pos: this.state.pos === this.state.audio.length - 1 ? 0 : this.state.pos + 1})
+                            }} className={"absolute bottom-10 center"}
+                            />
+                        }
                     </div>
                 </div>
             </>
