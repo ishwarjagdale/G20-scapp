@@ -45,4 +45,8 @@ async function editMonument(monument_id) {
     return axios.get(`${api}/admin/edit/${monument_id}`);
 }
 
-export {isSecure, logOut, newLocation, getAllMonuments, manageLanguage, deleteImage, editMonument};
+async function deleteMonument(monument_id) {
+    return axios.delete(`${api}/admin/monuments/${monument_id}`);
+}
+
+export {isSecure, logOut, newLocation, getAllMonuments, manageLanguage, deleteImage, editMonument, deleteMonument};

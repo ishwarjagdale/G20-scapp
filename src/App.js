@@ -1,14 +1,14 @@
 import React from "react";
-import BottomBar from "./BottomBar";
-import TopBar from "./TopBar";
 import {Outlet} from "react-router-dom";
 import SearchView from "./view/SearchView";
 import LanguagesView from "./view/LanguagesView";
 import Scanner from "./view/Scanner";
 import Monument from "./view/Monument";
 import {UilQrcodeScan} from "@iconscout/react-unicons";
-import {withRouter} from "./view/Category";
 import Home from "./view/Home";
+import TopBar from "./components/TopBar";
+import BottomBar from "./components/BottomBar";
+import withRouter from "./components/withRouter";
 
 class App extends React.Component {
     constructor(props) {

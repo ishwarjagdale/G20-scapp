@@ -10,9 +10,10 @@ import {
 } from "@iconscout/react-unicons";
 import {isValid} from "all-iso-language-codes";
 import {deleteImage, editMonument, newLocation} from "../../api/adminAPI";
-import Language from "./Language";
 import QRCode from "react-qr-code";
-import {withRouter} from "../Category";
+import withRouter from "../../components/withRouter";
+import Language from "../../components/Language";
+import ImagePagination from "../../components/imagePagination";
 
 class NewLocation extends React.Component {
     constructor(props) {
@@ -148,30 +149,7 @@ class NewLocation extends React.Component {
                                 } } type={"file"} hidden={true} multiple={true}/>
                                 <img src={this.state.images[this.state.imageIndex] || FallBackImage} className={"w-full h-[150px] object-cover rounded-2xl"} alt={""} />
                             </button>
-
-                            <div className={"flex items-center justify-center h-[20px] m-2"}>
-                                {
-                                    this.state.images.length > 1 ?
-                                        <>
-                                            <button onClick={() => this.setState({imageIndex: Math.max(0, this.state.imageIndex - 1)})} className={"rounded-full mr-2"}>
-                                                <UilAngleLeft size={'24px'} />
-                                            </button>
-                                            {
-                                                [Array(this.state.images.length).fill(0).map((k, i) => {
-                                                    if(i === this.state.imageIndex)
-                                                        return <span key={i.toString()} className={"line ml-1"} />
-                                                    return <span key={i.toString()} className={"dot ml-1"} />
-                                                })]
-                                            }
-                                            <button onClick={() => this.setState({imageIndex: Math.min(this.state.images.length - 1, this.state.imageIndex + 1)})} className={"rounded-full ml-2"}>
-                                                <UilAngleRight size={'24px'} />
-                                            </button>
-                                        </>
-                                        :
-                                        <>
-                                        </>
-                                }
-                            </div>
+                            <ImagePagination setState={this.setState} length={this.state.images.length} imageIndex={this.state.imageIndex} />
                         </div>
 
                         <div className={"flex flex-col w-full p-2 md:px-4"}>

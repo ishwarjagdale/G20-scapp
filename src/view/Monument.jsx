@@ -1,12 +1,12 @@
 import React from "react";
 import {
-    UilAngleLeft,
-    UilAngleRight, UilBookmark,
+    UilBookmark,
     UilMultiply, UilShareAlt, UilSpinner
 } from "@iconscout/react-unicons";
 import FallBackImage from "./../images/fallback.png";
 import {getMonument} from "../api/home";
 import {getNativeName} from "all-iso-language-codes";
+import ImagePagination from "../components/imagePagination";
 
 class Monument extends React.Component {
     constructor(props) {
@@ -42,35 +42,14 @@ class Monument extends React.Component {
         if(this.state.name)
         return <div className={"flex z-50 flex-col bg-white md:bg-transparent md:max-w-md lg:max-w-xl flex-col w-full h-full overflow-hidden fixed top-0 md:relative"}>
             <div className={"flex border-b z-10 items-center justify-between w-full p-6"}>
-                <div className={"font-Poppins w-full flex justify-end items-center"}>
+                <div className={"font-Poppins w-full flex justify-between items-center"}>
+                    <span onClick={() => window.location.href = "/"} className={"md:hidden cursor-pointer font-Poppins whitespace-nowrap font-bold text-lg"}>LOGO</span>
                     <button onClick={this.props.close} className={"rounded-full bg-white p-2"}><UilMultiply size={'24px'}/></button>
                 </div>
             </div>
             <div className={"flex flex-col w-full items-center h-full overflow-y-scroll md:pt-2"}>
                 <img src={this.state.images[this.state.imageIndex] || FallBackImage} alt={this.state.name} className={"w-full object-cover md:rounded-2xl max-h-[200px]"} onError={(e) => e.target.src = FallBackImage} />
-                <div className={"flex items-center justify-center h-[20px] m-2"}>
-                    {
-                        this.state.images.length > 1 ?
-                            <>
-                                <button onClick={() => this.setState({imageIndex: Math.max(0, this.state.imageIndex - 1)})} className={"rounded-full mr-2"}>
-                                    <UilAngleLeft size={'24px'} />
-                                </button>
-                                {
-                                    [Array(this.state.images.length).fill(0).map((k, i) => {
-                                        if(i === this.state.imageIndex)
-                                            return <span key={i.toString()} className={"line ml-1"} />
-                                        return <span key={i.toString()} className={"dot ml-1"} />
-                                    })]
-                                }
-                                <button onClick={() => this.setState({imageIndex: Math.min(this.state.images.length - 1, this.state.imageIndex + 1)})} className={"rounded-full ml-2"}>
-                                    <UilAngleRight size={'24px'} />
-                                </button>
-                            </>
-                            :
-                            <>
-                            </>
-                    }
-                </div>
+                <ImagePagination setState={this.setState} length={this.state.images.length} imageIndex={this.state.imageIndex} />
                 <div className={"flex flex-col w-full pt-2 px-4 md:px-2"}>
                     <div className={"flex items-center pb-4 justify-between w-full"}>
                         <span className={"font-[600] text-xl font-Poppins"}>{this.state.name}</span>

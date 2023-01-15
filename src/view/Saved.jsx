@@ -1,7 +1,7 @@
 import React from "react";
-import {Cats} from "./Category";
 import {getMonuments} from "../api/home";
 import {UilSpinner} from "@iconscout/react-unicons";
+import Cats from "../components/Cats";
 
 class Saved extends React.Component {
     constructor(props) {

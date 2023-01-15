@@ -1,23 +1,9 @@
 import React from "react";
-import FallBackImage from "./../images/fallback.png";
-import {useOutletContext, useParams} from "react-router-dom";
 import {getCategory} from "../api/home";
 import {UilSpinner} from "@iconscout/react-unicons";
+import withRouter from "../components/withRouter";
+import Cats from "../components/Cats";
 
-
-function Cats({p, length, i}) {
-
-    const select = useOutletContext();
-
-    return <div onClick={() => select(p.id)} className={`cursor-pointer ${length - 1 !== i ? 'pb-2' : ''}`}>
-        <img src={p.images[0] || FallBackImage} alt={p.name} className={"w-full flex-1 h-[150px] border rounded-xl object-cover"} onError={(e) => e.target.src = FallBackImage} />
-        <div className={"flex items-center justify-between font-Poppins text-sm my-2"}>
-            <div className={"flex items-center"}>
-                <span className={"font-medium"}>{p.name}</span>
-            </div>
-        </div>
-    </div>
-}
 
 class Category extends React.Component {
     constructor(props) {
@@ -63,14 +49,5 @@ class Category extends React.Component {
 
 }
 
-const withRouter = WrappedComponent => props => {
-    const params = useParams();
-
-    return (
-        <WrappedComponent {...props} params={params}/>
-    )
-
-}
 
 export default withRouter(Category);
-export {Cats, withRouter};

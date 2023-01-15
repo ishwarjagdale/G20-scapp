@@ -1,7 +1,7 @@
 import React from "react";
 import {getEnglishName} from "all-iso-language-codes";
 import {UilMultiply, UilSave, UilVolume} from "@iconscout/react-unicons";
-import {manageLanguage} from "../../api/adminAPI";
+import {manageLanguage} from "../api/adminAPI";
 
 class Language extends React.Component {
     constructor(props) {
@@ -10,13 +10,21 @@ class Language extends React.Component {
         this.state = {
             name: this.props.desc.name || "",
             description: this.props.desc.description || "",
-            audio: this.props.desc.audio || null
+            audio: null
         };
 
         this.formData = new FormData();
 
         this.deleteLanguage = this.deleteLanguage.bind(this);
         this.saveLanguage = this.saveLanguage.bind(this);
+        this.setFile = this.setFile.bind(this);
+    }
+
+    setFile(file, f) {
+        let reader = new FileReader()
+        reader.onload = f;
+        console.log(file);
+        reader.readAsDataURL(file)
     }
 
     saveLanguage(e) {
@@ -59,7 +67,10 @@ class Language extends React.Component {
                 <div className={"flex rounded-md bg-[#e4e4e4] p-2 px-4 items-center justify-between"}>
                     <span onClick={(e) => {document.getElementById(`desc-${this.props.k}`).children[1].classList.toggle('hidden')}}  className={"cursor-pointer font-Poppins text-sm"}>{this.props.k} - {getEnglishName(this.props.k)}</span>
                     <div className={"flex items-center"}>
-                        <button type={"submit"} onClick={this.saveLanguage} className={"p-2 mr-2"}><UilSave size={'18px'} /></button>
+                        {
+                            (this.state.name !== this.props.desc.name || this.state.description !== this.props.desc.description || this.state.audio) &&
+                            <button type={"submit"} onClick={this.saveLanguage} className={"p-2 mr-2"}><UilSave size={'18px'} /></button>
+                        }
                         <button onClick={this.deleteLanguage} className={"p-2"}><UilMultiply size={'18px'} /></button>
                     </div>
                 </div>
@@ -76,10 +87,11 @@ class Language extends React.Component {
                             <UilVolume size={'24px'} />
                             <input id={`audio-${this.props.k}`} onChange={(e) => {
                                 this.formData.append('audio', e.target.files[0])
+                                this.setFile(e.target.files[0], (f) => {this.setState({audio: f.target.result})})
                             }} accept={'audio/mp3'} type={"file"} hidden={true} multiple={false} />
                         </button>
                         {
-                            this.state.audio ? <audio className={"mx-2"} src={this.state.audio} controls={true} /> : <span className={"w-fit text-sm leading-6 p-2 px-4 mx-2 font-Poppins rounded-xl"}>Choose an audio</span>
+                            this.props.desc.audio || this.state.audio ? <audio className={"mx-2"} src={this.state.audio || this.props.desc.audio} controls={true} /> : <span className={"w-fit text-sm leading-6 p-2 px-4 mx-2 font-Poppins rounded-xl"}>Choose an audio</span>
                         }
                     </div>
                 </div>
