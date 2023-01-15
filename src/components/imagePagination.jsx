@@ -8,7 +8,7 @@ class ImagePagination extends React.Component {
                 {
                     this.props.length > 1 ?
                         <>
-                            <button onClick={() => this.props.setState({imageIndex: Math.max(0, this.props.imageIndex - 1)})} className={"rounded-full mr-2"}>
+                            <button onClick={() => this.props.handleIndex(Math.max(0, this.props.imageIndex - 1))} className={"rounded-full mr-2"}>
                                 <UilAngleLeft size={'24px'} />
                             </button>
                             {
@@ -18,7 +18,7 @@ class ImagePagination extends React.Component {
                                     return <span key={i.toString()} className={"dot ml-1"} />
                                 })]
                             }
-                            <button onClick={() => this.props.setState({imageIndex: Math.min(this.props.length - 1, this.props.imageIndex + 1)})} className={"rounded-full ml-2"}>
+                            <button onClick={() => this.props.handleIndex(Math.min(this.props.length - 1, this.props.imageIndex + 1))} className={"rounded-full ml-2"}>
                                 <UilAngleRight size={'24px'} />
                             </button>
                         </>

@@ -17,6 +17,11 @@ class Monument extends React.Component {
         };
         this.autoRotate = this.autoRotate.bind(this);
         this.changeLanguage = this.changeLanguage.bind(this);
+        this.handleIndex = this.handleIndex.bind(this);
+    }
+
+    handleIndex(index) {
+        this.setState({imageIndex: index});
     }
 
     changeLanguage(code) {
@@ -49,7 +54,7 @@ class Monument extends React.Component {
             </div>
             <div className={"flex flex-col w-full items-center h-full overflow-y-scroll md:pt-2"}>
                 <img src={this.state.images[this.state.imageIndex] || FallBackImage} alt={this.state.name} className={"w-full object-cover md:rounded-2xl max-h-[200px]"} onError={(e) => e.target.src = FallBackImage} />
-                <ImagePagination setState={this.setState} length={this.state.images.length} imageIndex={this.state.imageIndex} />
+                <ImagePagination handleIndex={this.handleIndex} length={this.state.images.length} imageIndex={this.state.imageIndex} />
                 <div className={"flex flex-col w-full pt-2 px-4 md:px-2"}>
                     <div className={"flex items-center pb-4 justify-between w-full"}>
                         <span className={"font-[600] text-xl font-Poppins"}>{this.state.name}</span>

@@ -1,8 +1,6 @@
 import React from "react";
 import FallBackImage from "./../../images/fallback.png";
 import {
-    UilAngleLeft,
-    UilAngleRight,
     UilEye,
     UilEyeSlash,
     UilMultiply,
@@ -44,6 +42,11 @@ class NewLocation extends React.Component {
         this.removeLanguage = this.removeLanguage.bind(this);
         this.submitForm = this.submitForm.bind(this);
         this.setLanguage = this.setLanguage.bind(this);
+        this.handleIndex = this.handleIndex.bind(this);
+    }
+
+    handleIndex(index) {
+        this.setState({imageIndex: index});
     }
 
     addLanguage() {
@@ -160,7 +163,7 @@ class NewLocation extends React.Component {
                                 } } type={"file"} hidden={true} multiple={true}/>
                                 <img src={this.state.images[this.state.imageIndex] || FallBackImage} className={"w-full h-[150px] object-cover rounded-2xl"} alt={""} />
                             </button>
-                            <ImagePagination setState={this.setState} length={this.state.images.length} imageIndex={this.state.imageIndex} />
+                            <ImagePagination handleIndex={this.handleIndex}  length={this.state.images.length} imageIndex={this.state.imageIndex} />
                         </div>
 
                         <div className={"flex flex-col w-full p-2 md:px-4"}>
