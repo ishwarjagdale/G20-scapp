@@ -36,6 +36,7 @@ class Language extends React.Component {
 
             manageLanguage("POST", this.props.mon_id, this.formData).then((res) => {
                 if(res.status === 200) {
+                    this.props.setLanguage({code: this.props.k, name: this.state.name, description: this.state.description, audio: this.state.audio})
                     alert(res.data.message);
                 }
             }).catch((err) => {

@@ -32,7 +32,7 @@ async function manageLanguage(method, monument_id, payload) {
             }
         })
     if(method === "DELETE")
-        return axios.delete(`${api}/admin/monuments/${monument_id}/description`, payload);
+        return axios.delete(`${api}/admin/monuments/${monument_id}/description?lang=${payload.language}`);
 }
 
 async function deleteImage(monument_id, image) {

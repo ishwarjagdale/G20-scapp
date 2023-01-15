@@ -43,6 +43,7 @@ class NewLocation extends React.Component {
         this.setFile = this.setFile.bind(this);
         this.removeLanguage = this.removeLanguage.bind(this);
         this.submitForm = this.submitForm.bind(this);
+        this.setLanguage = this.setLanguage.bind(this);
     }
 
     addLanguage() {
@@ -63,6 +64,16 @@ class NewLocation extends React.Component {
         document.getElementById('languageCodeInput').value = "";
     }
 
+    setLanguage(data) {
+        let lang = this.state.descriptions;
+        lang[data.code] = {
+            name: data.name,
+            description: data.description,
+            audio: data.audio
+        }
+        this.setState({descriptions: lang})
+    }
+
     removeLanguage(code) {
         let desc = this.state.descriptions;
         delete desc[code];
@@ -80,11 +91,11 @@ class NewLocation extends React.Component {
         e.preventDefault();
         console.log(e);
         if(e.type === 'click') {
-            Object.keys(this.state).forEach((k) => {
-                this.formData.append(k, JSON.stringify(this.state[k]))
-            })
 
-            this.formData.delete('images');
+            this.formData.append('name', this.state.name)
+            this.formData.append('coordinates', this.state.coordinates)
+            this.formData.append('category', this.state.category)
+            this.formData.append('public', this.state.public)
 
 
             newLocation(this.formData).then((res) => {
@@ -199,7 +210,7 @@ class NewLocation extends React.Component {
                             <div className={"flex flex-col flex-1 h-full overflow-y-scroll mt-4"}>
                                 {
                                     Object.keys(this.state.descriptions).map((k) =>
-                                        <Language k={k} mon_id={this.state.id} desc={this.state.descriptions[k]} removeLanguage={this.removeLanguage} />
+                                        <Language k={k} mon_id={this.state.id} desc={this.state.descriptions[k]} setLanguage={this.setLanguage} removeLanguage={this.removeLanguage} />
                                     )
                                 }
                             </div>
