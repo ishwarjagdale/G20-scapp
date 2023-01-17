@@ -4,9 +4,10 @@ import {
     UilMultiply, UilShareAlt, UilSpinner
 } from "@iconscout/react-unicons";
 import FallBackImage from "./../images/fallback.png";
-import {getMonument} from "../api/home";
+import {getLanguage, getMonument} from "../api/home";
 import {getNativeName} from "all-iso-language-codes";
 import ImagePagination from "../components/imagePagination";
+import ReactCountryFlag from "react-country-flag";
 
 class Monument extends React.Component {
     constructor(props) {
@@ -14,10 +15,39 @@ class Monument extends React.Component {
 
         this.state = {
             imageIndex: 0,
+            currentLanguage: getLanguage()
         };
         this.autoRotate = this.autoRotate.bind(this);
         this.changeLanguage = this.changeLanguage.bind(this);
         this.handleIndex = this.handleIndex.bind(this);
+
+        this.languages = {
+            "en": "us",
+            "mr": "in",
+            "hi": "in",
+            "te": "in",
+            "gu": "in",
+            "pa": "in",
+            "ja": "jp",
+            "de": "de",
+            "es": "es",
+            "pt": "pt",
+            "fr": "fr",
+            "zh": "cn",
+            "in": "id",
+            "it": "it",
+            "ko": "kr",
+            "ru": "ru",
+            "ae": "ae",
+            "af": "za",
+            "zu": "za",
+            "tr": "tr",
+            "uk": "ua",
+            "bg": "be",
+            "pl": "pl",
+            "sv": "se",
+            "nl": "nl"
+        }
     }
 
     handleIndex(index) {
@@ -27,7 +57,9 @@ class Monument extends React.Component {
     changeLanguage(code) {
         getMonument(this.props.data, true, code).then((res) => {
             if(res.status === 200) {
-                this.setState({...res.data.response});
+                this.setState({...res.data.response, currentLanguage: code});
+                console.log(this.state);
+                document.title = res.data.response.name
             }
         }).then(this.autoRotate);
     }
@@ -40,14 +72,14 @@ class Monument extends React.Component {
     }
 
     componentDidMount() {
-        this.changeLanguage(this.state.language)
+        this.changeLanguage(this.state.currentLanguage)
     }
 
     render() {
         if(this.state.name)
         return <div className={"flex z-50 flex-col bg-white md:bg-transparent md:max-w-md lg:max-w-xl flex-col w-full h-full overflow-hidden fixed top-0 md:relative"}>
             <div className={"flex border-b z-10 items-center justify-between w-full p-6"}>
-                <div className={"font-Poppins w-full flex justify-between items-center"}>
+                <div className={"font-Poppins w-full flex justify-between md:justify-end items-center"}>
                     <span onClick={() => window.location.href = "/"} className={"md:hidden cursor-pointer font-Poppins whitespace-nowrap font-bold text-lg"}>LOGO</span>
                     <button onClick={this.props.close} className={"rounded-full bg-white p-2"}><UilMultiply size={'24px'}/></button>
                 </div>
@@ -72,12 +104,12 @@ class Monument extends React.Component {
                     </div>
                     <div className={"w-full overflow-x-scroll whitespace-nowrap pt-2 pb-4"}>
                         {
-                            this.state.languages.map((code) =>
-                                <button onClick={() => this.changeLanguage(code)} key={code} className={"p-2 px-4 mr-2 text-sm rounded-md bg-[#e4e4e4]"}>
+                            Object.keys(this.languages).filter((v) => this.state.languages.includes(v)).map((code) =>
+                                <button onClick={() => this.changeLanguage(code)} key={code} className={`${this.state.currentLanguage === code ? 'bg-slate-900 text-white' : 'bg-[#e4e4e4]'} p-2 px-4 mr-2 text-sm inline-flex items-center rounded-md`}>
+                                    <ReactCountryFlag countryCode={this.languages[code]} svg style={{width: "1rem", marginRight:"0.5em", height: "auto"}} />
                                     {
                                         getNativeName(code)
                                     }
-                                    {/*<ReactCountryFlag countryCode={lookup.countries({languages: code})} svg style={{width: "1.5rem", height: "auto"}} />*/}
                                 </button>
                             )
                         }
