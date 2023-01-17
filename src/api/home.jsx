@@ -29,4 +29,4 @@ async function logIn(credentials) {
     return axios.post(`${api}/auth/login`, credentials);
 }
 
-export {getPopulars, getCategories, getCategory, getMonument, logIn, getMonuments};
+export {getPopulars, getCategories, getCategory, getMonument, logIn, getMonuments, getLanguage};
