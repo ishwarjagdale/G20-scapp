@@ -6,13 +6,14 @@ import {
     UilMultiply,
     UilPlusCircle, UilSpinner
 } from "@iconscout/react-unicons";
-import {isValid} from "all-iso-language-codes";
+import {getEnglishName, isValid} from "all-iso-language-codes";
 import {deleteImage, editMonument, newLocation} from "../../api/adminAPI";
 import QRCode from "react-qr-code";
 import withRouter from "../../components/withRouter";
 import Language from "../../components/Language";
 import ImagePagination from "../../components/imagePagination";
 import {notify} from "../../components/notifier";
+import {languages} from "../../components/constants";
 
 class NewLocation extends React.Component {
     constructor(props) {
@@ -36,6 +37,8 @@ class NewLocation extends React.Component {
             loading: this.props.params.id,
         };
 
+        this.languages = languages;
+
         this.formData = new FormData();
 
         this.addLanguage = this.addLanguage.bind(this);
@@ -50,22 +53,14 @@ class NewLocation extends React.Component {
         this.setState({imageIndex: index});
     }
 
-    addLanguage() {
-        let code = document.getElementById('languageCodeInput').value.toLowerCase();
-        if(code === "") {
-            notify("Enter a valid language code", 'info')
-        }
-        else if(!isValid(code)) {
-            notify('Invalid language code!', 'info');
-        } else {
-            if(this.state.descriptions.hasOwnProperty(code)) {
-                return
-            }
-            let data = {...this.state.descriptions}
-            data[code] = {name: "", description: "", audio: null}
-            this.setState({descriptions: data})
-        }
-        document.getElementById('languageCodeInput').value = "";
+    addLanguage(e) {
+        if(e.target.value === 0) return;
+
+        let data = {...this.state.descriptions}
+        data[e.target.value] = {name: "", description: "", audio: null}
+        this.setState({descriptions: data})
+
+        e.target.value = 0;
     }
 
     setLanguage(data) {
@@ -223,8 +218,18 @@ class NewLocation extends React.Component {
                                 <div className={"flex flex-1 flex-col font-Poppins text-sm md:text-md"}>
                                     <span className={"font-[500] pb-2"}>Language Code</span>
                                     <div className={"flex flex-1 items-end font-Poppins py-2 text-sm md:text-md"}>
-                                        <input id={'languageCodeInput'} max={2} name={'languageCode'} type={"text"} placeholder={"Enter language code (en, hi, de, fr)"} maxLength={2} className={"text-sm py-2 flex-1 max-w-[500px] outline-none border-b focus-visible:border-black"}/>
-                                        <button onClick={this.addLanguage} className={"w-fit p-2 mx-2 rounded-xl"}><UilPlusCircle size={'24px'}/></button>
+                                        <div className={"pr-4 rounded-md bg-[#e4e4e4]"}>
+                                            <select className={"p-2 px-4 bg-transparent"} onChange={this.addLanguage}>
+                                                <option value={0}>Choose a language</option>
+                                                {
+                                                    Object.keys(this.languages).filter((c) => !this.state.descriptions.hasOwnProperty(c)).map((code) =>
+                                                        <option value={code}>{getEnglishName(code)}</option>
+                                                    )
+                                                }
+                                            </select>
+                                        </div>
+                                        {/*<input id={'languageCodeInput'} max={2} name={'languageCode'} type={"text"} placeholder={"Enter language code (en, hi, de, fr)"} maxLength={2} className={"text-sm py-2 flex-1 max-w-[500px] outline-none border-b focus-visible:border-black"}/>*/}
+                                        {/*<button onClick={this.addLanguage} className={"w-fit p-2 mx-2 rounded-xl"}><UilPlusCircle size={'24px'}/></button>*/}
                                     </div>
                                 </div>
                             </div>

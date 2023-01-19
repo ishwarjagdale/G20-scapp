@@ -9,6 +9,7 @@ import {getEnglishName, getNativeName} from "all-iso-language-codes";
 import ImagePagination from "../components/imagePagination";
 import ReactCountryFlag from "react-country-flag";
 import {notify} from "../components/notifier";
+import {languages} from "../components/constants";
 
 class Monument extends React.Component {
     constructor(props) {
@@ -22,33 +23,7 @@ class Monument extends React.Component {
         this.changeLanguage = this.changeLanguage.bind(this);
         this.handleIndex = this.handleIndex.bind(this);
 
-        this.languages = {
-            "en": "us",
-            "mr": "in",
-            "hi": "in",
-            "te": "in",
-            "gu": "in",
-            "pa": "in",
-            "ja": "jp",
-            "de": "de",
-            "es": "es",
-            "pt": "pt",
-            "fr": "fr",
-            "zh": "cn",
-            "id": "id",
-            "it": "it",
-            "ko": "kr",
-            "ru": "ru",
-            "ar": "ae",
-            "af": "za",
-            "zu": "za",
-            "tr": "tr",
-            "uk": "ua",
-            "bg": "bg",
-            "pl": "pl",
-            "sv": "se",
-            "nl": "nl"
-        }
+        this.languages = languages
     }
 
     handleIndex(index) {

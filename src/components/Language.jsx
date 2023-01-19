@@ -3,6 +3,8 @@ import {getEnglishName} from "all-iso-language-codes";
 import {UilMultiply, UilSave, UilVolume} from "@iconscout/react-unicons";
 import {manageLanguage} from "../api/adminAPI";
 import {notify} from "./notifier";
+import ReactCountryFlag from "react-country-flag";
+import {languages} from "./constants";
 
 class Language extends React.Component {
     constructor(props) {
@@ -15,6 +17,8 @@ class Language extends React.Component {
         };
 
         this.formData = new FormData();
+
+        this.languages = languages;
 
         this.deleteLanguage = this.deleteLanguage.bind(this);
         this.saveLanguage = this.saveLanguage.bind(this);
@@ -72,7 +76,10 @@ class Language extends React.Component {
         return (
             <div id={`desc-${this.props.k}`} className={"w-full mb-6"}>
                 <div className={"flex rounded-md bg-[#e4e4e4] p-2 px-4 items-center justify-between"}>
-                    <span onClick={(e) => {document.getElementById(`desc-${this.props.k}`).children[1].classList.toggle('hidden')}}  className={"cursor-pointer flex-1 font-Poppins text-sm"}>{this.props.k} - {getEnglishName(this.props.k)}</span>
+                    <span onClick={(e) => {document.getElementById(`desc-${this.props.k}`).children[1].classList.toggle('hidden')}}  className={"cursor-pointer flex-1 font-Poppins text-sm"}>
+                        <ReactCountryFlag countryCode={this.languages[this.props.k]} svg style={{width: "1rem", marginRight:"1em", height: "auto"}} />
+                        {this.props.k} - {getEnglishName(this.props.k)}
+                    </span>
                     <div className={"flex items-center"}>
                         {
                             (this.state.name !== this.props.desc.name || this.state.description !== this.props.desc.description || this.state.audio) &&
