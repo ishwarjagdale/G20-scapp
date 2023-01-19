@@ -64,10 +64,10 @@ class BottomBar extends React.Component {
                     <UilEstate size={"24px"} />
                     <span className={"ml-4 font-[500]"}>Home</span>
                 </Link>
-                <button onClick={() => notify("Feature coming soon!", 'info')} className={`flex rounded-xl w-full p-4 items-center`}>
+                <Link onClick={this.props.toggleMenu} to={"/nearby"} className={`flex rounded-xl w-full p-4 items-center`}>
                     <UilLocationPoint size={"24px"} />
                     <span className={"ml-4 font-[500]"}>Nearby</span>
-                </button>
+                </Link>
                 <button onClick={this.props.toggleScanner} className={"flex rounded-xl w-full p-4 items-center rounded-xl"}>
                     <UilQrcodeScan size={"24px"} />
                     <span className={"ml-4 font-[500]"}>Scan QR code</span>

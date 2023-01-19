@@ -13,6 +13,7 @@ import Settings from "./view/admin/Settings";
 import NewLocation from "./view/admin/NewLocation";
 import SignIn from "./view/SignIn";
 import Monument from "./view/Monument";
+import Nearby from "./view/Nearby";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
             {
                 path: "/monument/:monument_id",
                 element: <Monument />
+            },
+            {
+                path: "/nearby",
+                element: <Nearby />
             }
         ]
     },

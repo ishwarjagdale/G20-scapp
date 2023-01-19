@@ -29,4 +29,16 @@ async function logIn(credentials) {
     return axios.post(`${api}/auth/login`, credentials);
 }
 
-export {getPopulars, getCategories, getCategory, getMonument, logIn, getMonuments, getLanguage};
+async function getNearby(coordinates) {
+    return axios.post(`${api}/api/nearby`, {
+            "longitude": coordinates.longitude,
+            "latitude": coordinates.latitude,
+            "accuracy": coordinates.accuracy
+    }, {
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+}
+
+export {getPopulars, getCategories, getCategory, getMonument, logIn, getMonuments, getLanguage, getNearby};
