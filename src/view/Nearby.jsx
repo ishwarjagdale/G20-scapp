@@ -20,7 +20,7 @@ class Nearby extends React.Component {
                 this.setState({permission: true})
                 navigator.geolocation.getCurrentPosition((res) => {
                     this.setState({coords: res.coords})
-                    getNearby(this.state.coords).then((res) => {
+                    getNearby(res.coords).then((res) => {
                         if(res.status === 200) {
                             this.setState({places: res.data.response, loaded: true});
                         }
