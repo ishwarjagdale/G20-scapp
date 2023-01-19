@@ -12,6 +12,7 @@ import QRCode from "react-qr-code";
 import withRouter from "../../components/withRouter";
 import Language from "../../components/Language";
 import ImagePagination from "../../components/imagePagination";
+import {notify} from "../../components/notifier";
 
 class NewLocation extends React.Component {
     constructor(props) {
@@ -52,10 +53,10 @@ class NewLocation extends React.Component {
     addLanguage() {
         let code = document.getElementById('languageCodeInput').value.toLowerCase();
         if(code === "") {
-            window.alert("Enter a valid language code")
+            notify("Enter a valid language code", 'info')
         }
         else if(!isValid(code)) {
-            window.alert('Invalid language code!');
+            notify('Invalid language code!', 'info');
         } else {
             if(this.state.descriptions.hasOwnProperty(code)) {
                 return
@@ -92,7 +93,6 @@ class NewLocation extends React.Component {
 
     submitForm(e) {
         e.preventDefault();
-        console.log(e);
         if(e.type === 'click') {
 
             if(this.state.id)
@@ -105,21 +105,17 @@ class NewLocation extends React.Component {
 
             this.setState({updating: true});
 
-
             newLocation(this.formData).then((res) => {
                 if(res.status === 200) {
-
                     this.formData = new FormData();
-
-                    console.log(res.data);
                     if(this.state.id)
-                        window.alert(res.data.message);
+                        notify(res.data.message, 'success');
                     else
                         window.location.href = `/admin/edit/${res.data.monument_id}`;
                 }
             }).catch((e) => {
                 console.log(e);
-                window.alert(e.response.data);
+                notify(e.response.data, 'failed');
             }).finally(() => {
                 this.setState({updating: false})
             })
@@ -134,7 +130,7 @@ class NewLocation extends React.Component {
                 }
             }).catch((err) => {
                 console.log(err);
-                alert(err.response.data.message);
+                notify(err.response.data.message, 'failed');
             })
         }
 
@@ -156,15 +152,15 @@ class NewLocation extends React.Component {
                                 if(this.state.id) {
                                     deleteImage(this.state.id, this.state.images[this.state.imageIndex]).then((res) => {
                                         if(res.status === 200) {
-                                            alert("image deleted")
+                                            notify("image deleted", 'success')
                                         }
-                                    }).catch((err) => {console.log(err); alert(err.response.data.message)})
+                                    }).catch((err) => {console.log(err); notify(err.response.data.message, 'failed')})
                                 }
                                 let images = this.state.images;
                                 images.splice(this.state.imageIndex, 1);
                                 this.formData.delete(`image-${this.state.imageIndex}`);
                                 this.setState({images: images, imageIndex: Math.min(this.state.imageIndex, images.length - 1)})
-                            }} className={"absolute right-6 p-2 top-2 bg-black hover:bg-slate-700"}><UilMultiply size={'16px'} color={"white"}/></button>}
+                            }} className={"absolute rounded-full right-6 p-2 top-2 bg-black hover:bg-slate-700"}><UilMultiply size={'16px'} color={"white"}/></button>}
                             <button onClick={() => document.getElementById('imageInput').click()} className={"w-full h-fit scale-98 rounded-2xl"}>
                                 <input id={'imageInput'} onChange={ (e) => {
                                     for(let file of e.target.files) {

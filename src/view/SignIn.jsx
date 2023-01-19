@@ -1,5 +1,6 @@
 import React from "react";
 import {logIn} from "../api/home";
+import {notify} from "../components/notifier";
 
 class SignIn extends React.Component {
     constructor(props) {
@@ -19,7 +20,7 @@ class SignIn extends React.Component {
             }
         }).catch((e) => {
             console.log(e);
-            window.alert(e.response.data.message);
+            notify(e.response.data.message, 'failed');
         })
     }
 

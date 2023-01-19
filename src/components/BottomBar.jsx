@@ -1,6 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import {UilBookmark, UilEstate, UilHistory, UilLocationPoint, UilQrcodeScan} from "@iconscout/react-unicons";
+import {notify} from "./notifier";
 
 class BottomBar extends React.Component {
     constructor(props) {
@@ -63,7 +64,7 @@ class BottomBar extends React.Component {
                     <UilEstate size={"24px"} />
                     <span className={"ml-4 font-[500]"}>Home</span>
                 </Link>
-                <button onClick={() => window.alert("Feature coming soon!")} className={`flex rounded-xl w-full p-4 items-center`}>
+                <button onClick={() => notify("Feature coming soon!", 'info')} className={`flex rounded-xl w-full p-4 items-center`}>
                     <UilLocationPoint size={"24px"} />
                     <span className={"ml-4 font-[500]"}>Nearby</span>
                 </button>

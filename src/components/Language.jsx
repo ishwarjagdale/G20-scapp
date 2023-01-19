@@ -2,6 +2,7 @@ import React from "react";
 import {getEnglishName} from "all-iso-language-codes";
 import {UilMultiply, UilSave, UilVolume} from "@iconscout/react-unicons";
 import {manageLanguage} from "../api/adminAPI";
+import {notify} from "./notifier";
 
 class Language extends React.Component {
     constructor(props) {
@@ -37,11 +38,11 @@ class Language extends React.Component {
             manageLanguage("POST", this.props.mon_id, this.formData).then((res) => {
                 if(res.status === 200) {
                     this.props.setLanguage({code: this.props.k, name: this.state.name, description: this.state.description, audio: this.state.audio})
-                    alert(res.data.message);
+                    notify(res.data.message, 'success');
                 }
             }).catch((err) => {
                 console.log(err)
-                alert(err.response.data.message)
+                notify(err.response.data.message, 'failed')
             })
         }
     }
@@ -53,15 +54,15 @@ class Language extends React.Component {
             }).then((res) => {
                 if(res.status === 200) {
                     this.props.removeLanguage(this.props.k);
-                    alert(res.data.message)
+                    notify(res.data.message, 'success');
                 }
             }).catch((err) => {
                 if(err.response.status === 404) {
                     this.props.removeLanguage(this.props.k);
-                    alert(this.props.k + " language removed")
+                    notify(this.props.k + " language removed", 'success');
                 } else {
                     console.log(err)
-                    alert(err.response.data.message)
+                    notify(err.response.data.message, 'failed')
                 }
             })
         }
@@ -71,16 +72,16 @@ class Language extends React.Component {
         return (
             <div id={`desc-${this.props.k}`} className={"w-full mb-6"}>
                 <div className={"flex rounded-md bg-[#e4e4e4] p-2 px-4 items-center justify-between"}>
-                    <span onClick={(e) => {document.getElementById(`desc-${this.props.k}`).children[1].classList.toggle('hidden')}}  className={"cursor-pointer font-Poppins text-sm"}>{this.props.k} - {getEnglishName(this.props.k)}</span>
+                    <span onClick={(e) => {document.getElementById(`desc-${this.props.k}`).children[1].classList.toggle('hidden')}}  className={"cursor-pointer flex-1 font-Poppins text-sm"}>{this.props.k} - {getEnglishName(this.props.k)}</span>
                     <div className={"flex items-center"}>
                         {
                             (this.state.name !== this.props.desc.name || this.state.description !== this.props.desc.description || this.state.audio) &&
-                            <button type={"submit"} onClick={this.saveLanguage} className={"p-2 mr-2"}><UilSave size={'18px'} /></button>
+                            <button type={"submit"} onClick={this.saveLanguage} className={"p-2 hover:bg-[#d3d3d3] rounded-full mr-2"}><UilSave size={'18px'} /></button>
                         }
-                        <button onClick={this.deleteLanguage} className={"p-2"}><UilMultiply size={'18px'} /></button>
+                        <button onClick={this.deleteLanguage} className={"p-2 hover:bg-[#d3d3d3] rounded-full"}><UilMultiply size={'18px'} /></button>
                     </div>
                 </div>
-                <div className={"flex flex-1 flex-col mt-6 px-2 md:px-4 font-Poppins text-sm md:text-md"}>
+                <div className={"flex hidden flex-1 flex-col mt-6 px-2 md:px-4 font-Poppins text-sm md:text-md"}>
 
                     <span className={"font-[500] pb-2"}>Name<span className={'text-red-500'}>*</span></span>
                     <input defaultValue={this.state.name} onChange={(e) => this.setState({name: e.target.value})} name={`name-${this.props.k}`} type={"text"} placeholder={`Name in ${getEnglishName(this.props.k)}`} className={"py-2 mb-6 w-full outline-none border-b focus-visible:border-black"} required={true}/>

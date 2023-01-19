@@ -3,6 +3,7 @@ import {deleteMonument, getAllMonuments} from "../../api/adminAPI";
 import FallbackImage from "./../../images/fallback.png"
 import {Link} from "react-router-dom";
 import {UilTrash} from "@iconscout/react-unicons";
+import {notify} from "../../components/notifier";
 
 class Dashboard extends React.Component {
     constructor(props) {
@@ -57,12 +58,13 @@ class Dashboard extends React.Component {
                                                             if(window.confirm("Are you sure?")) {
                                                                 deleteMonument(mon.id).then((res) => {
                                                                     if(res.status === 200) {
+                                                                        notify("Deleted Successfully", 'success');
                                                                         let list = this.state.monuments;
                                                                         list[cat] = list[cat].filter((m) => m.id !== mon.id)
                                                                         if(!list[cat].length) delete  list[cat];
                                                                         this.setState({monuments: list});
                                                                     }
-                                                                }).catch((err) => {window.alert(err.response.data.message)});
+                                                                }).catch((err) => {notify(err.response.data.message, 'failed')});
                                                             }
                                                         }} className={"p-2 rounded hover:text-red-500 text-slate-500"}><UilTrash size={'16px'} /></button>
                                                     </div>

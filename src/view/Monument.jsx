@@ -8,6 +8,7 @@ import {getLanguage, getMonument} from "../api/home";
 import {getEnglishName, getNativeName} from "all-iso-language-codes";
 import ImagePagination from "../components/imagePagination";
 import ReactCountryFlag from "react-country-flag";
+import {notify} from "../components/notifier";
 
 class Monument extends React.Component {
     constructor(props) {
@@ -61,7 +62,7 @@ class Monument extends React.Component {
                 console.log(this.state);
                 document.title = res.data.response.name
             }
-        }).then(this.autoRotate);
+        })
     }
 
     autoRotate(val=1, ms=5000, recur=true) {
@@ -72,6 +73,7 @@ class Monument extends React.Component {
     }
 
     componentDidMount() {
+        this.autoRotate();
         this.changeLanguage(this.state.currentLanguage)
     }
 
@@ -92,13 +94,13 @@ class Monument extends React.Component {
                         <span className={"font-[600] text-xl font-Poppins"}>{this.state.name}</span>
                         <div className={"flex items-center"}>
                             <button onClick={() => {
-                                navigator.clipboard.writeText(window.location.href + `monument/${this.state.id}`).then(r => alert('Link copied to clipboard'))
+                                navigator.clipboard.writeText(window.location.href + `monument/${this.state.id}`).then(r => notify('Link copied to clipboard', 'success'))
                             }} className={"p-2 mr-2"}><UilShareAlt size={'24px'} /></button>
                             <button onClick={() => {
                                 let bookmarks = JSON.parse(localStorage.getItem('saved')) || []
                                 bookmarks.indexOf(this.state.id) === -1 ? bookmarks.push(this.state.id) : bookmarks.splice(bookmarks.indexOf(this.state.id), 1);
                                 localStorage.setItem('saved', JSON.stringify(bookmarks))
-                                window.alert(bookmarks.indexOf(this.state.id) !== -1 ? `Saved for later!` : `Removed from saved!`);
+                                notify(bookmarks.indexOf(this.state.id) !== -1 ? `Saved for later!` : `Removed from saved!`, 'success');
                             }} className={"p-2"}><UilBookmark size={'24px'} /></button>
                         </div>
                     </div>
