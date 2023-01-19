@@ -4,9 +4,9 @@ import {
     UilEye,
     UilEyeSlash,
     UilMultiply,
-    UilPlusCircle, UilSpinner
+    UilSpinner
 } from "@iconscout/react-unicons";
-import {getEnglishName, isValid} from "all-iso-language-codes";
+import {getEnglishName} from "all-iso-language-codes";
 import {deleteImage, editMonument, newLocation} from "../../api/adminAPI";
 import QRCode from "react-qr-code";
 import withRouter from "../../components/withRouter";

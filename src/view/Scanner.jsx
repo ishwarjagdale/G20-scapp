@@ -47,6 +47,7 @@ class Scanner extends React.Component {
                             delay={500}
                             className={"scanner"}
                             showViewFinder={true}
+                            facingMode={"environment"}
                             onScan={this.onScan}
                             onError={(err) => { console.log(err) }}
                         />
