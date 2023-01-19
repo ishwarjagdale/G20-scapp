@@ -5,7 +5,7 @@ import {
 } from "@iconscout/react-unicons";
 import FallBackImage from "./../images/fallback.png";
 import {getLanguage, getMonument} from "../api/home";
-import {getNativeName} from "all-iso-language-codes";
+import {getEnglishName, getNativeName} from "all-iso-language-codes";
 import ImagePagination from "../components/imagePagination";
 import ReactCountryFlag from "react-country-flag";
 
@@ -38,7 +38,7 @@ class Monument extends React.Component {
             "it": "it",
             "ko": "kr",
             "ru": "ru",
-            "ae": "ae",
+            "ar": "ae",
             "af": "za",
             "zu": "za",
             "tr": "tr",
@@ -105,7 +105,7 @@ class Monument extends React.Component {
                     <div className={"w-full overflow-x-scroll whitespace-nowrap pt-2 pb-4"}>
                         {
                             Object.keys(this.languages).filter((v) => this.state.languages.includes(v)).map((code) =>
-                                <button onClick={() => this.changeLanguage(code)} key={code} className={`${this.state.currentLanguage === code ? 'bg-slate-900 text-white' : 'bg-[#e4e4e4]'} p-2 px-4 mr-2 text-sm inline-flex items-center rounded-md`}>
+                                <button title={getEnglishName(code)} onClick={() => this.changeLanguage(code)} key={code} className={`${this.state.currentLanguage === code ? 'bg-slate-900 text-white' : 'bg-[#e4e4e4]'} p-2 px-4 mr-2 text-sm inline-flex items-center rounded-md`}>
                                     <ReactCountryFlag countryCode={this.languages[code]} svg style={{width: "1rem", marginRight:"0.5em", height: "auto"}} />
                                     {
                                         getNativeName(code)
