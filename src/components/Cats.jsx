@@ -1,8 +1,9 @@
 import {useOutletContext} from "react-router-dom";
 import FallBackImage from "../images/fallback.png";
 import React from "react";
+import {calculateDistance} from "./constants";
 
-function Cats({p, length, i}) {
+function Cats({p, length, i, coords=null}) {
 
     const select = useOutletContext();
 
@@ -11,6 +12,13 @@ function Cats({p, length, i}) {
         <div className={"flex items-center justify-between font-Poppins text-sm my-2"}>
             <div className={"flex items-center"}>
                 <span className={"font-medium"}>{p.name}</span>
+                {
+                    coords &&
+                    <>
+                        <span className={"mx-2"}>-></span>
+                        <span className={"font-medium"}>{Math.round(calculateDistance(coords.latitude, coords.longitude, Number.parseFloat(p.lat), Number.parseFloat(p.long)))} km</span>
+                    </>
+                }
             </div>
         </div>
     </div>

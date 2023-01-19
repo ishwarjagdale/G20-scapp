@@ -10,7 +10,8 @@ class Nearby extends React.Component {
 
         this.state = {
             loaded: false,
-            permission: false
+            permission: false,
+            places: []
         };
     }
 
@@ -24,6 +25,9 @@ class Nearby extends React.Component {
                         if(res.status === 200) {
                             this.setState({places: res.data.response, loaded: true});
                         }
+                    }).catch(() => {
+                        this.setState({loaded: true})
+                        notify("Something went wrong!", "failed")
                     })
                 }, () => {}, {
                     enableHighAccuracy: true,
@@ -46,7 +50,7 @@ class Nearby extends React.Component {
                                 this.state.loaded ?
                                     this.state.places.length ?
                                         this.state.places.map((p, i) =>
-                                            <Cats key={p.id} p={p} i={i} length={this.state.places.length} />
+                                            <Cats coords={this.state.coords} key={p.id} p={p} i={i} length={this.state.places.length} />
                                         )
                                         :
                                         <span className={"text-sm block"}>{
