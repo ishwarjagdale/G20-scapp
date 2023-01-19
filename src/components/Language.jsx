@@ -56,8 +56,13 @@ class Language extends React.Component {
                     alert(res.data.message)
                 }
             }).catch((err) => {
-                console.log(err)
-                alert(err.response.data.message)
+                if(err.response.status === 404) {
+                    this.props.removeLanguage(this.props.k);
+                    alert(this.props.k + " language removed")
+                } else {
+                    console.log(err)
+                    alert(err.response.data.message)
+                }
             })
         }
     }

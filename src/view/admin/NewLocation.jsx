@@ -95,20 +95,33 @@ class NewLocation extends React.Component {
         console.log(e);
         if(e.type === 'click') {
 
+            if(this.state.id)
+                this.formData.append('id', this.state.id);
+
             this.formData.append('name', this.state.name)
             this.formData.append('coordinates', this.state.coordinates)
             this.formData.append('category', this.state.category)
             this.formData.append('public', this.state.public)
 
+            this.setState({updating: true});
+
 
             newLocation(this.formData).then((res) => {
                 if(res.status === 200) {
+
+                    this.formData = new FormData();
+
                     console.log(res.data);
-                    this.setState({id: res.data.monument_id});
+                    if(this.state.id)
+                        window.alert(res.data.message);
+                    else
+                        window.location.href = `/admin/edit/${res.data.monument_id}`;
                 }
             }).catch((e) => {
                 console.log(e);
                 window.alert(e.response.data);
+            }).finally(() => {
+                this.setState({updating: false})
             })
         }
     }
@@ -194,7 +207,16 @@ class NewLocation extends React.Component {
                                     <UilEyeSlash size={'16px'} />
                             }
                         </button>
-                        <button onClick={this.submitForm} type={"submit"} className={"w-full hover:bg-slate-700 p-3 px-8 bg-slate-900 text-white text-sm font-[500] font-Poppins rounded-xl"}>Save</button>
+                        <button id={"subBtn"} onClick={this.submitForm} type={"submit"} className={"w-full hover:bg-slate-700 p-3 px-8 bg-slate-900 text-white text-sm font-[500] font-Poppins rounded-xl"}>
+                            {
+                                this.state.updating ?
+                                    <div className={"flex flex-1 animate-spin items-center justify-center"}>
+                                        <UilSpinner size={'16px'} color={'white'} />
+                                    </div>
+                                    :
+                                    this.state.id ? "Update" : "Save"
+                            }
+                        </button>
                     </div>
                 </div>
                 {
