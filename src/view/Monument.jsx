@@ -34,7 +34,7 @@ class Monument extends React.Component {
             "pt": "pt",
             "fr": "fr",
             "zh": "cn",
-            "in": "id",
+            "id": "id",
             "it": "it",
             "ko": "kr",
             "ru": "ru",
