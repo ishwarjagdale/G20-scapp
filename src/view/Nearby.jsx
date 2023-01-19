@@ -18,7 +18,7 @@ class Nearby extends React.Component {
         navigator.permissions.query({name: "geolocation"}).then((res) => {
             if(res.state === "granted") {
                 this.setState({permission: true})
-                navigator.geolocation.watchPosition((res) => {
+                navigator.geolocation.getCurrentPosition((res) => {
                     this.setState({coords: res.coords})
                     getNearby(this.state.coords).then((res) => {
                         if(res.status === 200) {
