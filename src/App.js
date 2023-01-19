@@ -92,6 +92,16 @@ class App extends React.Component {
         this.setState({selected: false});
     }
 
+    componentDidMount() {
+
+        navigator.permissions.query({name: "geolocation"}).then((r) => {
+            if(r.state === "granted") {
+                console.log("Permission Granted");
+            }
+        })
+
+    }
+
     render() {
         return (
             <div className={"flex w-full h-full items-center justify-center"}>

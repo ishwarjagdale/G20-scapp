@@ -1,8 +1,9 @@
 import {UilMap, UilSpinner} from "@iconscout/react-unicons";
-import React from "react";
+import React, {useState} from "react";
 import FallBackImage from "../images/fallback.png";
 import {useOutletContext} from "react-router-dom";
 import {getCategories, getPopulars} from "../api/home";
+import {calculateDistance} from "../components/constants";
 
 
 function Categories({categories, context}) {
@@ -36,6 +37,16 @@ function Categories({categories, context}) {
 function Populars({popular, length, current, context}) {
 
     const select = useOutletContext() || context;
+    const [coordinates, setCoordinates] = useState(null);
+
+    navigator.geolocation.watchPosition((res) => {
+        if(res.coords.accuracy < 100)
+        setCoordinates(res.coords)
+    }, () => {}, {
+        enableHighAccuracy: true,
+        timeout: 10000
+    })
+
     if(popular)
     return <div className={"p-4 font-Poppins"}>
         <span className={"font-[600] text-md pb-4 block"}>Popular Places</span>
@@ -44,8 +55,13 @@ function Populars({popular, length, current, context}) {
             <div className={"flex items-center justify-between font-Poppins text-sm my-2"}>
                 <div className={"flex items-center"}>
                     <span className={"font-medium"}>{popular.name}</span>
-                    {/*<span className={"mx-2"}>-></span>*/}
-                    {/*<span className={"font-medium"}>2 km</span>*/}
+                    {
+                        coordinates &&
+                        <>
+                            <span className={"mx-2"}>-></span>
+                            <span className={"font-medium"}>{Math.round(calculateDistance(coordinates.latitude, coordinates.longitude, Number.parseFloat(popular.lat), Number.parseFloat(popular.long)))} km</span>
+                        </>
+                    }
                 </div>
                 <div className={"flex items-center"}>
                     {
