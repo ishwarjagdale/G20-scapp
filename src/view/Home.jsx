@@ -83,7 +83,7 @@ function QRInfo({toggle, visible}) {
     const context = useOutletContext();
     const handleToggle = context?.length === 2 ? context[1] : toggle
 
-    return <div onClick={handleToggle} className={`${visible === 1 ? 'flex' : 'hidden'} cursor-pointer justify-between items-center border font-Poppins p-6 rounded-xl drop-shadow-sm m-2 mx-4`}>
+    return <div onClick={handleToggle} className={`${visible === 1 ? 'flex' : 'hidden'} cursor-pointer bg-slate-900 text-white justify-between items-center border font-Poppins p-6 rounded-xl drop-shadow-sm m-2 mx-4`}>
         <div className={"flex flex-col"}>
             <span className={"text-md font-[500] whitespace-pre-wrap"}>Scan QR to listen the glorious</span>
             <span className={"text-md font-[500] whitespace-pre-wrap"}>history of monuments</span>
