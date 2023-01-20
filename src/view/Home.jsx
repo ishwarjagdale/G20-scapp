@@ -1,4 +1,4 @@
-import {UilMap, UilSpinner} from "@iconscout/react-unicons";
+import {UilArchway, UilMap, UilQrcodeScan, UilSpinner} from "@iconscout/react-unicons";
 import React, {useState} from "react";
 import FallBackImage from "../images/fallback.png";
 import {useOutletContext} from "react-router-dom";
@@ -87,9 +87,18 @@ class Home extends React.Component {
             categories: {},
             popsLoaded: false,
             catsLoaded: false,
+            page: 0
         }
 
         this.autoRotate = this.autoRotate.bind(this);
+        this.handlePage = this.handlePage.bind(this);
+    }
+
+    handlePage() {
+        setTimeout(() => {
+            this.setState({page: this.state.page === 0 ? 1 : 0});
+            this.handlePage();
+        }, 3000)
     }
 
     autoRotate() {
@@ -100,6 +109,7 @@ class Home extends React.Component {
     }
 
     componentDidMount() {
+        this.handlePage();
         getPopulars().then((res) => {
             if(res.status === 200) {
                 this.setState({populars: res.data.response, popsLoaded: true})
@@ -117,12 +127,28 @@ class Home extends React.Component {
     render() {
         return (
             <div className={"h-fit overflow-y-scroll pb-20"}>
-                <div className={"flex justify-between font-Poppins p-6 text-white bg-slate-900 rounded-xl drop-shadow m-2 mx-4"}>
+                <div className={`${this.state.page === 0 ? 'flex' : 'hidden'} justify-between font-Poppins p-6 text-white bg-slate-900 rounded-xl drop-shadow m-2 mx-4`}>
                     <div className={"flex flex-col"}>
                         <span className={"text-xl font-normal"}>Welcome to</span>
                         <span className={"text-2xl font-bold"}>Aurangabad!</span>
                     </div>
                     <UilMap/>
+                </div>
+
+                <div className={`${this.state.page === 1 ? 'flex' : 'hidden'} justify-between items-center font-Poppins p-6 text-white bg-[#1f1f1f] rounded-xl drop-shadow m-2 mx-4`}>
+                    <div className={"flex flex-col"}>
+                        <span className={"text-md font-[500] whitespace-pre-wrap"}>Scan QR to know the glorious</span>
+                        <span className={"text-md font-[500] whitespace-pre-wrap"}>history in every language</span>
+                        {/*<span className={"text-2xl font-bold"}>Aurangabad!</span>*/}
+                    </div>
+                    <div className={"p-2"}>
+                        <UilArchway size={'42px'}/>
+                        <div className={"absolute  -top-2 -right-2 p-6"}>
+                            <div className={"p-2 rounded-full bg-black"}>
+                                <UilQrcodeScan/>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 {
                     this.state.popsLoaded ?
