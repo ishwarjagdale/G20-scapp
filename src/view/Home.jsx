@@ -79,14 +79,14 @@ function Populars({popular, length, current, context}) {
         </div>
     </div>
 }
-function QRInfo({toggle}) {
+function QRInfo({toggle, visible}) {
     const context = useOutletContext();
     const handleToggle = context?.length === 2 ? context[1] : toggle
 
-    return <div onClick={handleToggle} className={`flex cursor-pointer justify-between items-center border font-Poppins p-6 rounded-xl drop-shadow-sm m-2 mx-4`}>
+    return <div onClick={handleToggle} className={`${visible === 1 ? 'flex' : 'hidden'} cursor-pointer justify-between items-center border font-Poppins p-6 rounded-xl drop-shadow-sm m-2 mx-4`}>
         <div className={"flex flex-col"}>
             <span className={"text-md font-[500] whitespace-pre-wrap"}>Scan QR to listen the glorious</span>
-            <span className={"text-md font-[500] whitespace-pre-wrap"}>history in your language</span>
+            <span className={"text-md font-[500] whitespace-pre-wrap"}>history of monuments</span>
         </div>
         <div className={"p-2"}>
             <UilArchway size={'42px'}/>
@@ -149,14 +149,14 @@ class Home extends React.Component {
     render() {
         return (
             <div className={"h-fit overflow-y-scroll pb-20"}>
-                <div className={`flex justify-between font-Poppins p-6 text-white bg-slate-900 rounded-xl drop-shadow m-2 mx-4`}>
+                <div className={`${this.state.page === 0 ? 'flex' : 'hidden'} justify-between font-Poppins p-6 text-white bg-slate-900 rounded-xl drop-shadow m-2 mx-4`}>
                     <div className={"flex flex-col"}>
                         <span className={"text-xl font-normal"}>Welcome to</span>
                         <span className={"text-2xl font-bold"}>Aurangabad!</span>
                     </div>
                     <UilMap/>
                 </div>
-                <QRInfo toggle={this.props.toggleScanner} />
+                <QRInfo toggle={this.props.toggleScanner} visible={this.state.page} />
                 {
                     this.state.popsLoaded ?
                         <Populars context={this.props.context} popular={this.state.populars[this.state.current]} length={this.state.populars.length} current={this.state.current} />
