@@ -34,11 +34,8 @@ class Scanner extends React.Component {
     }
 
     componentDidMount() {
-        if(window.history && window.history.pushState) {
-            window.history.pushState('forward', null, "/#scanner")
-            window.onpopstate = () => {
-                window.history.back();
-            }
+        window.onbeforeunload = () => {
+            window.location.reload();
         }
     }
 
