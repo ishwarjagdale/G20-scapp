@@ -48,6 +48,15 @@ class Monument extends React.Component {
     }
 
     componentDidMount() {
+        if (window.history && window.history.pushState) {
+
+            window.history.pushState('forward', null, `/monument/${this.props.data}`);
+
+            window.onpopstate = function() {
+                window.location.replace('/');
+            };
+
+        }
         this.autoRotate();
         this.changeLanguage(this.state.currentLanguage)
     }

@@ -1,5 +1,5 @@
 import React from "react";
-import {Outlet} from "react-router-dom";
+import {Link, Outlet, useNavigation} from "react-router-dom";
 import SearchView from "./view/SearchView";
 import LanguagesView from "./view/LanguagesView";
 import Scanner from "./view/Scanner";
@@ -93,7 +93,6 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-
         navigator.permissions.query({name: "geolocation"}).then((r) => {
             if(r.state === "granted") {
                 console.log("Permission Granted");
