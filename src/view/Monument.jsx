@@ -78,7 +78,7 @@ class Monument extends React.Component {
                         <span className={"font-[600] text-xl font-Poppins"}>{this.state.name}</span>
                         <div className={"flex items-center"}>
                             <button onClick={() => {
-                                navigator.clipboard.writeText(window.location.href + `monument/${this.state.id}`).then(r => notify('Link copied to clipboard', 'success'))
+                                navigator.clipboard.writeText(window.location.protocol + "//" + window.location.host + `/monument/${this.state.id}`).then(r => notify('Link copied to clipboard', 'success'))
                             }} className={"p-2 mr-2"}><UilShareAlt size={'24px'} /></button>
                             <button onClick={() => {
                                 let bookmarks = JSON.parse(localStorage.getItem('saved')) || []

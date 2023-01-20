@@ -5,7 +5,8 @@ import {calculateDistance} from "./constants";
 
 function Cats({p, length, i, coords=null}) {
 
-    const select = useOutletContext();
+    const con = useOutletContext();
+    const select = con[0]
 
     return <div onClick={() => select(p.id)} className={`cursor-pointer ${length - 1 !== i ? 'pb-2' : ''}`}>
         <img src={p.images[0] || FallBackImage} alt={p.name} className={"w-full flex-1 h-[150px] border rounded-xl object-cover"} onError={(e) => e.target.src = FallBackImage} />

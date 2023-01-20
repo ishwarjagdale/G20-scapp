@@ -7,7 +7,8 @@ import {calculateDistance} from "../components/constants";
 
 
 function Categories({categories, context}) {
-    const select = useOutletContext() || context;
+    const con = useOutletContext();
+    const select = con ? con[0] : context
 
     return Object.keys(categories).map((k) => {
         return <div key={k} className={"p-4 font-Poppins"}>
@@ -36,7 +37,9 @@ function Categories({categories, context}) {
 }
 function Populars({popular, length, current, context}) {
 
-    const select = useOutletContext() || context;
+    const con = useOutletContext();
+    const select = con ? con[0] : context
+
     const [coordinates, setCoordinates] = useState(null);
 
     navigator.geolocation.watchPosition((res) => {
@@ -71,6 +74,25 @@ function Populars({popular, length, current, context}) {
                                 return <span key={i.toString()} className={"dot ml-1"} />
                         })]
                     }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+function QRInfo({toggle}) {
+    const context = useOutletContext();
+    const handleToggle = context?.length === 2 ? context[1] : toggle
+
+    return <div onClick={handleToggle} className={`flex cursor-pointer justify-between items-center border font-Poppins p-6 rounded-xl drop-shadow-sm m-2 mx-4`}>
+        <div className={"flex flex-col"}>
+            <span className={"text-md font-[500] whitespace-pre-wrap"}>Scan QR to listen the glorious</span>
+            <span className={"text-md font-[500] whitespace-pre-wrap"}>history in your language</span>
+        </div>
+        <div className={"p-2"}>
+            <UilArchway size={'42px'}/>
+            <div className={"absolute  -top-2 -right-2 p-6"}>
+                <div className={"p-2 text-white rounded-full bg-black"}>
+                    <UilQrcodeScan size={'16px'}/>
                 </div>
             </div>
         </div>
@@ -127,29 +149,14 @@ class Home extends React.Component {
     render() {
         return (
             <div className={"h-fit overflow-y-scroll pb-20"}>
-                <div className={`${this.state.page === 0 ? 'flex' : 'hidden'} justify-between font-Poppins p-6 text-white bg-slate-900 rounded-xl drop-shadow m-2 mx-4`}>
+                <div className={`flex justify-between font-Poppins p-6 text-white bg-slate-900 rounded-xl drop-shadow m-2 mx-4`}>
                     <div className={"flex flex-col"}>
                         <span className={"text-xl font-normal"}>Welcome to</span>
                         <span className={"text-2xl font-bold"}>Aurangabad!</span>
                     </div>
                     <UilMap/>
                 </div>
-
-                <div className={`${this.state.page === 1 ? 'flex' : 'hidden'} justify-between items-center font-Poppins p-6 text-white bg-[#1f1f1f] rounded-xl drop-shadow m-2 mx-4`}>
-                    <div className={"flex flex-col"}>
-                        <span className={"text-md font-[500] whitespace-pre-wrap"}>Scan QR to know the glorious</span>
-                        <span className={"text-md font-[500] whitespace-pre-wrap"}>history in every language</span>
-                        {/*<span className={"text-2xl font-bold"}>Aurangabad!</span>*/}
-                    </div>
-                    <div className={"p-2"}>
-                        <UilArchway size={'42px'}/>
-                        <div className={"absolute  -top-2 -right-2 p-6"}>
-                            <div className={"p-2 rounded-full bg-black"}>
-                                <UilQrcodeScan/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <QRInfo toggle={this.props.toggleScanner} />
                 {
                     this.state.popsLoaded ?
                         <Populars context={this.props.context} popular={this.state.populars[this.state.current]} length={this.state.populars.length} current={this.state.current} />
