@@ -100,7 +100,7 @@ class Monument extends React.Component {
                             )
                         }
                     </div>
-                    <p className={"pb-4 text-justify font-Merriweather text-sm leading-7"}>
+                    <p className={"pb-28 text-justify font-Merriweather text-sm leading-7"}>
                         {this.state.description}
                     </p>
                 </div>
