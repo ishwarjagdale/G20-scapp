@@ -22,6 +22,7 @@ class Scanner extends React.Component {
         if(r.data.length !== 0)
         getMonument(r.data, true).then((res) => {
             if(res.status === 200) {
+                this.addToVisited(res.data.response.id);
                 window.location.href = `/monument/${res.data.response.id}`
             }
         })
