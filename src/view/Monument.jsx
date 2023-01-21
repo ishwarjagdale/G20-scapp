@@ -57,7 +57,7 @@ class Monument extends React.Component {
             document.getElementById('audio').play()
             :
             document.getElementById('audio').pause()
-        this.setState({play: !this.state.play})
+        this.setState({play: !document.getElementById('audio').paused})
 
     }
 
