@@ -117,15 +117,15 @@ class Monument extends React.Component {
                             )
                         }
                     </div>
-                    <p className={"pb-28 text-justify break-words font-Merriweather text-sm leading-7"}>
+                    {
+                        this.state.audio &&
+                        <audio id={"audio"} src={this.state.audio} playsInline={true} controls={true} className={"pb-4 w-full"}
+                        />
+                    }
+                    <p className={"pb-4 text-justify break-words font-Merriweather text-sm leading-7"}>
                         {this.state.description}
                     </p>
                 </div>
-                {
-                    this.state.audio &&
-                    <audio id={"audio"} src={this.state.audio} playsInline={true} controls={true} className={"absolute bottom-10 center"}
-                    />
-                }
             </div>
         </div>
 

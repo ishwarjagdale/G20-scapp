@@ -139,7 +139,7 @@ class Home extends React.Component {
     render() {
         return (
             <div className={"h-fit overflow-y-scroll pb-20"}>
-                <div className={`flex justify-between font-Poppins p-6 text-white bg-slate-900 rounded-xl drop-shadow m-2 mx-4`}>
+                <div className={`flex justify-between font-Poppins p-6 text-white bg-[#1f1f1f] rounded-xl drop-shadow m-2 mx-4`}>
                     <div className={"flex flex-col"}>
                         <marquee className={"text-xl flex font-normal"}>
                             Welcome to Aurangabad!
