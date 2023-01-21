@@ -3,6 +3,7 @@ import {
     UilBookmark,
     UilMultiply, UilShareAlt, UilSpinner
 } from "@iconscout/react-unicons";
+import { UisBookmark } from '@iconscout/react-unicons-solid'
 import FallBackImage from "./../images/fallback.png";
 import {getLanguage, getMonument} from "../api/home";
 import {getEnglishName, getNativeName} from "all-iso-language-codes";
@@ -33,7 +34,7 @@ class Monument extends React.Component {
     changeLanguage(code) {
         getMonument(this.props.data, true, code).then((res) => {
             if(res.status === 200) {
-                this.setState({...res.data.response, currentLanguage: code});
+                this.setState({...res.data.response, currentLanguage: code, saved: (JSON.parse(localStorage.getItem('saved')) || []).indexOf(this.state.id) !== -1});
                 console.log(this.state);
                 document.title = res.data.response.name
             }
@@ -85,7 +86,17 @@ class Monument extends React.Component {
                                 bookmarks.indexOf(this.state.id) === -1 ? bookmarks.push(this.state.id) : bookmarks.splice(bookmarks.indexOf(this.state.id), 1);
                                 localStorage.setItem('saved', JSON.stringify(bookmarks))
                                 notify(bookmarks.indexOf(this.state.id) !== -1 ? `Saved for later!` : `Removed from saved!`, 'success');
-                            }} className={"p-2"}><UilBookmark size={'24px'} /></button>
+                                this.setState({saved: !this.state.saved})
+                            }} className={"p-2"}>
+
+                                {
+                                    this.state.saved ?
+                                        <UisBookmark size={'24px'} />
+                                        :
+                                        <UilBookmark size={'24px'}  />
+                                }
+
+                            </button>
                         </div>
                     </div>
                     <div className={"w-full overflow-x-scroll whitespace-nowrap pt-2 pb-4"}>
