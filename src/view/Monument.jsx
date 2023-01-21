@@ -140,7 +140,7 @@ class Monument extends React.Component {
                                 }
                             </button>
                             <input onChange={(e) => document.getElementById('audio').currentTime = e.target.value} id={'seeker'} type={'range'} min={0} max={document.getElementById('audio')?.duration} value={this.state.timestamp || 0} className={"mx-4 flex-1"} />
-                            <span className={"text-xs font-Poppins"}>{Math.floor(this.state.timestamp / 60 || 0)}:{Math.floor(this.state.timestamp % 60 || 0)} / {Math.floor(document.getElementById('audio')?.duration / 60 || 0)}:{Math.floor(document.getElementById('audio')?.duration % 60 || 0)}</span>
+                            <span className={"text-xs font-Poppins"}>{Math.floor(this.state.timestamp / 60 || 0)}:{Math.floor(this.state.timestamp % 60 || 0).toString().padStart(2, '0')} / {Math.floor(document.getElementById('audio')?.duration / 60 || 0)}:{Math.floor(document.getElementById('audio')?.duration % 60 || 0).toString().padStart(2, '0')}</span>
                         </div>
                     }
                     <p className={"pb-4 text-justify break-words font-Merriweather text-sm leading-7"}>
