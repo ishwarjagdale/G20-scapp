@@ -95,7 +95,13 @@ class Monument extends React.Component {
                         <span className={"font-[600] text-xl font-Poppins"}>{this.state.name}</span>
                         <div className={"flex items-center"}>
                             <button onClick={() => {
-                                navigator.clipboard.writeText(window.location.protocol + "//" + window.location.host + `/monument/${this.state.id}`).then(r => notify('Link copied to clipboard', 'success'))
+                                if(navigator.share)
+                                    navigator.share({
+                                        title: this.state.name,
+                                        text: this.state.description.slice(0, 250),
+                                        url: `${process.env.REACT_APP_API_URL}/share/${this.state.id}`
+                                    }).then(() => this.setState({current: -1}))
+                                else navigator.clipboard.writeText(`${process.env.REACT_APP_API_URL}/share/${this.state.id}`).then(() => notify("Link Copied to Clipboard", 'success'))
                             }} className={"p-2 mr-2"}><UilShareAlt size={'24px'} /></button>
                             <button onClick={() => {
                                 let bookmarks = JSON.parse(localStorage.getItem('saved')) || []
@@ -129,7 +135,7 @@ class Monument extends React.Component {
                     </div>
                     {
                         this.state.audio &&
-                        <div className={"mt-2 text-white p-4 px-6 rounded-full bg-slate-900 items-center flex mb-4 w-full"}>
+                        <div className={"mt-2 text-white p-4 px-6 rounded-full bg-[#1f1f1f] items-center flex mb-4 w-full"}>
                             <audio onEnded={(e) => this.setState({play: false, timestamp: 0})} onTimeUpdate={(e) => this.setState({timestamp: e.target.currentTime})} autoPlay={this.state.play} id={'audio'} src={this.state.audio} />
                             <button onClick={this.toggleAudio} className={"hover:bg-slate-900"}>
                                 {

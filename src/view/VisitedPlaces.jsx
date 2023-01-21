@@ -1,7 +1,8 @@
 import React from "react";
-import {UilFacebookF, UilInstagram, UilSpinner, UilTwitter} from "@iconscout/react-unicons";
+import {UilFacebookF, UilInstagram, UilShare, UilShareAlt, UilSpinner, UilTwitter} from "@iconscout/react-unicons";
 import FallBackImage from "../images/fallback.png";
 import {getMonuments} from "../api/home";
+import {notify} from "../components/notifier";
 
 class VisitedPlaces extends React.Component {
     constructor(props) {
@@ -11,7 +12,8 @@ class VisitedPlaces extends React.Component {
             current: 0,
             visitedIDS: JSON.parse(localStorage.getItem('visited')) || [],
             places: [],
-            loaded: false
+            loaded: false,
+            share: {}
         }
 
         this.revealShare = this.revealShare.bind(this);
@@ -45,18 +47,22 @@ class VisitedPlaces extends React.Component {
                                                 <span className={"font-medium"}>{p.name}</span>
                                                 {
                                                     this.state.current === i && <>
-                                                        <textarea maxLength={500} className={"w-full h-[100px] border rounded p-2 mt-4 mb-2"} placeholder={"Write your experience and share it!"} />
-                                                        <div className={"flex share-buttons text-gray-700 p-2 items-center justify-center"}>
-                                                            <button className={"flex items-center p-2 mx-2 rounded-2xl"}>
-                                                                <UilFacebookF size={18}/>
-                                                            </button>
-                                                            <button className={"flex items-center p-2 mx-2 rounded-2xl"}>
-                                                                <UilTwitter size={18}/>
-                                                            </button>
-                                                            <button className={"flex items-center p-2 mx-2 rounded-2xl"}>
-                                                                <UilInstagram size={18}/>
-                                                            </button>
-                                                        </div>
+                                                        <textarea onChange={(e) => {
+                                                            let shares = this.state.share;
+                                                            shares[p.id] = e.target.value
+                                                            this.setState({share: shares})
+                                                        }} maxLength={500} className={"w-full h-[100px] border rounded p-2 mt-4 mb-2"} placeholder={"Write your experience and share it!"} />
+                                                        <button onClick={() => {
+                                                            if(navigator.share)
+                                                            navigator.share({
+                                                                title: p.name,
+                                                                text: p.description,
+                                                                url: `${process.env.REACT_APP_API_URL}/share/${p.id}`
+                                                            }).then(() => this.setState({current: -1}))
+                                                            else navigator.clipboard.writeText(`${process.env.REACT_APP_API_URL}/share/${p.id}`).then(() => notify("Link Copied to Clipboard", 'success'))
+                                                        }} className={"flex text-white bg-[#1f1f1f] p-2 text-sm items-center justify-center rounded-2xl"}>
+                                                            <span className={"mr-2"}>Share</span><UilShare size={'16px'} />
+                                                        </button>
                                                     </>
                                                 }
                                             </div>
