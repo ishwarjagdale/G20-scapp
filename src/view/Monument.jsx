@@ -68,7 +68,10 @@ class Monument extends React.Component {
             <div className={"flex border-b z-10 items-center justify-between w-full p-6"}>
                 <div className={"font-Poppins w-full flex justify-between md:justify-end items-center"}>
                     <span onClick={() => window.location.href = "/"} className={"md:hidden cursor-pointer font-Poppins whitespace-nowrap font-bold text-lg"}>LOGO</span>
-                    <button onClick={this.props.close} className={"rounded-full bg-white p-2"}><UilMultiply size={'24px'}/></button>
+                    <button onClick={() => {
+                        window.location.replace("/")
+                        this.props.close();
+                    }} className={"rounded-full bg-white p-2"}><UilMultiply size={'24px'}/></button>
                 </div>
             </div>
             <div className={"flex flex-col w-full items-center h-full overflow-y-scroll md:pt-2"}>
