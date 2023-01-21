@@ -143,16 +143,16 @@ class Home extends React.Component {
                     <div className={"flex flex-col w-10/12"}>
                         <marquee className={"text-xl flex font-normal"}>
                             Welcome to Aurangabad!
-                            <div className={"px-4 inline-block"} />
-                            オーランガバードへようこそ
+                            {/*<div className={"px-4 inline-block"} />*/}
+                            {/*オーランガバードへようこそ*/}
                             <div className={"px-4 inline-block"} />
                             औरंगाबाद में आपका स्वागत है
-                            <div className={"px-4 inline-block"} />
-                            அவுரங்காபாத் வரவேற்கிறோம்
+                            {/*<div className={"px-4 inline-block"} />*/}
+                            {/*அவுரங்காபாத் வரவேற்கிறோம்*/}
                             <div className={"px-4 inline-block"} />
                             औरंगाबादमध्ये आपले स्वागत आहे
-                            <div className={"px-4 inline-block"} />
-                            Willkommen in Aurangabad
+                            {/*<div className={"px-4 inline-block"} />*/}
+                            {/*Willkommen in Aurangabad*/}
                         </marquee>
                     </div>
                     <UilMap size={'24px'}/>
