@@ -4,6 +4,7 @@ import FallBackImage from "../images/fallback.png";
 import {useOutletContext} from "react-router-dom";
 import {getCategories, getPopulars} from "../api/home";
 import {calculateDistance} from "../components/constants";
+import QRImage from "../images/zz.jpg";
 
 
 function Categories({categories, context}) {
@@ -83,19 +84,8 @@ function QRInfo({toggle, visible}) {
     const context = useOutletContext();
     const handleToggle = context?.length === 2 ? context[1] : toggle
 
-    return <div onClick={handleToggle} className={`${visible === 1 ? 'flex' : 'hidden'} cursor-pointer bg-slate-900 text-white justify-between items-center border font-Poppins p-6 rounded-xl drop-shadow-sm m-2 mx-4`}>
-        <div className={"flex flex-col"}>
-            <span className={"text-md font-[500] whitespace-pre-wrap"}>Scan QR to listen the glorious</span>
-            <span className={"text-md font-[500] whitespace-pre-wrap"}>history of monuments</span>
-        </div>
-        <div className={"p-2"}>
-            <UilArchway size={'42px'}/>
-            <div className={"absolute  -top-2 -right-2 p-6"}>
-                <div className={"p-2 text-white rounded-full bg-black"}>
-                    <UilQrcodeScan size={'16px'}/>
-                </div>
-            </div>
-        </div>
+    return <div onClick={handleToggle} className={`${visible === 1 ? 'flex' : 'hidden'} cursor-pointer h-[150px] bg-slate-900 text-white justify-between items-center border font-Poppins rounded-xl drop-shadow-sm m-2 mx-4`}>
+        <img src={QRImage} className={"w-full rounded-xl object-cover h-full"} />
     </div>
 }
 
@@ -131,7 +121,7 @@ class Home extends React.Component {
     }
 
     componentDidMount() {
-        this.handlePage();
+        // this.handlePage();
         getPopulars().then((res) => {
             if(res.status === 200) {
                 this.setState({populars: res.data.response, popsLoaded: true})
@@ -149,14 +139,14 @@ class Home extends React.Component {
     render() {
         return (
             <div className={"h-fit overflow-y-scroll pb-20"}>
-                <div className={`${this.state.page === 0 ? 'flex' : 'hidden'} justify-between font-Poppins p-6 text-white bg-slate-900 rounded-xl drop-shadow m-2 mx-4`}>
+                <div className={`flex justify-between font-Poppins p-6 text-white bg-slate-900 rounded-xl drop-shadow m-2 mx-4`}>
                     <div className={"flex flex-col"}>
                         <span className={"text-xl font-normal"}>Welcome to</span>
                         <span className={"text-2xl font-bold"}>Aurangabad!</span>
                     </div>
                     <UilMap/>
                 </div>
-                <QRInfo toggle={this.props.toggleScanner} visible={this.state.page} />
+                <QRInfo toggle={this.props.toggleScanner} visible={1} />
                 {
                     this.state.popsLoaded ?
                         <Populars context={this.props.context} popular={this.state.populars[this.state.current]} length={this.state.populars.length} current={this.state.current} />
