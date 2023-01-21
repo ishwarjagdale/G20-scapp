@@ -19,7 +19,8 @@ class Monument extends React.Component {
         this.state = {
             imageIndex: 0,
             currentLanguage: getLanguage(),
-            saved: (JSON.parse(localStorage.getItem('saved')) || []).indexOf(this.props.data) !== -1
+            saved: (JSON.parse(localStorage.getItem('saved')) || []).indexOf(this.props.data) !== -1,
+            previous: window.location.href
         };
         this.autoRotate = this.autoRotate.bind(this);
         this.changeLanguage = this.changeLanguage.bind(this);
@@ -55,7 +56,7 @@ class Monument extends React.Component {
             window.history.pushState('forward', null, `/monument/${this.props.data}`);
 
             window.onpopstate = function() {
-                window.location.replace('/');
+                window.location.replace(this.state.previous);
             };
 
         }
@@ -70,7 +71,7 @@ class Monument extends React.Component {
                 <div className={"font-Poppins w-full flex justify-between md:justify-end items-center"}>
                     <span onClick={() => window.location.href = "/"} className={"md:hidden cursor-pointer font-Poppins whitespace-nowrap font-bold text-lg"}>LOGO</span>
                     <button onClick={() => {
-                        window.location.replace("/")
+                        window.history.pushState('forward', null, this.state.previous);
                         this.props.close();
                     }} className={"rounded-full bg-white p-2"}><UilMultiply size={'24px'}/></button>
                 </div>
