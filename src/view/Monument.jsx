@@ -18,7 +18,8 @@ class Monument extends React.Component {
 
         this.state = {
             imageIndex: 0,
-            currentLanguage: getLanguage()
+            currentLanguage: getLanguage(),
+            saved: (JSON.parse(localStorage.getItem('saved')) || []).indexOf(this.props.data) !== -1
         };
         this.autoRotate = this.autoRotate.bind(this);
         this.changeLanguage = this.changeLanguage.bind(this);
@@ -34,7 +35,7 @@ class Monument extends React.Component {
     changeLanguage(code) {
         getMonument(this.props.data, true, code).then((res) => {
             if(res.status === 200) {
-                this.setState({...res.data.response, currentLanguage: code, saved: (JSON.parse(localStorage.getItem('saved')) || []).indexOf(this.state.id) !== -1});
+                this.setState({...res.data.response, currentLanguage: code});
                 console.log(this.state);
                 document.title = res.data.response.name
             }
@@ -89,7 +90,7 @@ class Monument extends React.Component {
                                 bookmarks.indexOf(this.state.id) === -1 ? bookmarks.push(this.state.id) : bookmarks.splice(bookmarks.indexOf(this.state.id), 1);
                                 localStorage.setItem('saved', JSON.stringify(bookmarks))
                                 notify(bookmarks.indexOf(this.state.id) !== -1 ? `Saved for later!` : `Removed from saved!`, 'success');
-                                this.setState({saved: !this.state.saved})
+                                this.setState({saved: bookmarks.indexOf(this.state.id) !== -1})
                             }} className={"p-2"}>
 
                                 {
