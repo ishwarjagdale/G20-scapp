@@ -1,7 +1,7 @@
 import React from "react";
 import {
     UilBookmark,
-    UilMultiply, UilShareAlt, UilSpinner
+    UilMultiply, UilPause, UilPauseCircle, UilPhonePause, UilPlay, UilPlayCircle, UilShareAlt, UilSpinner
 } from "@iconscout/react-unicons";
 import { UisBookmark } from '@iconscout/react-unicons-solid'
 import FallBackImage from "./../images/fallback.png";
@@ -20,13 +20,16 @@ class Monument extends React.Component {
             imageIndex: 0,
             currentLanguage: getLanguage(),
             saved: (JSON.parse(localStorage.getItem('saved')) || []).indexOf(this.props.data) !== -1,
-            previous: window.location.href
+            previous: window.location.href,
+            play: true
         };
         this.autoRotate = this.autoRotate.bind(this);
         this.changeLanguage = this.changeLanguage.bind(this);
         this.handleIndex = this.handleIndex.bind(this);
 
         this.languages = languages
+
+        this.toggleAudio = this.toggleAudio.bind(this);
     }
 
     handleIndex(index) {
@@ -37,7 +40,6 @@ class Monument extends React.Component {
         getMonument(this.props.data, true, code).then((res) => {
             if(res.status === 200) {
                 this.setState({...res.data.response, currentLanguage: code});
-                console.log(this.state);
                 document.title = res.data.response.name
             }
         })
@@ -50,8 +52,16 @@ class Monument extends React.Component {
         }, ms)
     }
 
+    toggleAudio() {
+        document.getElementById('audio').paused ?
+            document.getElementById('audio').play()
+            :
+            document.getElementById('audio').pause()
+        this.setState({play: !this.state.play})
+
+    }
+
     componentDidMount() {
-        console.log(this.state.previous)
         if (window.history && window.history.pushState) {
 
             window.history.pushState('forward', null, `/monument/${this.props.data}`);
@@ -119,8 +129,19 @@ class Monument extends React.Component {
                     </div>
                     {
                         this.state.audio &&
-                        <audio id={"audio"} src={this.state.audio} playsInline={true} controls={true} className={"mt-2 mb-4 w-full"}
-                        />
+                        <div className={"mt-2 text-white p-4 px-6 rounded-full bg-slate-900 items-center flex mb-4 w-full"}>
+                            <audio onEnded={(e) => this.setState({play: false, timestamp: 0})} onTimeUpdate={(e) => this.setState({timestamp: e.target.currentTime})} autoPlay={this.state.play} id={'audio'} src={this.state.audio} />
+                            <button onClick={this.toggleAudio} className={"hover:bg-slate-900"}>
+                                {
+                                    !this.state.play ?
+                                        <UilPlay size={'18px'}/>
+                                        :
+                                        <UilPause size={'18px'}/>
+                                }
+                            </button>
+                            <input onChange={(e) => document.getElementById('audio').currentTime = e.target.value} id={'seeker'} type={'range'} min={0} max={document.getElementById('audio')?.duration} value={this.state.timestamp || 0} className={"mx-4 flex-1"} />
+                            <span className={"text-xs font-Poppins"}>{Math.floor(this.state.timestamp / 60 || 0)}:{Math.floor(this.state.timestamp % 60 || 0)} / {Math.floor(document.getElementById('audio')?.duration / 60 || 0)}:{Math.floor(document.getElementById('audio')?.duration % 60 || 0)}</span>
+                        </div>
                     }
                     <p className={"pb-4 text-justify break-words font-Merriweather text-sm leading-7"}>
                         {this.state.description}
