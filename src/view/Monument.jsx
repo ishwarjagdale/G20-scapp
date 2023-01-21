@@ -108,7 +108,7 @@ class Monument extends React.Component {
                     <div className={"w-full overflow-x-scroll whitespace-nowrap pt-2 pb-4"}>
                         {
                             Object.keys(this.languages).filter((v) => this.state.languages.includes(v)).map((code) =>
-                                <button title={getEnglishName(code)} onClick={() => this.changeLanguage(code)} key={code} className={`${this.state.currentLanguage === code ? 'bg-slate-900 text-white' : 'bg-[#e4e4e4]'} p-2 px-4 mr-2 text-sm inline-flex items-center rounded-md`}>
+                                <button title={getEnglishName(code)} onClick={() => this.changeLanguage(code)} key={code} className={`${this.state.currentLanguage === code ? 'bg-slate-900 text-white hover:bg-slate-700' : 'bg-[#e4e4e4] hover:bg-slate-900 hover:text-white'} p-2 px-4 mr-2 text-sm inline-flex items-center rounded-md`}>
                                     <ReactCountryFlag countryCode={this.languages[code]} svg style={{width: "1rem", marginRight:"0.5em", height: "auto"}} />
                                     {
                                         getNativeName(code)
@@ -119,7 +119,7 @@ class Monument extends React.Component {
                     </div>
                     {
                         this.state.audio &&
-                        <audio id={"audio"} src={this.state.audio} playsInline={true} controls={true} className={"pb-4 w-full"}
+                        <audio id={"audio"} src={this.state.audio} playsInline={true} controls={true} className={"mt-2 mb-4 w-full"}
                         />
                     }
                     <p className={"pb-4 text-justify break-words font-Merriweather text-sm leading-7"}>
