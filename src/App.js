@@ -93,6 +93,7 @@ class App extends React.Component {
     }
 
     componentDidMount() {
+        if(navigator.permissions)
         navigator.permissions.query({name: "geolocation"}).then((r) => {
             if(r.state === "granted") {
                 console.log("Permission Granted");
