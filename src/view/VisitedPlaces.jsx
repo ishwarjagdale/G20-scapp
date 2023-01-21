@@ -56,7 +56,7 @@ class VisitedPlaces extends React.Component {
                                                             if(navigator.share)
                                                             navigator.share({
                                                                 title: p.name,
-                                                                text: p.description,
+                                                                text: this.state.share[p.id] + "\n",
                                                                 url: `${process.env.REACT_APP_API_URL}/share/${p.id}`
                                                             }).then(() => this.setState({current: -1}))
                                                             else navigator.clipboard.writeText(`${process.env.REACT_APP_API_URL}/share/${p.id}`).then(() => notify("Link Copied to Clipboard", 'success'))

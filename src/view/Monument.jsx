@@ -98,7 +98,7 @@ class Monument extends React.Component {
                                 if(navigator.share)
                                     navigator.share({
                                         title: this.state.name,
-                                        text: this.state.description.slice(0, 250),
+                                        text: this.state.description.slice(0, 250) + "...\n",
                                         url: `${process.env.REACT_APP_API_URL}/share/${this.state.id}`
                                     }).then(() => this.setState({current: -1}))
                                 else navigator.clipboard.writeText(`${process.env.REACT_APP_API_URL}/share/${this.state.id}`).then(() => notify("Link Copied to Clipboard", 'success'))
