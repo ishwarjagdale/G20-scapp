@@ -155,7 +155,7 @@ class Home extends React.Component {
                             {/*Willkommen in Aurangabad*/}
                         </marquee>
                     </div>
-                    <UilMap size={'24px'}/>
+                    {/*<UilMap size={'24px'}/>*/}
                 </div>
                 <QRInfo toggle={this.props.toggleScanner} visible={1} />
                 {
