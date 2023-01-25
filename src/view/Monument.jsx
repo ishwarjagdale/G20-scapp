@@ -1,7 +1,7 @@
 import React from "react";
 import {
     UilBookmark,
-    UilMultiply, UilPause, UilPauseCircle, UilPhonePause, UilPlay, UilPlayCircle, UilShareAlt, UilSpinner
+    UilMultiply, UilPause, UilPlay, UilShareAlt, UilSpinner
 } from "@iconscout/react-unicons";
 import { UisBookmark } from '@iconscout/react-unicons-solid'
 import FallBackImage from "./../images/fallback.png";

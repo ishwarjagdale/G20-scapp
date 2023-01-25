@@ -9,6 +9,7 @@ import {
 } from "@iconscout/react-unicons";
 import {Link, Outlet} from "react-router-dom";
 import {isSecure, logOut} from "../../api/adminAPI";
+import LOGO from "../../images/logo.png";
 
 class Admin extends React.Component {
     constructor(props) {
@@ -57,7 +58,7 @@ class Admin extends React.Component {
             <>
                 <div className={"flex flex-col w-full h-full overflow-hidden md:max-w-screen-2xl"}>
                     <div className={"flex h-fit min-h-[80px] items-center border-b justify-between w-full p-6"}>
-                        <span onClick={() => window.location.href = "/"} className={"cursor-pointer font-Poppins whitespace-nowrap font-bold text-lg"}>LOGO</span>
+                        <span onClick={() => window.location.href = "/"} className={"cursor-pointer font-Poppins whitespace-nowrap w-[48px] font-bold text-lg"}><img src={LOGO} alt={"Smart Scan"} /></span>
                         <button onClick={this.toggleSidebar} className={"ml-auto p-2 md:hidden"}>
                             {
                                 this.state.activeSidebar ?
