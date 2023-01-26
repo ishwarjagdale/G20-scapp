@@ -1,7 +1,7 @@
 import React from "react";
 import {
-    UilBookmark,
-    UilMultiply, UilPause, UilPlay, UilShareAlt, UilSpinner
+    UilBookmark, UilFont,
+    UilMultiply, UilPause, UilPlay, UilShareAlt, UilSpinner, UilTextSize
 } from "@iconscout/react-unicons";
 import { UisBookmark } from '@iconscout/react-unicons-solid'
 import FallBackImage from "./../images/fallback.png";
@@ -11,6 +11,7 @@ import ImagePagination from "../components/imagePagination";
 import ReactCountryFlag from "react-country-flag";
 import {notify} from "../components/notifier";
 import {languages} from "../components/constants";
+import LOGO from "../images/logo.png";
 
 class Monument extends React.Component {
     constructor(props) {
@@ -21,7 +22,8 @@ class Monument extends React.Component {
             currentLanguage: getLanguage(),
             saved: (JSON.parse(localStorage.getItem('saved')) || []).indexOf(this.props.data) !== -1,
             previous: window.location.href,
-            play: true
+            play: true,
+            textSize: 'sm'
         };
         this.autoRotate = this.autoRotate.bind(this);
         this.changeLanguage = this.changeLanguage.bind(this);
@@ -30,6 +32,16 @@ class Monument extends React.Component {
         this.languages = languages
 
         this.toggleAudio = this.toggleAudio.bind(this);
+        this.changeFontSize = this.changeFontSize.bind(this);
+    }
+
+    changeFontSize() {
+        if(this.state.textSize === 'sm')
+            this.setState({textSize: 'md'})
+        else if(this.state.textSize === 'md')
+            this.setState({textSize: 'lg'})
+        else
+            this.setState({textSize: 'sm'})
     }
 
     handleIndex(index) {
@@ -79,8 +91,8 @@ class Monument extends React.Component {
         if(this.state.name)
         return <div className={"flex z-50 flex-col bg-white md:bg-transparent md:max-w-md lg:max-w-xl flex-col w-full h-full overflow-hidden fixed top-0 md:relative"}>
             <div className={"flex border-b z-10 items-center justify-between w-full p-6"}>
-                <div className={"font-Poppins w-full flex justify-between md:justify-end items-center"}>
-                    <span onClick={() => window.location.href = "/"} className={"md:hidden cursor-pointer font-Poppins whitespace-nowrap font-bold text-lg"}>LOGO</span>
+                <div className={"font-Poppins md:pb-2 w-full flex justify-between md:justify-end items-center"}>
+                    <span onClick={() => window.location.href = "/"} className={"md:hidden cursor-pointer font-Poppins whitespace-nowrap font-bold text-lg w-[48px] "}><img src={LOGO} alt={"Smart Scan"} /></span>
                     <button onClick={() => {
                         window.history.pushState('forward', null, this.state.previous);
                         this.props.close();
@@ -91,9 +103,10 @@ class Monument extends React.Component {
                 <img src={this.state.images[this.state.imageIndex] || FallBackImage} alt={this.state.name} className={"w-full object-cover md:rounded-2xl max-h-[200px]"} onError={(e) => e.target.src = FallBackImage} />
                 <ImagePagination handleIndex={this.handleIndex} length={this.state.images.length} imageIndex={this.state.imageIndex} />
                 <div className={"flex flex-col w-full pt-2 px-4 md:px-2"}>
-                    <div className={"flex items-center pb-4 justify-between w-full"}>
-                        <span className={"font-[600] text-xl font-Poppins"}>{this.state.name}</span>
+                    <div className={"flex items-center pb-4 justify-between flex-wrap w-full"}>
+                        <span className={"font-[600] text-xl font-Poppins whitespace-nowrap py-2"}>{this.state.name}</span>
                         <div className={"flex items-center"}>
+                            <button onClick={this.changeFontSize} className={"p-2 mr-2"}><UilTextSize size={'24px'} /></button>
                             <button onClick={() => {
                                 if(navigator.share)
                                     navigator.share({
@@ -121,10 +134,10 @@ class Monument extends React.Component {
                             </button>
                         </div>
                     </div>
-                    <div className={"w-full overflow-x-scroll whitespace-nowrap pt-2 pb-4"}>
+                    <div className={"w-full overflow-x-scroll whitespace-nowrap py-2 mb-2"}>
                         {
                             Object.keys(this.languages).filter((v) => this.state.languages.includes(v)).map((code) =>
-                                <button title={getEnglishName(code)} onClick={() => this.changeLanguage(code)} key={code} className={`${this.state.currentLanguage === code ? 'bg-slate-900 text-white hover:bg-slate-700' : 'bg-[#e4e4e4] hover:bg-slate-900 hover:text-white'} p-2 px-4 mr-2 text-sm inline-flex items-center rounded-md`}>
+                                <button title={getEnglishName(code)} onClick={() => this.changeLanguage(code)} key={code} className={`${this.state.currentLanguage === code ? 'bg-slate-900 text-white hover:bg-slate-700' : 'bg-[#e4e4e4] hover:bg-gray-700 hover:text-white'} p-2 px-4 mr-2 text-${this.state.textSize} inline-flex items-center rounded-md`}>
                                     <ReactCountryFlag countryCode={this.languages[code]} svg style={{width: "1rem", marginRight:"0.5em", height: "auto"}} />
                                     {
                                         getNativeName(code)
@@ -149,7 +162,7 @@ class Monument extends React.Component {
                             <span className={"text-xs font-Poppins"}>{Math.floor(this.state.timestamp / 60 || 0)}:{Math.floor(this.state.timestamp % 60 || 0).toString().padStart(2, '0')} / {Math.floor(document.getElementById('audio')?.duration / 60 || 0)}:{Math.floor(document.getElementById('audio')?.duration % 60 || 0).toString().padStart(2, '0')}</span>
                         </div>
                     }
-                    <p className={"pb-4 text-justify break-words font-Merriweather text-sm leading-7"}>
+                    <p className={`pb-4 text-justify break-words font-Merriweather text-${this.state.textSize} leading-7`}>
                         {this.state.description}
                     </p>
                 </div>
