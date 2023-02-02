@@ -1,7 +1,6 @@
 import React from "react";
 import {
-    UilBookmark, UilFont,
-    UilMultiply, UilPause, UilPlay, UilShareAlt, UilSpinner, UilTextSize
+    UilBookmark, UilMultiply, UilPause, UilPlay, UilShareAlt, UilSpinner
 } from "@iconscout/react-unicons";
 import { UisBookmark } from '@iconscout/react-unicons-solid'
 import FallBackImage from "./../images/fallback.png";
@@ -106,7 +105,7 @@ class Monument extends React.Component {
                     <div className={"flex items-center pb-4 justify-between flex-wrap w-full"}>
                         <span className={"font-[600] text-xl font-Poppins whitespace-nowrap py-2"}>{this.state.name}</span>
                         <div className={"flex items-center"}>
-                            <button onClick={this.changeFontSize} className={"p-2 mr-2"}><UilTextSize size={'24px'} /></button>
+                            {/*<button onClick={this.changeFontSize} className={"p-2 mr-2"}><UilTextSize size={'24px'} /></button>*/}
                             <button onClick={() => {
                                 if(navigator.share)
                                     navigator.share({
@@ -137,7 +136,7 @@ class Monument extends React.Component {
                     <div className={"w-full overflow-x-scroll whitespace-nowrap py-2 mb-2"}>
                         {
                             Object.keys(this.languages).filter((v) => this.state.languages.includes(v)).map((code) =>
-                                <button title={getEnglishName(code)} onClick={() => this.changeLanguage(code)} key={code} className={`${this.state.currentLanguage === code ? 'bg-slate-900 text-white hover:bg-slate-700' : 'bg-[#e4e4e4] hover:bg-gray-700 hover:text-white'} p-2 px-4 mr-2 text-${this.state.textSize} inline-flex items-center rounded-md`}>
+                                <button title={getEnglishName(code)} onClick={() => this.changeLanguage(code)} key={code} className={`${this.state.currentLanguage === code ? 'bg-slate-900 text-white hover:bg-slate-700' : 'bg-[#e4e4e4] hover:bg-gray-700 hover:text-white'} p-2 px-4 mr-2 text-md inline-flex items-center rounded-md`}>
                                     <ReactCountryFlag countryCode={this.languages[code]} svg style={{width: "1rem", marginRight:"0.5em", height: "auto"}} />
                                     {
                                         getNativeName(code)
