@@ -104,7 +104,11 @@ class Monument extends React.Component {
             </div>
             <div className={"flex flex-col w-full items-center h-full overflow-y-scroll md:pt-2"}>
                 <img src={this.state.images[this.state.imageIndex] || FallBackImage} alt={this.state.name} className={"w-full object-cover md:rounded-2xl max-h-[200px]"} onError={(e) => e.target.src = FallBackImage} />
-                <ImagePagination handleIndex={this.handleIndex} length={this.state.images.length} imageIndex={this.state.imageIndex} />
+                {
+                    this.state.images.length > 1 &&
+                    <ImagePagination handleIndex={this.handleIndex} length={this.state.images.length}
+                                     imageIndex={this.state.imageIndex}/>
+                }
                 <div className={"flex flex-col w-full pt-2 px-4 md:px-2"}>
                     <div className={"flex items-center pb-4 justify-between flex-wrap w-full"}>
                         <span className={"font-[600] text-xl font-Poppins whitespace-nowrap py-2"}>{this.state.name}</span>
@@ -137,18 +141,21 @@ class Monument extends React.Component {
                             </button>
                         </div>
                     </div>
-                    <div className={"w-full overflow-x-scroll whitespace-nowrap py-2 mb-2"}>
-                        {
-                            Object.keys(this.languages).filter((v) => this.state.languages.includes(v)).map((code) =>
-                                <button title={getEnglishName(code)} onClick={() => this.changeLanguage(code)} key={code} className={`${this.state.currentLanguage === code ? 'bg-slate-900 text-white hover:bg-slate-700' : 'bg-[#e4e4e4] hover:bg-gray-700 hover:text-white'} p-2 px-4 mr-2 text-md inline-flex items-center rounded-md`}>
-                                    <ReactCountryFlag countryCode={this.languages[code]} svg style={{width: "1rem", marginRight:"0.5em", height: "auto"}} />
-                                    {
-                                        getNativeName(code)
-                                    }
-                                </button>
-                            )
-                        }
-                    </div>
+                    {
+                        this.state.languages.length > 1 &&
+                        <div className={"w-full overflow-x-scroll whitespace-nowrap py-2 mb-2"}>
+                            {
+                                Object.keys(this.languages).filter((v) => this.state.languages.includes(v)).map((code) =>
+                                    <button title={getEnglishName(code)} onClick={() => this.changeLanguage(code)} key={code} className={`${this.state.currentLanguage === code ? 'bg-slate-900 text-white hover:bg-[#1d1d1d]' : 'bg-[#e4e4e4] hover:bg-[#1d1d1d] hover:text-white'} p-2 px-4 mr-2 text-[14px] inline-flex items-center rounded-md`}>
+                                        <ReactCountryFlag countryCode={this.languages[code]} svg style={{width: "1rem", marginRight:"0.5em", height: "auto"}} />
+                                        {
+                                            getNativeName(code)
+                                        }
+                                    </button>
+                                )
+                            }
+                        </div>
+                    }
                     {
                         this.state.audio &&
                         <div className={"mt-2 text-white p-4 px-6 rounded-full bg-[#1f1f1f] items-center flex mb-4 w-full"}>
@@ -165,7 +172,7 @@ class Monument extends React.Component {
                             <span className={"text-xs font-Poppins"}>{Math.floor(this.state.timestamp / 60 || 0)}:{Math.floor(this.state.timestamp % 60 || 0).toString().padStart(2, '0')} / {Math.floor(document.getElementById('audio')?.duration / 60 || 0)}:{Math.floor(document.getElementById('audio')?.duration % 60 || 0).toString().padStart(2, '0')}</span>
                         </div>
                     }
-                    <p className={`pb-4 text-justify break-words font-Merriweather text-${this.state.textSize} leading-7`}>
+                    <p className={`pb-4 text-justify break-words font-Merriweather text-sm leading-7`}>
                         {this.state.description}
                     </p>
                 </div>

@@ -1,4 +1,4 @@
-import {UilArchway, UilMap, UilQrcodeScan, UilSpinner} from "@iconscout/react-unicons";
+import {UilSpinner} from "@iconscout/react-unicons";
 import React, {useState} from "react";
 import FallBackImage from "../images/fallback.png";
 import {useOutletContext} from "react-router-dom";
@@ -51,6 +51,8 @@ function Populars({popular, length, current, context}) {
         timeout: 10000
     })
 
+    console.log(popular)
+
     if(popular)
     return <div className={"p-4 font-Poppins"}>
         <span className={"font-[600] text-md pb-4 block"}>Popular Places</span>
@@ -60,11 +62,11 @@ function Populars({popular, length, current, context}) {
                 <div className={"flex items-center"}>
                     <span className={"font-medium"}>{popular.name}</span>
                     {
-                        coordinates &&
+                        (coordinates && (Number.parseFloat(popular.lat) && Number.parseFloat(popular.long))) ?
                         <>
-                            <span className={"mx-2"}>-></span>
+                            <span className={"dot w-[3px!important] h-[3px!important] mx-2"} />
                             <span className={"font-medium"}>{Math.round(calculateDistance(coordinates.latitude, coordinates.longitude, Number.parseFloat(popular.lat), Number.parseFloat(popular.long)))} km</span>
-                        </>
+                        </> : <></>
                     }
                 </div>
                 <div className={"flex items-center"}>
