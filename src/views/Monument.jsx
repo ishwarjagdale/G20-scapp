@@ -30,6 +30,15 @@ function Monument() {
     }
 
     useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search)
+        if(urlParams.get('src') === "qr") {
+            let visited = new Set(JSON.parse(localStorage.getItem('visited')) || []);
+            visited.add(params.monument_id);
+            localStorage.setItem('visited', JSON.stringify(Array(...visited)));
+        }
+    }, [])
+
+    useEffect(() => {
         getMonument(params.monument_id, true).then((res) => {
             if (res.status === 200) {
                 setMonument(res.data.response);
