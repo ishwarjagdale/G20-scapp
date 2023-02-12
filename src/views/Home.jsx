@@ -23,7 +23,7 @@ function Home() {
                     </marquee>
                 </div>
                 {/*greeting marquee ends*/}
-                <img className={"lg:hidden mb-6 rounded-2xl h-[150px] w-full object-cover"} src={QRBanner} alt={"scan qr"}/>
+                <a href={"/scanner"}><img className={"lg:hidden mb-6 rounded-2xl h-[150px] w-full object-cover"} src={QRBanner} alt={"scan qr"}/></a>
                 {/*image banner ends*/}
 
                 {/*popular places*/}

@@ -12,7 +12,7 @@ function Scanner() {
     }
 
     return (
-        <div className={"fixed top-0 left-0 h-full lg:relative flex flex-col overflow-scroll lg:m-2 rounded-xl lg:ml-0 w-full lg:w-1/4 "}>
+        <div className={"fixed top-0 left-0 h-full lg:relative flex flex-col overflow-scroll lg:m-2 lg:rounded-xl lg:ml-0 w-full lg:w-1/4 "}>
             <button onClick={() => history(-1)} className={"lg:hidden z-50 rounded-full p-2 w-fit fixed right-0 top-0 m-4 bg-black"}>
                 <UilMultiply size={'18px'} color={"white"} />
             </button>
