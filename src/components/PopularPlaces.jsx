@@ -15,15 +15,11 @@ function PopularPlaces() {
     }
 
     useEffect(() => {
-        navigator.permissions.query({name: "geolocation"}).then((res) => {
-            if(res.state === "granted") {
-                navigator.geolocation.watchPosition((res) => {
-                    if(res.coords.accuracy <= 100)
-                    setCoordinates(res.coords)
-                }, () => {}, {
-                    enableHighAccuracy: true, timeout: 10000
-                })
-            }
+        navigator.geolocation.watchPosition((res) => {
+            if(res.coords.accuracy <= 100)
+                setCoordinates(res.coords)
+        }, () => {}, {
+            enableHighAccuracy: true, timeout: 10000
         })
     }, [])
 

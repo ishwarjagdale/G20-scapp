@@ -2,6 +2,7 @@ import {UilQrcodeScan} from "@iconscout/react-unicons";
 import {useEffect, useState} from "react";
 import {getNearby} from "../api/home";
 import {calculateDistance} from "../components/constants";
+import {notify} from "../components/notifier";
 
 function NearbyPlaces() {
 
@@ -23,7 +24,8 @@ function NearbyPlaces() {
                 }, () => {}, {
                     enableHighAccuracy: true, timeout: 10000
                 })
-            }
+            } else
+                notify("Require location access");
         })
     }, [])
 
