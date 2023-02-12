@@ -68,7 +68,7 @@ function Monument() {
 
     if (monument)
         return (
-            <div className={"overflow-scroll m-2 ml-2 lg:ml-0 w-full lg:w-2/4 relative "}>
+            <div className={"overflow-scroll m-2 ml-2 lg:ml-0 w-full lg:w-2/4 relative pb-8"}>
                 <img src={monument.images[current]} className={"max-h-[200px] flex w-full object-cover rounded-xl"} alt={""}/>
                 <ImagePagination current={current} length={monument.images.length} setCurrent={setCurrent}/>
                 <div className={"flex mt-0 mx-2 lg:mt-0 flex-wrap justify-between items-center"}>
