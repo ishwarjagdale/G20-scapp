@@ -1,14 +1,11 @@
 import QrReader from "react-web-qr-reader";
-import {getMonument} from "../api/home";
 import {UilMultiply, UilQrcodeScan} from "@iconscout/react-unicons";
 import {useNavigate} from "react-router-dom";
-import {notify} from "../components/notifier";
 
 function Scanner() {
     const history = useNavigate();
 
     const onScan = (r) => {
-        notify(r)
         if(r.data.length !== 0) {
             window.location.href = r.data;
         }
@@ -20,7 +17,7 @@ function Scanner() {
                 <UilMultiply size={'18px'} color={"white"} />
             </button>
             <div className={"bg-white"}>
-                <QrReader className={"rounded-xl scanner"} onScan={onScan} onError={(err) => console.log(err)} delay={false} facingMode={"environment"} showViewFinder={true} />
+                <QrReader className={"rounded-xl scanner"} onScan={onScan} onError={(err) => console.log(err)} delay={500} facingMode={"environment"} showViewFinder={true} />
             </div>
             <div className={"rounded-t-2xl flex flex-col justify-center items-center flex-1 z-10 p-4 -mt-10 border-t bg-white"}>
                 <div className={"m-auto flex flex-col items-center pb-10"}>
