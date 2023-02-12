@@ -47,10 +47,10 @@ function PopularPlaces() {
                     <div className={"flex items-center"}>
                         <a href={`/monument/${populars[current].id}`} className={"font-[500] font-Poppins p-2 text-sm"}>{populars[current].name}</a>
                         {
-                            (coordinates && (populars[current].lat && populars[current].long)) ?
+                            (coordinates && (populars[current].lat > 0 && populars[current].long > 0)) ?
                                 <>
                                     <span className={"dot w-[3px!important] h-[3px!important] mx-2"} />
-                                    <span className={"font-medium"}>{Math.round(calculateDistance(coordinates.latitude, coordinates.longitude, populars[current].lat, populars[current].long))} km</span>
+                                    <span className={"font-medium text-sm"}>{Math.round(calculateDistance(coordinates.latitude, coordinates.longitude, populars[current].lat, populars[current].long))} km</span>
                                 </> : <></>
                         }
                     </div>
