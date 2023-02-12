@@ -2,11 +2,13 @@ import QrReader from "react-web-qr-reader";
 import {getMonument} from "../api/home";
 import {UilMultiply, UilQrcodeScan} from "@iconscout/react-unicons";
 import {useNavigate} from "react-router-dom";
+import {notify} from "../components/notifier";
 
 function Scanner() {
     const history = useNavigate();
 
     const onScan = (r) => {
+        notify(r)
         if(r.data.length !== 0) {
             window.location.href = r.data;
         }
