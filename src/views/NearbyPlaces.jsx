@@ -51,7 +51,7 @@ function NearbyPlaces() {
                                 <div className={"flex items-center"}>
                                     <a href={`/monument/${c.id}`} className={"font-[500] font-Poppins p-2 text-sm"}>{c.name}</a>
                                     <span className={"mx-2 dot"} />
-                                    <span className={"font-medium"}>{Math.round(calculateDistance(coords.latitude, coords.longitude, Number.parseFloat(c.lat), Number.parseFloat(c.long)))} km</span>
+                                    <span className={"font-medium text-sm"}>{Math.round(calculateDistance(coords.latitude, coords.longitude, Number.parseFloat(c.lat), Number.parseFloat(c.long)))} km</span>
                                 </div>
                             </div>
                         })
