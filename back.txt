@@ -1,0 +1,69 @@
+<div className={"flex w-full h-full relative overflow-hidden"}>
+                <div className={"flex w-3/4 flex-col m-2 rounded-2xl items-center back-image"}>
+                    <div className={"flex py-[200px] px-[100px] justify-between text-white font-Poppins flex-col h-full rounded-2xl w-full back-grad"}>
+                        {/*welcome to aurangabad*/}
+                        {
+                            langIndex === 0 &&
+                            <div className={"flex flex-col fadein-animate"} lang={'en'}>
+                                <span className={"text-6xl font-normal ml-1"}>Welcome to</span>
+                                <span className={"text-7xl font-bold"}>Aurangabad</span>
+                            </div>
+                        }
+                        {
+                            langIndex === 1 &&
+                            <div className={"flex flex-col fadein-animate"} lang={'hi'}>
+                                <span className={"text-7xl font-bold"}>औरंगाबाद</span>
+                                <span className={"text-5xl font-normal mt-4 word-spacing-wide m-1"}>में आपका स्वागत है</span>
+                            </div>
+                        }
+                        {
+                            langIndex === 2 &&
+                            <div className={"flex flex-col fadein-animate"} lang={'mr'}>
+                                <span className={"text-7xl font-bold"}>औरंगाबाद</span>
+                                <span className={"text-5xl font-normal word-spacing-wide mt-4 m-1"}>मध्ये आपले स्वागत आहे</span>
+                            </div>
+                        }
+                        {/*welcome greeting ends*/}
+                        <div className={"p-4 flex items-center my-4"}>
+                            <div className={"border rounded-xl p-4 mr-4"}>
+                                <UilQrcodeScan size={'24px'}/>
+                            </div>
+                            <span className={"text-xl"}>Scan QR to listen to the <br/>glorious history of Aurangabad</span>
+                        </div>
+                    </div>
+                </div>
+                <div className={"overflow-scroll h-full m-2 w-1/4 relative"}>
+                    <div className={"flex items-center mb-4"}>
+                        <span className={"font-[600] font-Poppins text-md"}>Popular Places</span>
+                    </div>
+                    <div className={"flex mb-8"}>
+                        <div className={"flex flex-col justify-end mr-2 relative w-full"}>
+                            <img src={"https://storage.googleapis.com/g20scapp.appspot.com/1674717506.267913-2020-12-07.jpg"} className={"w-full h-[150px] rounded-xl object-cover"}  alt={""}/>
+                            <div className={"flex items-center justify-between"}>
+                                <span className={"font-[500] font-Poppins p-2 text-sm"}>Shahganj Clocktower</span>
+                                <div className={"flex items-center justify-end mx-2"}>
+                                    <span className={"w-[5px] aspect-square mx-1 bg-black rounded-xl"} />
+                                    <span className={"w-[20px] h-[5px] bg-black rounded-xl"} />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div className={"flex items-center mb-4 justify-between"}>
+                        <span className={"font-[600] font-Poppins text-md"}>Historical Places</span>
+                        <a href={"/"} className={"ml-4 text-sm font-Poppins"}>View all</a>
+                    </div>
+                    <div className={"overflow-x-scroll flex"}>
+                        <div className={"flex flex-col justify-end mr-2 relative"}>
+                            <img src={"https://storage.googleapis.com/g20scapp.appspot.com/1674717506.267913-2020-12-07.jpg"} className={"min-h-[150px] max-h-[150px] min-w-[300px] min-w-[300px] rounded-xl object-cover object-top"}  alt={""}/>
+                            <span className={"font-[500] font-Poppins p-2 text-sm"}>Shahganj Clocktower</span>
+                        </div>
+                        <div className={"flex flex-col justify-end mr-2 relative"}>
+                            <img src={"https://storage.googleapis.com/g20scapp.appspot.com/1675839984.275454-Town_Hall_img%20%284%29.jpeg"} className={"min-h-[150px] max-h-[150px] min-w-[300px] max-w-[300px] rounded-xl object-cover object-top"}  alt={""}/>
+                            <span className={"font-[500] font-Poppins p-2 text-sm"}>Town Hall</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
