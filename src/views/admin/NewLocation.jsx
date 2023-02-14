@@ -138,7 +138,7 @@ function NewLocation() {
                             {
                                 id && <>
                                     <span className={"font-[500] pb-2"}>QR Code</span>
-                                    <div className={"flex justify-center h-fit mb-8"}><QRCode className={"w-[100px] h-[100px] aspect-square"} value={id}/></div>
+                                    <div className={"flex justify-center h-fit mb-8"}><QRCode className={"w-[100px] h-[100px] aspect-square"} value={window.location.protocol + "//" + window.location.host + "/monument/" + id + "?src=qr"}/></div>
                                 </>
                             }
                             {
@@ -147,14 +147,7 @@ function NewLocation() {
                         </div>
                     </div>
                 </div>
-                <div className={"flex items-center p-4"} title={isPublic ? 'Make private' : 'Make public'}>
-                    <button onClick={() => {setPublic(!isPublic)}} className={"w-fit hover:bg-[#d3d3d3] mr-2 p-3 bg-[#e4e4e4] rounded-xl"}>
-                        {
-                            isPublic ? <UilEye size={'16px'}/>
-                                :
-                                <UilEyeSlash size={'16px'} />
-                        }
-                    </button>
+                <div className={"flex items-center p-4"}>
                     <button id={"subBtn"} onClick={submitForm} type={"submit"} className={"w-full hover:bg-slate-700 p-3 px-8 bg-slate-900 text-white text-sm font-[500] font-Poppins rounded-xl"}>
                         {
                             updating ?

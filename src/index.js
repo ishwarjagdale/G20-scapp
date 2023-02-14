@@ -13,7 +13,6 @@ import Scanner from "./views/Scanner";
 import SignIn from "./views/SignIn";
 import Admin from "./views/admin/Admin";
 import Dashboard from "./views/admin/Dashboard";
-import Settings from "./views/admin/Settings";
 import NewLocation from "./views/admin/NewLocation";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -64,10 +63,6 @@ const router = createBrowserRouter([
             {
                 path: "/admin/",
                 element: <Dashboard/>
-            },
-            {
-                path: "/admin/settings",
-                element: <Settings/>
             },
             {
                 path: "/admin/new",

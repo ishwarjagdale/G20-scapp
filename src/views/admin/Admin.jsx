@@ -4,7 +4,6 @@ import {
     UilEstate,
     UilMultiply,
     UilPlusCircle,
-    UilSetting,
     UilSignout, UilUserCircle
 } from "@iconscout/react-unicons";
 import {Link, Outlet} from "react-router-dom";
@@ -69,12 +68,6 @@ function Admin() {
                             <Link to={'/admin'} onClick={() => setActiveSide(!activeSide)} className={`font-Poppins w-full h-[60px] scale-98 flex items-center p-4 px-8 rounded-2xl`}>
                                 <UilEstate size={'24px'} />
                                 <span className={"mx-4 mt-1 text-sm md:text-sm"}>Dashboard</span>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to={'/admin/settings'} onClick={() => setActiveSide(!activeSide)} className={`font-Poppins w-full h-[60px] scale-98 flex items-center p-4 px-8 rounded-2xl`}>
-                                <UilSetting size={'24px'} />
-                                <span className={"mx-4 mt-1 text-sm md:text-md"}>Settings</span>
                             </Link>
                         </li>
                     </ul>

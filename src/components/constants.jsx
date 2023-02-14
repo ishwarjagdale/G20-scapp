@@ -3,6 +3,7 @@ const languages = {
     "mr": "in",
     "hi": "in",
     "te": "in",
+    "ur": "in",
     "gu": "in",
     "pa": "in",
     "ja": "jp",
