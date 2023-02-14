@@ -14,6 +14,8 @@ import SignIn from "./views/SignIn";
 import Admin from "./views/admin/Admin";
 import Dashboard from "./views/admin/Dashboard";
 import NewLocation from "./views/admin/NewLocation";
+import About from "./views/About";
+import Settings from "./views/admin/Settings";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -53,6 +55,10 @@ const router = createBrowserRouter([
         ]
     },
     {
+        path: "/about",
+        element: <About/>
+    },
+    {
         path: "/login",
         element: <SignIn />
     },
@@ -71,6 +77,10 @@ const router = createBrowserRouter([
             {
                 path: "/admin/edit/:id",
                 element: <NewLocation/>
+            },
+            {
+                path: "/admin/settings",
+                element: <Settings/>
             }
         ]
     }

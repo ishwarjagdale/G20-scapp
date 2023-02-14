@@ -34,7 +34,7 @@ function Home() {
 
 
             </div>
-            <div className={"fixed lg:relative bottom-0 left-0 bg-white p-2 lg:p-0 w-full"}>
+            <div className={"fixed lg:sticky bottom-0 left-0 bg-white p-2 lg:p-0 w-full"}>
                 <a href={"/scanner"} className={" flex p-4 justify-center items-center bg-[#1f1f1f] w-full rounded-full text-white font-Poppins"}>
                     <UilQrcodeScan size={'24px'}/><span className={"text-sm font-[600] mx-4"}>Scan QR code</span>
                 </a>

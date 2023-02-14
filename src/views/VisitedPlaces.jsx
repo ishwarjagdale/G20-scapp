@@ -9,11 +9,13 @@ function VisitedPlaces() {
     const [places, setPlaces] = useState([]);
     const [current, setCurrent] = useState(0);
     const [shares, setShares] = useState({});
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         getMonuments(visited).then((res) => {
             if (res.status === 200) {
                 setPlaces(res.data.response)
+                setLoading(false);
             }
         })
     }, [])
@@ -31,7 +33,7 @@ function VisitedPlaces() {
                 </div>
                 <div className={"flex flex-col mb-8"}>
                     {
-                        places.map((c, i) => {
+                        !loading ? places.length ? places.map((c, i) => {
                             return <div className={"flex flex-col mb-2 justify-end relative w-full"}>
                                 <img onClick={() => setCurrent(i)} src={c.images[0]}
                                      className={"w-full h-[150px] rounded-xl object-cover"}
@@ -60,6 +62,21 @@ function VisitedPlaces() {
                                 }
                             </div>
                         })
+                            :
+                            <span className={"text-sm p-2"}>You haven't visited any monument yet!</span>
+                            :
+                            <>
+                                <div className={"flex items-center mx-2 mb-4"}>
+                                    <span className={"font-[600] font-Poppins text-sm w-[200px] bg-[#e4e4e4]"}/>
+                                </div>
+                                <div className={"flex mb-8"}>
+                                    <div className={"flex flex-col justify-end relative w-full"}>
+                                        <div className={"w-full h-[150px] rounded-xl object-cover bg-[#e4e4e4]"}/>
+                                        <span
+                                            className={"font-[600] bg-[#e4e4e4] w-[200px] font-Poppins text-sm p-2 mt-2"}/>
+                                    </div>
+                                </div>
+                            </>
                     }
                 </div>
             </div>

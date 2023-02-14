@@ -1,4 +1,3 @@
-import QRBanner from "./images/zz.jpg";
 import {useEffect, useState} from "react";
 import {UilQrcodeScan} from "@iconscout/react-unicons";
 import Navigation from "./components/Navigation";

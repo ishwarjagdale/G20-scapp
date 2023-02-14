@@ -32,6 +32,22 @@ function Categories() {
             </div>
         </div>
     })
+
+    return <>
+        <div className={"flex items-center mx-2 mb-4 justify-between"}>
+            <span className={"font-[600] bg-[#e4e4e4] w-[200px] font-Poppins text-sm p-2"}/>
+        </div>
+        <div className={"overflow-x-scroll mb-8 flex"}>
+            <div className={"flex flex-col justify-end mr-2 relative"}>
+                <div className={"bg-[#e4e4e4] min-h-[150px] max-h-[150px] min-w-[300px] min-w-[300px] rounded-xl object-cover object-top"}/>
+                <span className={"font-[500] w-fit font-Poppins p-2 text-sm"}/>
+            </div>
+            <div className={"flex flex-col justify-end mr-2 relative"}>
+                <div className={"bg-[#e4e4e4] min-h-[150px] max-h-[150px] min-w-[300px] min-w-[300px] rounded-xl object-cover object-top"}/>
+                <span className={"font-[500] w-fit font-Poppins p-2 text-sm"}/>
+            </div>
+        </div>
+    </>
 }
 
 export default Categories;

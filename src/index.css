@@ -34,10 +34,19 @@ body, #root {
     background-size: cover;
 }
 
+.diems-image {
+    background: url("images/diems.jpg") no-repeat;
+    background-size: cover;
+}
+
 .back-grad {
     /*background: linear-gradient(90deg, rgba(0, 0, 0, 0.81), rgba(208, 118, 1, 0.55));*/
     /*backdrop-filter: contrast(0.6);*/
     background: linear-gradient(90deg, rgba(0, 0, 0, 0.81), #ffffff00)
+}
+
+.full-grad {
+    background: radial-gradient(#ffffff00, #ffffff00, rgba(0, 0, 0, 0.81))
 }
 
 
@@ -151,4 +160,24 @@ input[type="range"]::-webkit-slider-thumb {
     background: url("images/qr.png") no-repeat center;
     background-size: 200px;
     opacity: 0.8;
+}
+
+.form-element {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0;
+}
+.form-element label {
+    font-weight: bold;
+    opacity: 0.6;
+    margin-bottom: 4px;
+}
+.form-element input {
+    outline: none;
+    padding: 10px 16px;
+    border: 1px solid #d1d1d1;
+    border-radius: 8px;
+}
+.form-element input::placeholder {
+    font-size: 14px;
 }

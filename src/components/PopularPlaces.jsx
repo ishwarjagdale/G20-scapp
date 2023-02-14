@@ -69,7 +69,17 @@ function PopularPlaces() {
         </div>
     </>
 
-    return <></>
+    return <>
+        <div className={"flex items-center mx-2 mb-4"}>
+            <span className={"font-[600] font-Poppins text-sm w-[200px] bg-[#e4e4e4]"} />
+        </div>
+        <div className={"flex mb-8"}>
+            <div className={"flex flex-col justify-end relative w-full"}>
+                <div className={"w-full h-[150px] rounded-xl object-cover bg-[#e4e4e4]"}/>
+                <span className={"font-[600] bg-[#e4e4e4] w-[200px] font-Poppins text-sm p-2 mt-2"}/>
+            </div>
+        </div>
+    </>
 }
 
 export default PopularPlaces;

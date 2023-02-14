@@ -26,10 +26,6 @@ function Dashboard() {
         })
     }, [])
 
-    const _deleteMonument = (id, cat) => {
-
-    }
-
     return (
         <div className={"w-full h-full flex flex-col overflow-y-scroll"}>
             <div className={"flex font-Poppins p-4 flex-wrap md:px-6"}>

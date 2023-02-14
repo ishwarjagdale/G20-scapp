@@ -9,6 +9,7 @@ function NearbyPlaces() {
     const [coords, setCoords] = useState(null);
     const [permission, setPermission] = useState(false);
     const [nearby, setNearby] = useState([]);
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         navigator.permissions.query({name: "geolocation"}).then((res) => {
@@ -19,13 +20,16 @@ function NearbyPlaces() {
                     getNearby(res.coords).then((res) => {
                         if(res.status === 200) {
                             setNearby(res.data.response);
+                            setLoading(false)
                         }
                     })
                 }, () => {}, {
                     enableHighAccuracy: true, timeout: 10000
                 })
-            } else
+            } else {
                 notify("Require location access");
+                setLoading(false)
+            }
         })
     }, [])
 
@@ -43,7 +47,7 @@ function NearbyPlaces() {
                 </div>
                 <div className={"flex flex-col mb-8"}>
                     {
-                        permission ? nearby.map((c) => {
+                        permission ? !loading ? nearby.length ? nearby.map((c) => {
                             return <div className={"flex flex-col mb-2 justify-end relative w-full"}>
                                 <a href={`/monument/${c.id}`}><img src={c.images[0]}
                                                                    className={"w-full h-[150px] rounded-xl object-cover"}
@@ -54,7 +58,22 @@ function NearbyPlaces() {
                                     <span className={"font-medium text-sm"}>{Math.round(calculateDistance(coords.latitude, coords.longitude, Number.parseFloat(c.lat), Number.parseFloat(c.long)))} km</span>
                                 </div>
                             </div>
-                        })
+                        }) :
+                                <span className={"text-sm p-2"}>There are no location nearby within 5km distance.</span>
+                            :
+
+                                <>
+                                    <div className={"flex items-center mx-2 mb-4"}>
+                                        <span className={"font-[600] font-Poppins text-sm w-[200px] bg-[#e4e4e4]"}/>
+                                    </div>
+                                    <div className={"flex mb-8"}>
+                                        <div className={"flex flex-col justify-end relative w-full"}>
+                                            <div className={"w-full h-[150px] rounded-xl object-cover bg-[#e4e4e4]"}/>
+                                            <span
+                                                className={"font-[600] bg-[#e4e4e4] w-[200px] font-Poppins text-sm p-2 mt-2"}/>
+                                        </div>
+                                    </div>
+                                </>
 
                             :
 
