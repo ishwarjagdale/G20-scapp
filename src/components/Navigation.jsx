@@ -37,7 +37,7 @@ function Navigation() {
                     <div className={"mx-2 lg:hidden"}><UilBookmark/></div>
                     <span className={"mx-2"}>Saved Places</span>
                 </Link>
-                <Link to={"/about"} onClick={() => setMenuActive(!menuActive)} className={"flex items-center hover:bg-[#f1f1f1] rounded-xl p-4"}>
+                <Link to={"https://ishwarjagdale.github.io/smart-scan.pages.io/"} target={"_blank"} onClick={() => setMenuActive(!menuActive)} className={"flex items-center hover:bg-[#f1f1f1] rounded-xl p-4"}>
                     <div className={"mx-2 lg:hidden"}><UilAdjust/></div>
                     <span  className={"mx-2"}>About</span>
                 </Link>
