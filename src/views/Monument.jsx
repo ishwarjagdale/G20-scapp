@@ -104,10 +104,10 @@ function Monument() {
                         {
                             monument.languages.length > 1 && Object.keys(languages).filter((v) => monument.languages.includes(v)).map((l) => {
                                 return <button onClick={() => changeLanguage(l)}
-                                    className={`flex p-2 px-4 items-center mx-1 rounded-md ${currentLanguage === l ? 'bg-[#1f1f1f] text-white' : 'hover:bg-[#d3d3d3] bg-[#e4e4e4]'}`}>
+                                    className={`flex p-2 min-w-fit px-4 items-center mx-1 rounded-md ${currentLanguage === l ? 'bg-[#1f1f1f] text-white' : 'hover:bg-[#d3d3d3] bg-[#e4e4e4]'}`}>
                                     <ReactCountryFlag countryCode={languages[l]} svg
                                                       style={{width: "1rem", marginRight: "0.5em", height: "auto"}}/>
-                                    <span className={"font-Poppins mr-4 text-sm"}>{getEnglishName(l)}</span>
+                                    <span className={"font-Poppins inline-block text-sm"}>{getEnglishName(l)}</span>
                                 </button>
                             })
                         }
