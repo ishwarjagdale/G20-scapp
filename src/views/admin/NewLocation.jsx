@@ -1,7 +1,5 @@
 import React, {useEffect, useState} from "react";
 import {
-    UilEye,
-    UilEyeSlash,
     UilSpinner
 } from "@iconscout/react-unicons";
 import {getEnglishName} from "all-iso-language-codes";
@@ -20,7 +18,6 @@ function NewLocation() {
     const [latitude, setLatitude] = useState(-1)
     const [longitude, setLongitude] = useState(-1)
     const [category, setCategory] = useState("");
-    const [isPublic, setPublic] = useState(false);
     const [descriptions, setDescriptions] = useState({})
     const [showLanguages, setShowLanguages] = useState(false)
 
@@ -69,7 +66,6 @@ function NewLocation() {
             formData.append('longitude', longitude)
             formData.append('latitude', latitude)
             formData.append('category', category)
-            formData.append('public', isPublic)
 
             setUpdating(true);
 

@@ -58,9 +58,9 @@ function PopularPlaces() {
                         {
                             Array(populars.length).fill(0).map((i, j) => {
                                 if(j === current) {
-                                    return <span className={`line ${j === populars.length - 1 ? '' : 'mr-1'}`} />
+                                    return <span key={j} className={`line ${j === populars.length - 1 ? '' : 'mr-1'}`} />
                                 } else
-                                    return <span className={`dot ${j === populars.length - 1 ? '' : 'mr-1'}`} />
+                                    return <span key={j} className={`dot ${j === populars.length - 1 ? '' : 'mr-1'}`} />
                             })
                         }
                     </div>
