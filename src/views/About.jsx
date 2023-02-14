@@ -17,10 +17,11 @@ function About() {
                         <span>This application was developed by Computer Science Department, under the guidance of
                             <ul className={"lg:p-2 py-2 pb-4 lg:ml-4"}>
                                 <li className={"pb-1 font-[600]"}>Director Dr. Ulhas Shiurkar</li>
-                                <li className={"pb-1 font-[600]"}>HOD CSE - Mr. Kalyankar S. B</li>
+                                <li className={"pb-1 font-[600]"}>HOD CSE - Prof. S. B. Kalyankar</li>
                                 <li className={"pb-1 font-[600]"}>HOD Civil - Dr.G.R.Gandhe</li>
-                                <li className={"pb-1 font-[600]"}>Prof. Rahat Khan</li>
+                                <li className={"pb-1 font-[600]"}>Dr. Rahat A Khan</li>
                                 <li className={"pb-1 font-[600]"}>Prof. Prachi Joshi</li>
+                                <li className={"pb-1 font-[600]"}>PRO - Nouman Khan</li>
                             </ul>
                         </span>
                         <span>The members of the team involved in the development of Smart Scan are as follows:</span><br/>
