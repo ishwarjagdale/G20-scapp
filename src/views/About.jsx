@@ -6,7 +6,7 @@ function About() {
             <Navigation />
             <div className={"flex flex-col lg:flex-row w-full h-full relative overflow-hidden"}>
                 {/*hero section*/}
-                <div className={"flex h-[300px] lg:h-[98%] flex-1 lg:w-1/2 flex-col m-2 rounded-2xl items-center diems-image"}>
+                <div className={"h-[300px] lg:h-[98%] lg:w-1/2 diems-image m-2 rounded-2xl"}>
                     <div className={"flex justify-between text-white font-Poppins flex-col h-full rounded-2xl w-full full-grad"} />
                 </div>
                 {/*hero section ends*/}
