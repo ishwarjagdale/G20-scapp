@@ -30,6 +30,13 @@ function Monument() {
     }
 
     useEffect(() => {
+        window.addEventListener('blur', (e) => {
+            document.getElementById('audio').pause()
+            setAudioPlaying(!document.getElementById('audio').paused)
+        })
+    }, [])
+
+    useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search)
         if(urlParams.get('src') === "qr") {
             let visited = new Set(JSON.parse(localStorage.getItem('visited')) || []);
@@ -102,8 +109,8 @@ function Monument() {
                 {
                     <div className={"flex mb-4 items-center mt-6 overflow-x-scroll"}>
                         {
-                            monument.languages.length > 1 && Object.keys(languages).filter((v) => monument.languages.includes(v)).map((l) => {
-                                return <button onClick={() => changeLanguage(l)}
+                            monument.languages.length > 1 && Object.keys(languages).filter((v) => monument.languages.includes(v)).map((l, i) => {
+                                return <button key={i} onClick={() => changeLanguage(l)}
                                     className={`flex p-2 min-w-fit px-4 items-center mx-1 rounded-md ${currentLanguage === l ? 'bg-[#1f1f1f] text-white' : 'hover:bg-[#d3d3d3] bg-[#e4e4e4]'}`}>
                                     <ReactCountryFlag countryCode={languages[l]} svg
                                                       style={{width: "1rem", marginRight: "0.5em", height: "auto"}}/>
