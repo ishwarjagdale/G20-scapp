@@ -140,7 +140,7 @@ function NewLocation() {
                             {
                                 id && <>
                                     <span className={"font-[500] pb-2"}>QR Code</span>
-                                    <div className={"flex justify-center h-fit mb-8"}><QRCode className={"w-[100px] h-[100px] aspect-square"} value={window.location.protocol + "//" + window.location.host + "/monument/" + id + "?src=qr"}/></div>
+                                    <div className={"flex justify-center h-fit mb-8"}><QRCode className={"w-[100px] h-[100px] aspect-square"} value={window.location.protocol + "//" + window.location.host + "/monument/" + encodeURI(id) + "?src=qr"}/></div>
                                 </>
                             }
                             {
