@@ -4,16 +4,16 @@ import {UilBookmark, UilPause, UilPlay, UilShareAlt} from "@iconscout/react-unic
 import {getMonument} from "../api/home";
 import {useParams} from "react-router-dom";
 import {languages} from "../components/constants";
-import {getEnglishName} from "all-iso-language-codes";
+import {getEnglishName, getNativeName} from "all-iso-language-codes";
 import ReactCountryFlag from "react-country-flag";
 import {notify} from "../components/notifier";
 import {UisBookmark} from "@iconscout/react-unicons-solid";
+import FallbackImage from "../images/fallback.png";
 
 function Monument() {
 
     const [current, setCurrent] = useState(0);
     const [monument, setMonument] = useState(null);
-    const [currentLanguage, setLanguage] = useState('en');
     const [audioPlaying, setAudioPlaying] = useState(false);
     const [audioTrack, setAudioTrack] = useState(0);
     const params = useParams();
@@ -67,7 +67,6 @@ function Monument() {
         getMonument(params.monument_id, true, code).then((res) => {
             if(res.status === 200) {
                 setMonument(res.data.response);
-                setLanguage(code)
                 document.title = res.data.response.name
             }
         })
@@ -76,7 +75,7 @@ function Monument() {
     if (monument)
         return (
             <div className={"overflow-scroll m-2 ml-2 lg:ml-0 w-full lg:w-2/4 relative pb-8"}>
-                <img src={monument.images[current]} className={"max-h-[200px] flex w-full object-cover rounded-xl"} alt={""}/>
+                <img src={monument.images[current] || FallbackImage} className={"max-h-[200px] flex w-full object-cover rounded-xl"} alt={""}/>
                 <ImagePagination current={current} length={monument.images.length} setCurrent={setCurrent}/>
                 <div className={"flex mt-0 mx-2 lg:mt-0 flex-wrap justify-between items-center"}>
                     <span className={"text-xl font-Poppins font-[600]"}>{monument.name}</span>
@@ -110,11 +109,11 @@ function Monument() {
                     <div className={"flex mb-4 items-center mt-6 overflow-x-scroll"}>
                         {
                             monument.languages.length > 1 && Object.keys(languages).filter((v) => monument.languages.includes(v)).map((l, i) => {
-                                return <button key={i} onClick={() => changeLanguage(l)}
-                                    className={`flex p-2 min-w-fit px-4 items-center mx-1 rounded-md ${currentLanguage === l ? 'bg-[#1f1f1f] text-white' : 'hover:bg-[#d3d3d3] bg-[#e4e4e4]'}`}>
+                                return <button title={getEnglishName(l)} key={i} onClick={() => changeLanguage(l)}
+                                    className={`flex p-2 min-w-fit px-4 items-center mx-1 rounded-md ${monument.language_code === l ? 'bg-[#1f1f1f] text-white' : 'hover:bg-[#d3d3d3] bg-[#e4e4e4]'}`}>
                                     <ReactCountryFlag countryCode={languages[l]} svg
                                                       style={{width: "1rem", marginRight: "0.5em", height: "auto"}}/>
-                                    <span className={"font-Poppins inline-block text-sm"}>{getEnglishName(l)}</span>
+                                    <span className={"font-Poppins inline-block text-sm"}>{getNativeName(l)}</span>
                                 </button>
                             })
                         }

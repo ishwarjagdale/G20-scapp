@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
-import {getNearby, getPopulars} from "../api/home";
+import {getPopulars} from "../api/home";
 import {calculateDistance} from "./constants";
+import FallbackImage from "../images/fallback.png";
 
 function PopularPlaces() {
 
@@ -42,7 +43,7 @@ function PopularPlaces() {
         </div>
         <div className={"flex mb-8"}>
             <div className={"flex flex-col justify-end relative w-full"}>
-                <a href={`/monument/${populars[current].id}`}><img src={populars[current].images[0]} className={"w-full h-[150px] rounded-xl object-cover"}  alt={""}/></a>
+                <a href={`/monument/${populars[current].id}`}><img src={populars[current].images[0] || FallbackImage} className={"w-full h-[150px] rounded-xl object-cover"}  alt={""}/></a>
                 <div className={"flex items-center justify-between"}>
                     <div className={"flex items-center"}>
                         <a href={`/monument/${populars[current].id}`} className={"font-[500] font-Poppins p-2 text-sm"}>{populars[current].name}</a>

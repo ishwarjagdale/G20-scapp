@@ -1,6 +1,7 @@
 import {UilQrcodeScan} from "@iconscout/react-unicons";
 import {useEffect, useState} from "react";
 import {getMonuments} from "../api/home";
+import FallbackImage from "../images/fallback.png";
 
 function SavedPlaces() {
 
@@ -32,7 +33,7 @@ function SavedPlaces() {
                     {
                         !loading ? places.length ? places.map((c, i) => {
                             return <div className={"flex flex-col mb-2 justify-end relative w-full"}>
-                                <a href={`/monument/${c.id}`}><img src={c.images[0]}
+                                <a href={`/monument/${c.id}`}><img src={c.images[0] || FallbackImage}
                                      className={"w-full h-[150px] rounded-xl object-cover"}
                                                   alt={""}/></a>
                                 <div className={"flex items-center justify-between"}>
@@ -59,7 +60,7 @@ function SavedPlaces() {
                     }
                 </div>
             </div>
-            <div className={"fixed lg:relative bottom-0 left-0 bg-white p-2 lg:p-0 w-full"}>
+            <div className={"fixed lg:sticky bottom-0 left-0 bg-white p-2 lg:p-0 w-full"}>
                 <a href={"/scanner"} className={" flex p-4 justify-center items-center bg-[#1f1f1f] w-full rounded-full text-white font-Poppins"}>
                     <UilQrcodeScan size={'24px'}/><span className={"text-sm font-[600] mx-4"}>Scan QR code</span>
                 </a>

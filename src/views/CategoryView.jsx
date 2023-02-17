@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import {getCategory} from "../api/home";
 import {useParams} from "react-router-dom";
 import {UilQrcodeScan} from "@iconscout/react-unicons";
+import FallbackImage from "../images/fallback.png";
 
 function CategoryView() {
 
@@ -18,7 +19,7 @@ function CategoryView() {
 
 
     useEffect(() => {
-        document.title = params.category.replaceAll('-', ' ')
+        document.title = params.category.split('-').map((v) => `${v[0].toUpperCase()}${v.substring(1,)}`).join(' ')
     }, [])
 
     if (cats)
@@ -32,7 +33,7 @@ function CategoryView() {
                         {
                             cats.map((c) => {
                                 return <div key={c.id} className={"flex flex-col mb-2 justify-end relative w-full"}>
-                                    <a href={`/monument/${c.id}`}><img src={c.images[0]}
+                                    <a href={`/monument/${c.id}`}><img src={c.images[0] || FallbackImage}
                                                                        className={"w-full h-[150px] rounded-xl object-cover"}
                                                                        alt={""}/></a>
                                     <div className={"flex items-center justify-between"}>

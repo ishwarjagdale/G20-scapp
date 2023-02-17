@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import {getCategories} from "../api/home";
+import FallbackImage from "../images/fallback.png";
 
 function Categories() {
 
@@ -15,6 +16,7 @@ function Categories() {
 
     if(cats)
     return Object.keys(cats).map((c, i) => {
+        if(cats[c].length)
         return <div key={i}>
             <div className={"flex items-center mx-2 mb-4 justify-between"}>
                 <span className={"font-[600] font-Poppins text-sm"}>{c}</span>
@@ -24,13 +26,14 @@ function Categories() {
                 {
                     cats[c].map((k, j) => {
                         return <div key={j} className={"flex flex-col justify-end mr-2 relative"}>
-                            <a href={`/monument/${k.id}`}><img src={k.images[0]} className={"min-h-[150px] max-h-[150px] min-w-[300px] min-w-[300px] rounded-xl object-cover object-top"}  alt={""}/></a>
+                            <a href={`/monument/${k.id}`}><img src={k.images[0] || FallbackImage} className={"min-h-[150px] max-h-[150px] min-w-[300px] min-w-[300px] rounded-xl object-cover object-top"}  alt={""}/></a>
                             <a href={`/monument/${k.id}`} className={"font-[500] w-fit font-Poppins p-2 text-sm"}>{k.name}</a>
                         </div>
                     })
                 }
             </div>
         </div>
+        return <></>
     })
 
     return <>

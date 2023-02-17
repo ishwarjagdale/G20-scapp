@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {
+    UilEye, UilEyeSlash,
     UilSpinner
 } from "@iconscout/react-unicons";
 import {getEnglishName} from "all-iso-language-codes";
@@ -20,6 +21,8 @@ function NewLocation() {
     const [category, setCategory] = useState("");
     const [descriptions, setDescriptions] = useState({})
     const [showLanguages, setShowLanguages] = useState(false)
+
+    const [isPublic, setPublic] = useState(true);
 
     const [id, setID] = useState(null);
     const [updating, setUpdating] = useState(false);
@@ -67,6 +70,8 @@ function NewLocation() {
             formData.append('latitude', latitude)
             formData.append('category', category)
 
+            formData.append('makePublic', isPublic)
+
             setUpdating(true);
 
             newLocation(formData).then((res) => {
@@ -98,6 +103,7 @@ function NewLocation() {
                     setLatitude(res.data.latitude)
                     setLongitude(res.data.longitude)
                     setDescriptions(res.data.descriptions)
+                    setPublic(res.data.public)
                     setID(res.data.id)
                     setLoading(false);
                 }
@@ -144,6 +150,13 @@ function NewLocation() {
                     </div>
                 </div>
                 <div className={"flex items-center p-4"}>
+                    <button title={isPublic ? "Is public" : "Is private"} onClick={() => {setPublic(!isPublic)}} className={"w-fit hover:bg-[#d3d3d3] mr-2 p-3 bg-[#e4e4e4] rounded-xl"}>
+                        {
+                            isPublic ? <UilEye size={'16px'}/>
+                                :
+                                <UilEyeSlash size={'16px'} />
+                        }
+                    </button>
                     <button id={"subBtn"} onClick={submitForm} type={"submit"} className={"w-full hover:bg-slate-700 p-3 px-8 bg-slate-900 text-white text-sm font-[500] font-Poppins rounded-xl"}>
                         {
                             updating ?
