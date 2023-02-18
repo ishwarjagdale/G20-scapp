@@ -42,7 +42,7 @@ function Dashboard() {
                                     monuments[cat].map((mon) =>
                                         <div key={mon.id} className={"bg-white mb-4 md:mr-4 border w-full md:max-w-sm rounded-md"}>
                                             <Link to={`/admin/edit/${mon.id}`}>
-                                                <img src={mon.images[0] || FallbackImage} className={"rounded-t-md w-full object-cover h-[150px]"} alt={""} />
+                                                <img src={mon.images[0]} onError={(e) => e.target.src = FallbackImage} className={"rounded-t-md w-full object-cover h-[150px]"} alt={""} />
                                             </Link>
                                             <div className={"flex items-center justify-between p-4"}>
                                                 <Link to={`/admin/edit/${mon.id}`} className={"hover:bg-transparent text-sm font-[500] font-Poppins"}>{mon.name}</Link>

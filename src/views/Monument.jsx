@@ -75,7 +75,7 @@ function Monument() {
     if (monument)
         return (
             <div className={"overflow-scroll m-2 ml-2 lg:ml-0 w-full lg:w-2/4 relative pb-8"}>
-                <img src={monument.images[current] || FallbackImage} className={"max-h-[200px] flex w-full object-cover rounded-xl"} alt={""}/>
+                <img src={monument.images[current]} onError={(e) => e.target.src = FallbackImage} className={"max-h-[200px] flex w-full object-cover rounded-xl"} alt={""}/>
                 <ImagePagination current={current} length={monument.images.length} setCurrent={setCurrent}/>
                 <div className={"flex mt-0 mx-2 lg:mt-0 flex-wrap justify-between items-center"}>
                     <span className={"text-xl font-Poppins font-[600]"}>{monument.name}</span>
@@ -135,7 +135,7 @@ function Monument() {
                     </div>
                 }
                 <p className={`p-2 pb-4 text-justify break-words font-Merriweather text-sm leading-8`}>
-                    {monument.description}
+                    {monument.description || "No information available"}
                 </p>
             </div>
         )

@@ -33,7 +33,7 @@ function SavedPlaces() {
                     {
                         !loading ? places.length ? places.map((c, i) => {
                             return <div className={"flex flex-col mb-2 justify-end relative w-full"}>
-                                <a href={`/monument/${c.id}`}><img src={c.images[0] || FallbackImage}
+                                <a href={`/monument/${c.id}`}><img src={c.images[0]} onError={(e) => e.target.src = FallbackImage}
                                      className={"w-full h-[150px] rounded-xl object-cover"}
                                                   alt={""}/></a>
                                 <div className={"flex items-center justify-between"}>

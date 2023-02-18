@@ -26,7 +26,7 @@ function Categories() {
                 {
                     cats[c].map((k, j) => {
                         return <div key={j} className={"flex flex-col justify-end mr-2 relative"}>
-                            <a href={`/monument/${k.id}`}><img src={k.images[0] || FallbackImage} className={"min-h-[150px] max-h-[150px] min-w-[300px] min-w-[300px] rounded-xl object-cover object-top"}  alt={""}/></a>
+                            <a href={`/monument/${k.id}`}><img src={k.images[0]} onError={(e) => e.target.src = FallbackImage} className={"min-h-[150px] max-h-[150px] min-w-[300px] min-w-[300px] rounded-xl object-cover object-top"}  alt={""}/></a>
                             <a href={`/monument/${k.id}`} className={"font-[500] w-fit font-Poppins p-2 text-sm"}>{k.name}</a>
                         </div>
                     })

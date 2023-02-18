@@ -181,7 +181,4 @@ input[type="range"]::-webkit-slider-thumb {
 .form-element input::placeholder {
     font-size: 14px;
 }
-img {
-    background: url("images/fallback.png") center;
-    background-size: cover;
-}
+

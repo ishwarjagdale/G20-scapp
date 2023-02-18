@@ -42,7 +42,7 @@ function Admin() {
     return (
         <div className={"flex flex-col w-full h-full mx-auto overflow-hidden md:max-w-screen-2xl"}>
             <div className={"flex h-fit min-h-[80px] items-center border-b justify-between w-full p-6"}>
-                <span onClick={() => window.location.href = "/"} className={"cursor-pointer font-Poppins whitespace-nowrap w-[48px] font-bold text-lg"}><img src={LOGO} alt={"Smart Scan"} /></span>
+                <span onClick={() => window.location.href = "/"} className={"cursor-pointer font-Poppins whitespace-nowrap w-[48px] font-bold text-lg"}><img src={LOGO} className={"bg-none"} alt={"Smart Scan"} /></span>
                 <button onClick={() => setActiveSide(!activeSide)} className={"ml-auto p-2 md:hidden"}>
                     {
                         activeSide ?
