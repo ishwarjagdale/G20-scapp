@@ -79,7 +79,7 @@ function Monument() {
                 <ImagePagination current={current} length={monument.images.length} setCurrent={setCurrent}/>
                 <div className={"flex mt-0 mx-2 lg:mt-0 flex-wrap justify-between items-center"}>
                     <span className={"text-xl font-Poppins font-[600]"}>{monument.name}</span>
-                    <div className={"flex items-center"}>
+                    <div className={"flex items-center ml-auto"}>
                         <button onClick={() => {
                             if(navigator.share) {
                                 navigator.share({
