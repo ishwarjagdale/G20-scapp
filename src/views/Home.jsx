@@ -8,7 +8,6 @@ import {Link} from "react-router-dom";
 function Home() {
 
     useEffect(() => {
-        console.log(process.env)
         document.title = "Home | Smart Scan"
     }, [])
 
