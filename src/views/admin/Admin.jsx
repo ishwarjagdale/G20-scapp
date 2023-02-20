@@ -10,6 +10,7 @@ import {Link, Outlet} from "react-router-dom";
 import {isSecure, logOut} from "../../api/adminAPI";
 import LOGO from "../../images/logo.png";
 import ASC_LOGO from "../../images/asc.jpg";
+import ANO_LOGO from "../../images/another-logo.jpg";
 
 function Admin() {
 
@@ -45,7 +46,8 @@ function Admin() {
             <div className={"flex h-fit min-h-[80px] items-center border-b justify-between w-full p-6"}>
                 <span onClick={() => window.location.href = "/"} className={"cursor-pointer font-Poppins flex items-center whitespace-nowrap w-[48px] font-bold text-lg"}>
                     <img src={LOGO} className={"bg-none"} alt={"Smart Scan"} />
-                    <img src={ASC_LOGO} className={"w-[42px] mx-4 h-auto bg-none"} alt={"SMART SCAN"}/>
+                    <img src={ASC_LOGO} className={"w-[42px] mx-4 h-auto bg-none"} alt={"Aurangabad smart city"}/>
+                    <img src={ANO_LOGO} className={"w-[42px] h-auto bg-none"} alt={"logo"}/>
                 </span>
                 <button onClick={() => setActiveSide(!activeSide)} className={"ml-auto p-2 md:hidden"}>
                     {
