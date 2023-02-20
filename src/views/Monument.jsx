@@ -134,7 +134,7 @@ function Monument() {
                         <span className={"text-xs font-Poppins"}>{Math.floor(audioTrack / 60 || 0)}:{Math.floor(audioTrack % 60 || 0).toString().padStart(2, '0')} / {Math.floor(document.getElementById('audio')?.duration / 60 || 0)}:{Math.floor(document.getElementById('audio')?.duration % 60 || 0).toString().padStart(2, '0')}</span>
                     </div>
                 }
-                <p className={`p-2 pb-4 text-justify break-words font-Merriweather text-sm leading-8`}>
+                <p style={{whiteSpace: "break-spaces"}} className={`p-2 pb-4 text-justify break-words font-Merriweather text-sm leading-8`}>
                     {monument.description || "No information available"}
                 </p>
             </div>
