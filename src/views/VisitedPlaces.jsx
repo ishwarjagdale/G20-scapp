@@ -23,7 +23,7 @@ function VisitedPlaces() {
 
 
     useEffect(() => {
-        document.title = "Visited Places"
+        document.title = "Visited Places | Smart Scan"
     }, [])
 
     return (

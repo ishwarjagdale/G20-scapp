@@ -20,7 +20,7 @@ function SavedPlaces() {
 
 
     useEffect(() => {
-        document.title = "Saved Places"
+        document.title = "Saved Places | Smart Scan"
     }, [])
 
     return (

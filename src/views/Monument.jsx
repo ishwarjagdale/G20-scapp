@@ -49,7 +49,7 @@ function Monument() {
         getMonument(params.monument_id, true).then((res) => {
             if (res.status === 200) {
                 setMonument(res.data.response);
-                document.title = res.data.response.name
+                document.title = res.data.response.name + " | Smart Scan"
             }
         })
     }, [])
@@ -67,7 +67,7 @@ function Monument() {
         getMonument(params.monument_id, true, code).then((res) => {
             if(res.status === 200) {
                 setMonument(res.data.response);
-                document.title = res.data.response.name
+                document.title = res.data.response.name + " | Smart Scan"
             }
         })
     }

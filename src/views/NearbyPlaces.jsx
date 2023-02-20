@@ -36,7 +36,7 @@ function NearbyPlaces() {
 
 
     useEffect(() => {
-        document.title = "Nearby Places"
+        document.title = "Nearby Places | Smart Scan"
     }, [])
 
     return (

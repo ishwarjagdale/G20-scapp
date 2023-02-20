@@ -19,7 +19,7 @@ function CategoryView() {
 
 
     useEffect(() => {
-        document.title = params.category.split('-').map((v) => `${v[0].toUpperCase()}${v.substring(1,)}`).join(' ')
+        document.title = `${(params.category.split('-').map((v) => `${v[0].toUpperCase()}${v.substring(1,)}`).join(' '))} | Smart Scan`
     }, [])
 
     if (cats)
