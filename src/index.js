@@ -84,7 +84,9 @@ const router = createBrowserRouter([
             }
         ]
     }
-]);
+], {
+    basename: "/smart-scan"
+});
 
 root.render(
   <React.StrictMode>

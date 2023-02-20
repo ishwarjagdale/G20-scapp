@@ -80,7 +80,7 @@ function NewLocation() {
                     if(id)
                         notify(res.data.message, 'success');
                     else
-                        window.location.href = `/admin/edit/${res.data.monument_id}`;
+                        window.location.href = `/smart-scan/admin/edit/${res.data.monument_id}`;
                 }
             }).catch((e) => {
                 console.log(e);
@@ -140,7 +140,7 @@ function NewLocation() {
                             {
                                 id && <>
                                     <span className={"font-[500] pb-2"}>QR Code</span>
-                                    <div className={"flex justify-center h-fit mb-8"}><QRCode className={"w-[100px] h-[100px] aspect-square"} value={window.location.protocol + "//" + window.location.host + "/monument/" + encodeURI(id) + "?src=qr"}/></div>
+                                    <div className={"flex justify-center h-fit mb-8"}><QRCode className={"w-[100px] h-[100px] aspect-square"} value={window.location.protocol + "//" + window.location.host + "/smart-scan/monument/" + encodeURI(id) + "?src=qr"}/></div>
                                 </>
                             }
                             {
@@ -182,7 +182,7 @@ function NewLocation() {
                                             <option value={0}>Choose a language</option>
                                             {
                                                 descriptions && Object.keys(languages).filter((c) => !descriptions.hasOwnProperty(c)).map((code) =>
-                                                    <option value={code}>{getEnglishName(code)}</option>
+                                                    <option key={code} value={code}>{getEnglishName(code)}</option>
                                                 )
                                             }
                                         </select>
@@ -195,7 +195,7 @@ function NewLocation() {
                         <div className={"flex flex-col flex-1 h-full overflow-y-scroll mt-4"}>
                             {
                                 Object.keys(descriptions).map((k) =>
-                                    <Language k={k} mon_id={id} desc={descriptions[k]} setLanguage={setLanguage} removeLanguage={removeLanguage} />
+                                    <Language key={k} k={k} mon_id={id} desc={descriptions[k]} setLanguage={setLanguage} removeLanguage={removeLanguage} />
                                 )
                             }
                         </div>

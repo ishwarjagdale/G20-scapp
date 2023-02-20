@@ -16,7 +16,7 @@ function SignIn() {
         }).then((res) => {
             if(res.status === 200) {
                 localStorage.setItem('user', JSON.stringify(res.data));
-                window.location.href = "/admin";
+                window.location.href = "/smart-scan/admin";
             }
         }).catch((e) => {
             console.log(e);

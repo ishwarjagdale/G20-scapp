@@ -63,7 +63,7 @@ function ImageUpload({id, images, setImages}) {
                     notify("Create a new monument first", "info")
             }} className={"w-full h-fit scale-98 rounded-2xl"}>
                 <input id={'imageInput'} onChange={uploadImage} type={"file"} hidden={true} multiple={true}/>
-                <img src={images[current]} onError={(e) => e.target.src = FallBackImage} className={"w-full h-[150px] object-cover rounded-2xl"} alt={""} />
+                <img src={images[current] || ""} onError={(e) => e.target.src = FallBackImage} className={"w-full h-[150px] object-cover rounded-2xl"} alt={""} />
             </button>
             <ImagePagination setCurrent={setCurrent} length={images.length} current={current} />
         </div>
