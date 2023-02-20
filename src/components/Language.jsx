@@ -36,9 +36,8 @@ function Language({k, mon_id, setLanguage, removeLanguage, desc}) {
             setUploading(true)
             manageLanguage("POST", mon_id, formData).then((res) => {
                 if(res.status === 200) {
-                    setLanguage({code: k, name: name, description: description, audio: audio})
+                    setLanguage({code: res.data.translation.code, name: res.data.translation.name, description: res.data.translation.description, audio: res.data.translation.audio})
                     setUpload(null)
-                    setAudio(desc.audio)
                     notify(res.data.message, 'success');
                 }
             }).catch((err) => {

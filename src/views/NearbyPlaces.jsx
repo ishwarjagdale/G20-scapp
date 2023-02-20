@@ -4,6 +4,7 @@ import {getNearby} from "../api/home";
 import {calculateDistance} from "../components/constants";
 import {notify} from "../components/notifier";
 import FallbackImage from "../images/fallback.png";
+import {Link} from "react-router-dom";
 
 function NearbyPlaces() {
 
@@ -50,11 +51,11 @@ function NearbyPlaces() {
                     {
                         permission ? !loading ? nearby.length ? nearby.map((c) => {
                             return <div className={"flex flex-col mb-2 justify-end relative w-full"}>
-                                <a href={`/monument/${c.id}`}><img src={c.images[0]} onError={(e) => e.target.src = FallbackImage}
+                                <Link to={`/monument/${c.id}`}><img src={c.images[0]} onError={(e) => e.target.src = FallbackImage}
                                                                    className={"w-full h-[150px] rounded-xl object-cover"}
-                                                                   alt={""}/></a>
+                                                                   alt={""}/></Link>
                                 <div className={"flex items-center"}>
-                                    <a href={`/monument/${c.id}`} className={"font-[500] font-Poppins p-2 text-sm"}>{c.name}</a>
+                                    <Link to={`/monument/${c.id}`} className={"font-[500] font-Poppins p-2 text-sm"}>{c.name}</Link>
                                     <span className={"mx-2 dot"} />
                                     <span className={"font-medium text-sm"}>{Math.round(calculateDistance(coords.latitude, coords.longitude, Number.parseFloat(c.lat), Number.parseFloat(c.long)))} km</span>
                                 </div>
@@ -83,9 +84,9 @@ function NearbyPlaces() {
                 </div>
             </div>
             <div className={"fixed lg:sticky bottom-0 left-0 bg-white p-2 lg:p-0 w-full"}>
-                <a href={"/scanner"} className={" flex p-4 justify-center items-center bg-[#1f1f1f] w-full rounded-full text-white font-Poppins"}>
+                <Link to={"/scanner"} className={" flex p-4 justify-center items-center bg-[#1f1f1f] w-full rounded-full text-white font-Poppins"}>
                     <UilQrcodeScan size={'24px'}/><span className={"text-sm font-[600] mx-4"}>Scan QR code</span>
-                </a>
+                </Link>
             </div>
         </div>
     )

@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import {getPopulars} from "../api/home";
 import {calculateDistance} from "./constants";
 import FallbackImage from "../images/fallback.png";
+import {Link} from "react-router-dom";
 
 function PopularPlaces() {
 
@@ -43,10 +44,10 @@ function PopularPlaces() {
         </div>
         <div className={"flex mb-8"}>
             <div className={"flex flex-col justify-end relative w-full"}>
-                <a href={`/monument/${populars[current].id}`}><img src={populars[current].images[0]} onError={(e) => e.target.src = FallbackImage} className={"w-full h-[150px] rounded-xl object-cover"}  alt={""}/></a>
+                <Link to={`/monument/${populars[current].id}`}><img src={populars[current].images[0]} onError={(e) => e.target.src = FallbackImage} className={"w-full h-[150px] rounded-xl object-cover"}  alt={""}/></Link>
                 <div className={"flex items-center justify-between"}>
                     <div className={"flex items-center"}>
-                        <a href={`/monument/${populars[current].id}`} className={"font-[500] font-Poppins p-2 text-sm"}>{populars[current].name}</a>
+                        <Link to={`/monument/${populars[current].id}`} className={"font-[500] font-Poppins p-2 text-sm"}>{populars[current].name}</Link>
                         {
                             (coordinates && (populars[current].lat > 0 && populars[current].long > 0)) ?
                                 <>

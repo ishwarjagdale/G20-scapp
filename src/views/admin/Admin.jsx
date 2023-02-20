@@ -43,10 +43,10 @@ function Admin() {
     return (
         <div className={"flex flex-col w-full h-full mx-auto overflow-hidden md:max-w-screen-2xl"}>
             <div className={"flex h-fit min-h-[80px] items-center border-b justify-between w-full p-6"}>
-                <span onClick={() => window.location.href = "/smart-scan"} className={"cursor-pointer font-Poppins flex items-center whitespace-nowrap w-[48px] font-bold text-lg"}>
+                <Link to={"/"} className={"cursor-pointer font-Poppins flex items-center whitespace-nowrap w-[48px] font-bold text-lg"}>
                     <img src={ANO_LOGO} className={"w-[42px] mr-4 h-auto bg-none"} alt={"logo"}/>
                     <img src={ASC_LOGO} className={"w-[42px] p-1 h-auto bg-none"} alt={"Aurangabad smart city"}/>
-                </span>
+                </Link>
                 <button onClick={() => setActiveSide(!activeSide)} className={"ml-auto p-2 md:hidden"}>
                     {
                         activeSide ?

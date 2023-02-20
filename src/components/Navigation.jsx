@@ -16,10 +16,10 @@ function Navigation() {
 
     return (
         <div className={"flex w-full h-[100px] items-center justify-between py-6 px-4 lg:px-20"}>
-            <a href={"/"} className={"p-2 flex items-center  rounded-lg bg-white"}>
+            <Link to={"/"} className={"p-2 flex items-center  rounded-lg bg-white"}>
                 <img src={ANO_LOGO} className={"w-[42px] mr-4 h-auto bg-none"} alt={"logo"}/>
                 <img src={ASC_LOGO} className={"w-[42px] p-1 h-auto bg-none"} alt={"Aurangabad smart city"}/>
-            </a>
+            </Link>
             <button onClick={() => setMenuActive(!menuActive)} className={"lg:hidden p-2 rounded-md hover:bg-[#f1f1f1] inline-block"}><UilBars size={'24px'}/></button>
             <div className={`${!menuActive ? 'hidden' : ''} bg-white z-50 py-2 lg:flex fixed lg:relative bottom-0 left-0 border-t-2 lg:border-0 w-full lg:w-fit text-sm font-Poppins font-[500] rounded-2xl`}>
                 <div onClick={() => setMenuActive(!menuActive)} className={"w-[50px] h-[4px] mx-auto bg-black rounded-xl lg:hidden m-2 mb-4"} />

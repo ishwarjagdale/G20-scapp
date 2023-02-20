@@ -3,10 +3,12 @@ import {UilQrcodeScan} from "@iconscout/react-unicons";
 import PopularPlaces from "../components/PopularPlaces";
 import Categories from "../components/Categories";
 import {useEffect} from "react";
+import {Link} from "react-router-dom";
 
 function Home() {
 
     useEffect(() => {
+        console.log(process.env)
         document.title = "Home | Smart Scan"
     }, [])
 
@@ -38,9 +40,9 @@ function Home() {
 
             </div>
             <div className={"fixed lg:sticky bottom-0 left-0 bg-white p-2 lg:p-0 w-full"}>
-                <a href={"/scanner"} className={" flex p-4 justify-center items-center bg-[#1f1f1f] w-full rounded-full text-white font-Poppins"}>
+                <Link to={"/scanner"} className={" flex p-4 justify-center items-center bg-[#1f1f1f] w-full rounded-full text-white font-Poppins"}>
                     <UilQrcodeScan size={'24px'}/><span className={"text-sm font-[600] mx-4"}>Scan QR code</span>
-                </a>
+                </Link>
             </div>
         </div>
     )
