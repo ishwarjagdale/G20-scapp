@@ -75,6 +75,7 @@ function Monument() {
     if (monument)
         return (
             <div className={"overflow-scroll m-2 ml-2 lg:ml-0 w-full lg:w-2/4 relative pb-8"}>
+                <span className={"font-Poppins mb-4 font-[500] text-center lg:text-left block"}>Aurangabad Smart City presents Smart Scan</span>
                 <img src={monument.images[current]} onError={(e) => e.target.src = FallbackImage} className={"max-h-[200px] flex w-full object-cover rounded-xl"} alt={""}/>
                 <ImagePagination current={current} length={monument.images.length} setCurrent={setCurrent}/>
                 <div className={"flex mt-0 mx-2 lg:mt-0 flex-wrap justify-between items-center"}>

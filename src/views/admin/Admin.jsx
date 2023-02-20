@@ -8,7 +8,6 @@ import {
 } from "@iconscout/react-unicons";
 import {Link, Outlet} from "react-router-dom";
 import {isSecure, logOut} from "../../api/adminAPI";
-import LOGO from "../../images/logo.png";
 import ASC_LOGO from "../../images/asc.jpg";
 import ANO_LOGO from "../../images/another-logo.jpg";
 
@@ -45,9 +44,8 @@ function Admin() {
         <div className={"flex flex-col w-full h-full mx-auto overflow-hidden md:max-w-screen-2xl"}>
             <div className={"flex h-fit min-h-[80px] items-center border-b justify-between w-full p-6"}>
                 <span onClick={() => window.location.href = "/"} className={"cursor-pointer font-Poppins flex items-center whitespace-nowrap w-[48px] font-bold text-lg"}>
-                    <img src={LOGO} className={"bg-none"} alt={"Smart Scan"} />
-                    <img src={ASC_LOGO} className={"w-[42px] mx-4 h-auto bg-none"} alt={"Aurangabad smart city"}/>
-                    <img src={ANO_LOGO} className={"w-[42px] h-auto bg-none"} alt={"logo"}/>
+                    <img src={ANO_LOGO} className={"w-[42px] mr-4 h-auto bg-none"} alt={"logo"}/>
+                    <img src={ASC_LOGO} className={"w-[42px] p-1 h-auto bg-none"} alt={"Aurangabad smart city"}/>
                 </span>
                 <button onClick={() => setActiveSide(!activeSide)} className={"ml-auto p-2 md:hidden"}>
                     {

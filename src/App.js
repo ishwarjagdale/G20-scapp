@@ -45,11 +45,14 @@ function App() {
                             </div>
                         }
                         {/*welcome greeting ends*/}
-                        <div className={"p-4 flex items-center my-4"}>
-                            <div className={"border rounded-xl p-4 mr-4"}>
-                                <UilQrcodeScan size={'24px'}/>
+                        <div>
+                            <span className={"font-Poppins m-4 text-xl text-center lg:text-left block"}>Aurangabad Smart City presents Smart Scan</span>
+                            <div className={"p-4 flex items-center mb-4"}>
+                                <div className={"border rounded-xl p-4 mr-4"}>
+                                    <UilQrcodeScan size={'24px'}/>
+                                </div>
+                                <span className={"text-xl"}>Scan QR to listen to the <br/>glorious history of Aurangabad</span>
                             </div>
-                            <span className={"text-xl"}>Scan QR to listen to the <br/>glorious history of Aurangabad</span>
                         </div>
                     </div>
                 </div>

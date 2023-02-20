@@ -14,6 +14,8 @@ function Home() {
         <div className={"flex flex-col justify-between overflow-scroll m-2  ml-2 lg:ml-0 w-full lg:w-1/4 relative "}>
             <div className={"pb-24 lg:pb-0"}>
                 {/*greeting marquee*/}
+                <span className={"font-Poppins mb-4 text-sm font-[500] lg:hidden text-center lg:text-left block"}>Aurangabad Smart City presents Smart Scan</span>
+
                 <div className={"lg:hidden p-6 font-Poppins bg-[#1f1f1f] text-white rounded-2xl mb-2"}>
                     <marquee className="text-xl flex font-normal">Welcome to Aurangabad!
                         <div className="px-4 inline-block"></div>
@@ -22,6 +24,7 @@ function Home() {
                         औरंगाबादमध्ये आपले स्वागत आहे
                     </marquee>
                 </div>
+
                 {/*greeting marquee ends*/}
                 <a href={"/scanner"}><img className={"lg:hidden mb-6 rounded-2xl h-[150px] w-full object-cover"} src={QRBanner} alt={"scan qr"}/></a>
                 {/*image banner ends*/}
