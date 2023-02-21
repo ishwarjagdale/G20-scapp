@@ -17,23 +17,26 @@ function NearbyPlaces() {
         navigator.permissions.query({name: "geolocation"}).then((res) => {
             if(res.state === "granted") {
                 setPermission(true)
-                navigator.geolocation.getCurrentPosition((res) => {
-                    setCoords(res.coords)
-                    getNearby(res.coords).then((res) => {
-                        if(res.status === 200) {
-                            setNearby(res.data.response);
-                            setLoading(false)
-                        }
-                    })
-                }, () => {}, {
-                    enableHighAccuracy: true, timeout: 10000
-                })
             } else {
                 notify("Require location access");
                 setLoading(false)
             }
         })
     }, [])
+
+    useEffect(() => {
+        navigator.geolocation.watchPosition((res) => {
+            setCoords(res.coords)
+            getNearby(res.coords).then((res) => {
+                if(res.status === 200) {
+                    setNearby(res.data.response);
+                    setLoading(false)
+                }
+            })
+        }, () => {}, {
+            enableHighAccuracy: true, timeout: 10000
+        })
+    })
 
 
     useEffect(() => {
