@@ -25,7 +25,7 @@ function NearbyPlaces() {
     }, [])
 
     useEffect(() => {
-        navigator.geolocation.watchPosition((res) => {
+        navigator.geolocation.getCurrentPosition((res) => {
             setCoords(res.coords)
             getNearby(res.coords).then((res) => {
                 if(res.status === 200) {

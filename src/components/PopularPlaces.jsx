@@ -17,7 +17,7 @@ function PopularPlaces() {
     }
 
     useEffect(() => {
-        navigator.geolocation.watchPosition((res) => {
+        navigator.geolocation.getCurrentPosition((res) => {
             if(res.coords.accuracy <= 100)
                 setCoordinates(res.coords)
         }, () => {}, {
