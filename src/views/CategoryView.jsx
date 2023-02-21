@@ -27,7 +27,7 @@ function CategoryView() {
             <div className={"flex flex-col justify-between overflow-scroll m-2  ml-2 lg:ml-0 w-full lg:w-1/4 relative "}>
                 <div className={"pb-24 lg:pb-0"}>
                     <div className={"flex items-center mx-2 mb-4"}>
-                        <span className={"font-[600] font-Poppins text-sm capitalize text-xl"}>{params.category.replaceAll('-', ' ')}</span>
+                        <span className={"font-[600] font-Poppins text-sm capitalize text-xl"}>{String(params.category).replaceAll('-', ' ')}</span>
                     </div>
                     <div className={"flex flex-col mb-8"}>
                         {

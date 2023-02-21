@@ -20,8 +20,8 @@ function Categories() {
         if(cats[c].length)
         return <div key={i}>
             <div className={"flex items-center mx-2 mb-4 justify-between"}>
-                <Link to={`/category/${c.replaceAll(' ', '-').toLowerCase()}`} className={"font-[600] font-Poppins text-sm"}>{c}</Link>
-                <Link to={`/category/${c.replaceAll(' ', '-').toLowerCase()}`} className={"ml-4 text-xs font-Poppins"}>View all</Link>
+                <Link to={`/category/${String(c).replace(/\s/g,  '-').toLowerCase()}`} className={"font-[600] font-Poppins text-sm"}>{c}</Link>
+                <Link to={`/category/${String(c).replace(/\s/g, '-').toLowerCase()}`} className={"ml-4 text-xs font-Poppins"}>View all</Link>
             </div>
             <div className={"overflow-x-scroll mb-8 flex"}>
                 {
