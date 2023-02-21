@@ -36,7 +36,7 @@ function NearbyPlaces() {
         }, () => {}, {
             enableHighAccuracy: true, timeout: 10000
         })
-    })
+    }, [])
 
 
     useEffect(() => {
