@@ -1,6 +1,6 @@
 import ImagePagination from "../components/ImagePagination";
-import {useEffect, useState} from "react";
-import {UilBookmark, UilPause, UilPlay, UilShareAlt} from "@iconscout/react-unicons";
+import React, {useEffect, useState} from "react";
+import {UilBookmark, UilPause, UilPlay, UilShareAlt, UilSpinner} from "@iconscout/react-unicons";
 import {getMonument} from "../api/home";
 import {useParams} from "react-router-dom";
 import {languages} from "../components/constants";
@@ -18,6 +18,7 @@ function Monument() {
     const [audioTrack, setAudioTrack] = useState(0);
     const params = useParams();
     const [saved, setSaved] = useState((JSON.parse(localStorage.getItem('saved')) || []).indexOf(params.monument_id) !== -1);
+    const [loading, setLoading] = useState(false);
 
     const toggleAudio = () => {
         document.getElementById('audio').paused ?
@@ -46,9 +47,11 @@ function Monument() {
     }, [])
 
     useEffect(() => {
+        setLoading(true);
         getMonument(params.monument_id, true).then((res) => {
             if (res.status === 200) {
                 setMonument(res.data.response);
+                setLoading(false);
                 document.title = res.data.response.name + " | Smart Scan"
             }
         })
@@ -64,9 +67,11 @@ function Monument() {
     })
 
     const changeLanguage = (code) => {
+        setLoading(true)
         getMonument(params.monument_id, true, code).then((res) => {
             if(res.status === 200) {
                 setMonument(res.data.response);
+                setLoading(false);
                 document.title = res.data.response.name + " | Smart Scan"
             }
         })
@@ -121,23 +126,35 @@ function Monument() {
                     </div>
                 }
                 {
-                    monument.audio && <div className={"mt-2 text-white p-4 px-6 rounded-full bg-[#1f1f1f] items-center flex mb-4 w-full"}>
-                    <audio onPlay={() => setAudioPlaying(true)} onEnded={() => {setAudioPlaying(false); setAudioTrack(0)}} onTimeUpdate={(e) => setAudioTrack(e.target.currentTime)} src={monument.audio} id={'audio'} autoPlay={true} />
-                    <button onClick={toggleAudio} className={"hover:bg-slate-900"}>
-                        {
-                            !audioPlaying ?
-                                <UilPlay size={'18px'}/>
-                                :
-                                <UilPause size={'18px'}/>
-                        }
-                    </button>
-                    <input onChange={(e) => document.getElementById('audio').currentTime = e.target.value} id={'seeker'} type={'range'} min={0} max={document.getElementById('audio')?.duration} value={audioTrack || 0} className={"mx-4 flex-1"} />
-                        <span className={"text-xs font-Poppins"}>{Math.floor(audioTrack / 60 || 0)}:{Math.floor(audioTrack % 60 || 0).toString().padStart(2, '0')} / {Math.floor(document.getElementById('audio')?.duration / 60 || 0)}:{Math.floor(document.getElementById('audio')?.duration % 60 || 0).toString().padStart(2, '0')}</span>
-                    </div>
+                    loading ?
+                        <>
+                            <div className={"w-full my-16 flex items-center justify-center"}>
+                                <UilSpinner size={'24px'} />
+                            </div>
+                        </>
+                        :
+                        <>
+                            {
+                                monument.audio && <div className={"mt-2 text-white p-4 px-6 rounded-full bg-[#1f1f1f] items-center flex mb-4 w-full"}>
+                                    <audio preload={'auto'} onPlay={() => setAudioPlaying(true)} onEnded={() => {setAudioPlaying(false); setAudioTrack(0)}} onTimeUpdate={(e) => setAudioTrack(e.target.currentTime)} src={monument.audio} id={'audio'} autoPlay={true} />
+                                    <button onClick={toggleAudio} className={"hover:bg-slate-900"}>
+                                        {
+                                            !audioPlaying ?
+                                                <UilPlay size={'18px'}/>
+                                                :
+                                                <UilPause size={'18px'}/>
+                                        }
+                                    </button>
+                                    <input onChange={(e) => document.getElementById('audio').currentTime = e.target.value} id={'seeker'} type={'range'} min={0} max={document.getElementById('audio')?.duration} value={audioTrack || 0} className={"mx-4 flex-1"} />
+                                    <span className={"text-xs font-Poppins"}>{Math.floor(audioTrack / 60 || 0)}:{Math.floor(audioTrack % 60 || 0).toString().padStart(2, '0')} / {Math.floor(document.getElementById('audio')?.duration / 60 || 0)}:{Math.floor(document.getElementById('audio')?.duration % 60 || 0).toString().padStart(2, '0')}</span>
+                                </div>
+                            }
+                            <p style={{whiteSpace: "break-spaces"}}
+                               className={`p-2 pb-4 text-justify break-words font-Merriweather text-sm leading-8`}>
+                                {monument.description || "No information available"}
+                            </p>
+                        </>
                 }
-                <p style={{whiteSpace: "break-spaces"}} className={`p-2 pb-4 text-justify break-words font-Merriweather text-sm leading-8`}>
-                    {monument.description || "No information available"}
-                </p>
             </div>
         )
 }
