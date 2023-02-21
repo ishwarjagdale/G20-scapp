@@ -35,7 +35,7 @@ function Dashboard() {
             <div className={"flex flex-col w-full font-Poppins mt-4 md:mt-8 p-4 flex-wrap md:px-6"}>
                 {
                     monuments && Object.keys(monuments).map((cat) =>
-                        <div className={"flex flex-col w-full mb-4"}>
+                        <div key={cat} className={"flex flex-col w-full mb-4"}>
                             <span className={"font-[500] font-Poppins"}>{cat}</span>
                             <div className={"flex mt-4 w-full gap-4 md:grid grid-cols-3 flex-wrap"}>
                                 {
