@@ -61,7 +61,7 @@ function Monument() {
     const rotateImages = () => {
         if (monument) {
             setCurrent((current + 1) % (monument.images.length))
-            setTimeout(rotateImages, 5000)
+            return setTimeout(rotateImages, 5000)
         }
     }
 
