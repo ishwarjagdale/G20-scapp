@@ -52,18 +52,17 @@ function Monument() {
             if (res.status === 200) {
                 setMonument(res.data.response);
                 setLoading(false);
-                rotateImages();
                 document.title = res.data.response.name + " | Smart Scan"
             }
         })
     }, [])
 
-    const rotateImages = () => {
-        if (monument) {
-            setCurrent((current + 1) % (monument.images.length))
-            return setTimeout(rotateImages, 5000)
-        }
+    const rotateImage = () => {
+        setCurrent((current + 1) % (monument.images.length))
+        setTimeout(() => {}, 5000);
     }
+
+    useEffect(rotateImage)
 
     const changeLanguage = (code) => {
         setLoading(true)
