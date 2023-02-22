@@ -65,7 +65,7 @@ function Monument() {
         }, 5000)
 
         return () => clearInterval(interval)
-    }, [current, monument])
+    }, [])
 
     const changeLanguage = (code) => {
         setLoading(true)
