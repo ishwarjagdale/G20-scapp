@@ -12,7 +12,7 @@ import FallbackImage from "../images/fallback.png";
 
 function Monument() {
 
-    const [current, setCurrent] = useState(0);
+    const [imageIndex, setImageIndex] = useState(0);
     const [monument, setMonument] = useState(null);
     const [audioPlaying, setAudioPlaying] = useState(false);
     const [audioTrack, setAudioTrack] = useState(0);
@@ -58,14 +58,12 @@ function Monument() {
     }, [])
 
     useEffect(() => {
-        const interval = setInterval(() => {
+        setTimeout(() => {
             if(monument) {
-                setCurrent((current + 1) % (monument.images.length))
+                setImageIndex((imageIndex + 1) % monument.images.length)
             }
         }, 5000)
-
-        return () => clearInterval(interval)
-    }, [])
+    })
 
     const changeLanguage = (code) => {
         setLoading(true)
@@ -82,8 +80,8 @@ function Monument() {
         return (
             <div className={"overflow-scroll m-2 ml-2 lg:ml-0 w-full lg:w-2/4 relative pb-8"}>
                 <span className={"font-Poppins mb-4 font-[500] text-center lg:text-left block"}>Aurangabad Smart City presents Smart Scan</span>
-                <img src={monument.images[current]} onError={(e) => e.target.src = FallbackImage} className={"max-h-[200px] flex w-full object-cover rounded-xl"} alt={""}/>
-                <ImagePagination current={current} length={monument.images.length} setCurrent={setCurrent}/>
+                <img src={monument.images[imageIndex]} onError={(e) => e.target.src = FallbackImage} className={"max-h-[200px] flex w-full object-cover rounded-xl"} alt={""}/>
+                <ImagePagination current={imageIndex} length={monument.images.length} setCurrent={imageIndex}/>
                 <div className={"flex mt-0 mx-2 lg:mt-0 flex-wrap justify-between items-center"}>
                     <span className={"text-xl font-Poppins font-[600]"}>{monument.name}</span>
                     <div className={"flex items-center ml-auto"}>
