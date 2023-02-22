@@ -46,6 +46,12 @@ function Monument() {
         }
     }, [])
 
+    const rotateImage = () => {
+        if(monument) {
+            setCurrent((current + 1) % (monument.images.length))
+        }
+    }
+
     useEffect(() => {
         setLoading(true);
         getMonument(params.monument_id, true).then((res) => {
@@ -57,12 +63,9 @@ function Monument() {
         })
     }, [])
 
-    const rotateImage = () => {
-        setCurrent((current + 1) % (monument.images.length))
-        setTimeout(() => {}, 5000);
-    }
-
-    useEffect(rotateImage)
+    useEffect(() => {
+        setTimeout(rotateImage, 5000)
+    })
 
     const changeLanguage = (code) => {
         setLoading(true)
