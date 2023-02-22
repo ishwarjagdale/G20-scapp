@@ -34,8 +34,11 @@ function PopularPlaces() {
     }, [])
 
     useEffect(() => {
-        setTimeout(rotatePops, 5000)
-    })
+        const interval = setInterval(rotatePops, 5000);
+        return () => {
+            clearInterval(interval);
+        }
+    }, [])
 
     if(populars)
     return <>
