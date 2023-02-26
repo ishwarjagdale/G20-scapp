@@ -10,7 +10,7 @@ function PopularPlaces() {
     const [current, setCurrent] = useState(0);
     const [coordinates, setCoordinates] = useState(null)
 
-    const rotatePops = () => {
+    function rotatePops() {
         if(populars) {
             setCurrent((current + 1) % (populars.length))
         }

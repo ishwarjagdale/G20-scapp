@@ -65,7 +65,7 @@ function ImageUpload({id, images, setImages}) {
                 <input id={'imageInput'} onChange={uploadImage} type={"file"} hidden={true} multiple={true}/>
                 <img src={images[current] || ""} onError={(e) => e.target.src = FallBackImage} className={"w-full h-[150px] object-cover rounded-2xl"} alt={""} />
             </button>
-            <ImagePagination setCurrent={setCurrent} length={images.length} current={current} />
+            <ImagePagination k={id} setCurrent={setCurrent} length={images.length} current={current} />
         </div>
     )
 }
