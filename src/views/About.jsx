@@ -4,54 +4,20 @@ function About() {
     return (
         <div className={"h-full w-full flex flex-col items-start"}>
             <Navigation />
-            <div className={"flex flex-col lg:flex-row w-full h-full relative overflow-hidden"}>
-                {/*hero section*/}
-                <div className={"h-[300px] lg:h-[98%] lg:w-1/2 diems-image m-2 rounded-2xl"}>
-                    <div className={"flex justify-between text-white font-Poppins flex-col h-full rounded-2xl w-full full-grad"} />
-                </div>
-                {/*hero section ends*/}
-                <div className={"flex overflow-scroll m-2 ml-2 lg:ml-0 lg:w-1/2 relative "}>
-                    <div className={"pb-24 p-2 lg:pb-0 font-Poppins text-justify"}>
-                        <span>Smart Scan is developed by students of <b>Deogiri Institute of Engineering and Management Studies</b></span>
-                        <span><br/>for the tourism of Aurangabad Smart City.</span><br/><br/>
-                        <span>This application was developed by Computer Science Department, under the guidance of
-                            <ul className={"lg:p-2 py-2 pb-4 lg:ml-4"}>
-                                <li className={"pb-1 font-[600]"}>Director Dr. Ulhas Shiurkar</li>
-                                <li className={"pb-1 font-[600]"}>HOD CSE - Prof. S. B. Kalyankar</li>
-                                <li className={"pb-1 font-[600]"}>HOD Civil - Dr.G.R.Gandhe</li>
-                                <li className={"pb-1 font-[600]"}>Dr. Rahat A Khan</li>
-                                <li className={"pb-1 font-[600]"}>Prof. Prachi Joshi</li>
-                                <li className={"pb-1 font-[600]"}>PRO - Nouman Khan</li>
-                            </ul>
-                        </span>
-                        <span>The members of the team involved in the development of Smart Scan are as follows:</span><br/>
-                        <div className={"lg:p-2 py-2 lg:ml-4"}>
-                            <span className={"font-[600]"}>Lead Developers</span>
-                            <ul className={"pb-2"}>
-                                <li className={""}>Ishwar Jagdale</li>
-                            </ul>
-                            <span className={"block mt-2 font-[600]"}>Backend Developers</span>
-                            <ul className={"pb-2"}>
-                                <li className={""}>Suraj Shelke</li>
-                                <li className={""}>Vivek Khadse</li>
-                                <li className={""}>Sagar Sankpal</li>
-                            </ul>
-                            <span className={"block mt-2 font-[600]"}>Server Administrator</span>
-                            <ul className={"pb-2"}>
-                                <li className={""}>Ganesh Sonawne</li>
-                            </ul>
-                            <span className={"block mt-2 font-[600]"}>Database and Support</span>
-                            <ul className={"pb-2"}>
-                                <li className={""}>Pratik Kulkarni</li>
-                                <li className={""}>Kunal Pagore</li>
-                                <li className={""}>Kalyan Kathar</li>
-                            </ul>
-                        </div>
-                    </div>
+            <div className={"flex flex-col lg:flex-row w-full h-full justify-start lg:justify-center items-start relative overflow-hidden"}>
+                <div className={"py-8 lg:py-24 p-4 font-Poppins text-left lg:text-justify overflow-y-scroll max-w-screen-lg"}>
+                    <span className={"break-words"}>
+                        This software was developed by <b>Aurangabad Smart City Development Corporation Limited</b> with the help of students from the <b>Deogiri Institute of Engineering and Management Studies, Aurangabad</b>.<br/><br/>
+                        This web application is named Smart Scan and has all the information in the text as well as audio regarding the gates and monuments which provides a cultural heritage to our city.
+                        <br/><br/>Aurangabad Smart City appreciates the huge help from
+                        <br/><b className={'my-1 block'}>The Archaeological Survey of India,
+                        <br/>The State Archaeological Survey of Maharashtra,
+                        <br/>The Indian National Trust for Art and Cultural Heritage (INTACH),
+                        <br/>and Author Dr. Dulari Qureshi</b> with her book "The Glorious Aurangabad"
+                        <br/>for providing all the information regarding the Gates and Monuments of The City.
+                    </span>
                 </div>
             </div>
-
-
         </div>
     )
 }

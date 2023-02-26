@@ -60,8 +60,8 @@ function Monument() {
     const rotatePops = () => {
         if(monument) {
             setImageIndex((imageIndex + 1) % (monument.images.length))
-            return setTimeout(rotatePops, 5000)
         }
+        return setTimeout(rotatePops, 5000)
     }
 
     useEffect(() => {
