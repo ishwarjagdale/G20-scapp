@@ -13,6 +13,7 @@ function PopularPlaces() {
     const rotatePops = () => {
         if(populars) {
             setCurrent((current + 1) % (populars.length))
+            return setTimeout(rotatePops, 5000)
         }
     }
 
@@ -35,7 +36,7 @@ function PopularPlaces() {
 
     useEffect(() => {
         setTimeout(rotatePops, 5000)
-    })
+    }, [])
 
     if(populars)
     return <>

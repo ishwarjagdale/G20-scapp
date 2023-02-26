@@ -57,13 +57,16 @@ function Monument() {
         })
     }, [])
 
+    const rotatePops = () => {
+        if(monument) {
+            setImageIndex((imageIndex + 1) % (monument.images.length))
+            return setTimeout(rotatePops, 5000)
+        }
+    }
+
     useEffect(() => {
-        setTimeout(() => {
-            if(monument) {
-                setImageIndex((imageIndex + 1) % monument.images.length)
-            }
-        }, 5000)
-    })
+        setTimeout(rotatePops, 5000)
+    }, [])
 
     const changeLanguage = (code) => {
         setLoading(true)
