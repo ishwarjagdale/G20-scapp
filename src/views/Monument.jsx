@@ -52,20 +52,16 @@ function Monument() {
             if (res.status === 200) {
                 setMonument(res.data.response);
                 setLoading(false);
+                rotatePops();
                 document.title = res.data.response.name + " | Smart Scan"
             }
         })
     }, [])
 
     const rotatePops = () => {
-        if(monument) {
-            setImageIndex((imageIndex + 1) % (monument.images.length))
-        }
-    }
-
-    useEffect(() => {
+        setImageIndex((imageIndex + 1) % (monument.images.length))
         setTimeout(rotatePops, 3000)
-    }, [])
+    }
 
     const changeLanguage = (code) => {
         setLoading(true)
