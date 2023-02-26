@@ -64,7 +64,7 @@ function Monument() {
         setTimeout(rotatePops, 3000)
     }
 
-    useEffect(rotatePops)
+    useEffect(rotatePops, [])
 
     const changeLanguage = (code) => {
         setLoading(true)
