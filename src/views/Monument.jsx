@@ -59,7 +59,8 @@ function Monument() {
     }, [])
 
     const rotatePops = () => {
-        setImageIndex((imageIndex + 1) % (monument.images.length))
+        if(monument.images)
+            setImageIndex((imageIndex + 1) % (monument.images.length))
         setTimeout(rotatePops, 3000)
     }
 
