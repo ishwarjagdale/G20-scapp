@@ -52,7 +52,6 @@ function Monument() {
             if (res.status === 200) {
                 setMonument(res.data.response);
                 setLoading(false);
-                setTimeout(rotatePops, 3000)
                 document.title = res.data.response.name + " | Smart Scan"
             }
         })
@@ -62,8 +61,11 @@ function Monument() {
         if(monument) {
             setImageIndex((imageIndex + 1) % (monument.images.length))
         }
-        setTimeout(rotatePops, 5000)
     }
+
+    useEffect(() => {
+        setTimeout(rotatePops, 3000)
+    })
 
     const changeLanguage = (code) => {
         setLoading(true)

@@ -34,7 +34,7 @@ function PopularPlaces() {
     }, [])
 
     useEffect(() => {
-        setTimeout(rotatePops, 5000)
+        setTimeout(rotatePops, 3000)
     })
 
     if(populars)
