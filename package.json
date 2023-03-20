@@ -2,6 +2,7 @@
   "name": "scapptheme",
   "version": "0.1.0",
   "private": true,
+  "homepage": "/smart-scan/",
   "dependencies": {
     "@iconscout/react-unicons": "^1.1.6",
     "@iconscout/react-unicons-solid": "^0.0.3",
