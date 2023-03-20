@@ -86,7 +86,7 @@ function Monument() {
                 <span className={"font-Poppins mb-4 font-[500] text-center lg:text-left block"}>Aurangabad Smart City presents Smart Scan</span>
                 {
                     monument.images.map((img, i) =>
-                        <img src={img} onError={(e) => e.target.src = FallbackImage} className={`${imageIndex === i ? 'hidden ' : ''}max-h-[200px] flex w-full object-cover rounded-xl`} alt={""}/>
+                        <img src={img} onError={(e) => e.target.src = FallbackImage} className={`${imageIndex !== i ? 'hidden ' : ''}max-h-[200px] flex w-full object-cover rounded-xl`} alt={""}/>
                     )
                 }
                 <ImagePagination k={monument.id} current={imageIndex} length={monument.images.length} setCurrent={setImageIndex}/>
