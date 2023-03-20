@@ -57,17 +57,17 @@ function Monument() {
         })
     }, [])
 
-    function rotatePops() {
-        if(monument) {
-            let imgIndex = (() => imageIndex)() + 1;
-            setImageIndex(imgIndex % (monument.images.length))
-
-        }
-    }
-
-    useEffect(() => {
-        setTimeout(rotatePops, 3000)
-    })
+    // function rotatePops() {
+    //     if(monument) {
+    //         let imgIndex = (() => imageIndex)() + 1;
+    //         setImageIndex(imgIndex % (monument.images.length))
+    //
+    //     }
+    // }
+    //
+    // useEffect(() => {
+    //     setTimeout(rotatePops, 3000)
+    // })
 
     const changeLanguage = (code) => {
         setLoading(true)
