@@ -25,7 +25,7 @@ function Admin() {
             console.log(e);
             localStorage.removeItem('user');
         }).finally(() => {
-            window.location.href = "/smart-scan/login";
+            window.location.href = "/login";
         })
     }
 
@@ -35,7 +35,7 @@ function Admin() {
             setUser(res.data);
         }).catch((e) => {
             console.log(e);
-            window.location.href = "/smart-scan/login";
+            window.location.href = "/login";
         })
     }, [])
 
